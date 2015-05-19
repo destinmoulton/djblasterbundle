@@ -1,0 +1,76 @@
+{% extends "DJBlasterBundle:Admin:_admin_base.html.twig" %}
+
+
+{% block content %}
+<h2>Report Generator</h2>
+{% if action != 'generate' %}
+<form class="form-inline" id="reportForm">
+    {% if customers_select is defined %}
+    <div class="form-group">
+        <label for="customer">Customer:</label>
+        <select id="selectCustomerId" name="customer">
+            {% for customer in customers_select %}
+            <option value="{{customer.id}}" 
+                    {% if customer_id == customer.id %}selected{% endif %}>{{ customer.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    {% if customer_id > 0 %}
+    <div class="form-group" id="campaignSelectorGroup">
+        <label for="campaign">Campaign:</label>
+        <select id="selectCampaignId">
+            <option value="0" {% if campaign_id == 0 %}selected{% endif %}>All Campaigns</option>
+            {% for campaign in campaigns_select %}
+            <option value="{{campaign.getCampaignId()}}" 
+                    {% if campaign_id == campaign.getCampaignId() %}selected{% endif %}>{{ campaign.getCampaignName() }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    <button class='btn btn-default btn-sm' id="buttonContinue">Continue</button>
+</form>
+{% else %}
+<a  class='btn btn-default btn-sm'
+    href='{{ path('dj_blaster_admin_report_generator', {'customer_id':customer_id, 'campaign_id':campaign_id, 'action':''})}}'>Change Customer or Campaign</a>
+<a  class='btn btn-default btn-sm'
+    href='{{ path('dj_blaster_admin_report_generator', {'customer_id':customer_id, 'campaign_id':campaign_id, 'action':'pdf'})}}'>Download PDF</a>
+{% endif %}
+
+{# Include the report generator (may not display if action is not set) #}
+{% if action == 'generate' %}
+{{ include('DJBlasterBundle:Admin/Report:report_generator.html.twig')}}
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type='text/javascript'>
+$(function(){
+    // Disable the form submit functionality
+    $('#reportForm').submit(false);
+    
+    $('#selectCustomerId').change(function(){
+       $('#campaignSelectorGroup').hide();
+    });
+    
+    // Go to the generator url based on selections
+    $('#buttonContinue').click(function(){
+       var customerId = $('#selectCustomerId').val();
+       var campaignId = 0;
+       var action ='none';
+       var url = "{{ path('dj_blaster_admin_report_generator', {'customer_id':'customerIdPlaceholder', 'campaign_id':'campaignIdPlaceholder', 'action':'actionPlaceholder'})}}";
+       if($('#selectCampaignId').length >0 && $('#selectCampaignId').is(':visible')){
+           campaignId = $('#selectCampaignId').val();
+           action = 'generate';
+       }
+       url = url.replace('customerIdPlaceholder', customerId);
+       url = url.replace('campaignIdPlaceholder', campaignId);
+       url = url.replace('actionPlaceholder', action);
+       
+       window.location.href = url;
+    });
+});
+</script>
+{% endblock %}

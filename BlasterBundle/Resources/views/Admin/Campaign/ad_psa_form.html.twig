@@ -1,0 +1,41 @@
+{% extends "DJBlasterBundle:Admin/Campaign:_campaign_base.html.twig" %}
+
+
+{% block content %}
+
+{% form_theme form 'DJBlasterBundle:Admin:_admin_form_errors.html.twig' %}
+{{ form_start(form, {'attr':{'novalidate':'novalidate','class':'form-horizontal'}}) }}
+
+<fieldset>
+    <legend>
+        {% if psa.getPsaId() == 0 %}Add{% else %}Edit{% endif %} PSA
+    </legend>
+    {{ form_errors(form) }}
+    <div class="form-group {% if form.ad_name.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.ad_name , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.ad_name, {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.ad_name) }}
+        </div>
+    </div>
+
+    <div class="form-group {% if form.ad_content.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.ad_content , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.ad_content, {'attr':{'rows':3, 'class':'form-control'}}) }}
+            {{ form_errors(form.ad_content) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button class="btn btn-default">
+                Save
+            </button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</fieldset>
+
+{% endblock %}

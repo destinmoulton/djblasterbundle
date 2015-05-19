@@ -1,0 +1,14 @@
+{% extends "DJBlasterBundle:Admin:_admin_base.html.twig" %}
+
+
+{% block breadcrumbs %}
+
+<ol class="breadcrumb">
+    {% if customer is defined %}
+    <li><a href="{{ path('dj_blaster_admin_campaign_list', {'customer':customer.getId()}) }}">{{ customer.getName() }}</a></li>
+    {% endif %}
+    {% if (campaign is defined) and (campaign.getCampaignId() > 0) %}
+    <li><a href="{{ path('dj_blaster_admin_ad_list', {'customer':customer.id, 'campaign':campaign.getCampaignId()}) }}">{{ campaign.getCampaignName() }} [{{ campaign.getStartDate()|date('M j, Y') }} to {{ campaign.getEndDate()|date('M j, Y') }}]</a></li>
+    {% endif %}
+</ol>
+{% endblock %}

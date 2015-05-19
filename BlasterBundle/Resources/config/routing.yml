@@ -1,0 +1,151 @@
+#
+# Default route to view the frontend
+#
+dj_blaster_frontend:
+    path:     /
+    defaults: { _controller: DJBlasterBundle:Frontend:home }
+
+#
+# Ajax calls from the frontend
+#
+dj_blaster_ajax_get_show_sponsorships:
+    path:     /ajax/get-show-sponsorships
+    defaults: { _controller: DJBlasterBundle:Ajax:getShowSponsorships }
+
+dj_blaster_ajax_get_psas:
+    path:     /ajax/get-psas
+    defaults: { _controller: DJBlasterBundle:Ajax:getPSAs }
+    
+dj_blaster_ajax_get_events:
+    path:     /ajax/get-events
+    defaults: { _controller: DJBlasterBundle:Ajax:getEvents }
+
+dj_blaster_ajax_dj_read_show_sponsorships:
+    path:     /ajax/dj-read/show-sponsorship/{sponsorship}
+    defaults: { _controller: DJBlasterBundle:Ajax:showSponsorshipReadIt }
+    
+dj_blaster_ajax_dj_read_psas:
+    path:     /ajax/dj-read/psa/{psa}
+    defaults: { _controller: DJBlasterBundle:Ajax:psaReadIt }
+    
+dj_blaster_ajax_dj_read_events:
+    path:     /ajax/dj-read/event/{event}
+    defaults: { _controller: DJBlasterBundle:Ajax:eventReadIt }
+
+#
+# Admin home page
+#
+dj_blaster_admin_home:
+    path:     /admin/
+    defaults: { _controller: DJBlasterBundle:Admin:index }
+
+#
+# Admin login and password reset routes
+#
+dj_blaster_admin_login:
+    path:     /admin/login
+    defaults: { _controller: DJBlasterBundle:AdminLogin:login }
+
+dj_blaster_admin_login_check:
+    path:     /admin/login-check
+    defaults: { _controller: DJBlasterBundle:AdminLogin:loginCheck }
+
+dj_blaster_admin_login_reset:
+    path:     /admin/login-reset
+    defaults: { _controller: DJBlasterBundle:AdminLogin:reset }
+
+dj_blaster_admin_logout:
+    path:     /admin/logout
+
+#
+# Admin routes for user management
+#
+dj_blaster_admin_user_list:
+    path:     /admin/users/list
+    defaults: { _controller: DJBlasterBundle:AdminUsers:listUsers }
+    
+dj_blaster_admin_user_edit:
+    path:     /admin/users/edit/{user_id}
+    defaults: { _controller: DJBlasterBundle:AdminUsers:editUser, user_id:0}
+
+dj_blaster_admin_user_delete:
+    path:     /admin/users/delete/{id}
+    defaults: { _controller: DJBlasterBundle:AdminUsers:deleteUser }
+
+dj_blaster_admin_user_change_password:    
+    path:     /admin/users/change-password
+    defaults: { _controller: DJBlasterBundle:AdminUsers:changePassword }
+
+#
+# Admin routes for customer management
+#
+dj_blaster_admin_customer_edit:    
+    path:     /admin/customers/edit/{customer_id}
+    defaults: { _controller: DJBlasterBundle:AdminCustomers:editCustomer, customer_id:0 }
+
+dj_blaster_admin_customer_list:    
+    path:     /admin/customers/list
+    defaults: { _controller: DJBlasterBundle:AdminCustomers:listCustomers }
+
+dj_blaster_admin_customer_delete:    
+    path:     /admin/customers/delete/{id}
+    defaults: { _controller: DJBlasterBundle:AdminCustomers:deleteCustomer }
+
+#
+# Admin routes for campaign management
+#
+dj_blaster_admin_campaign_edit:    
+    path:     /admin/campaign/edit/{customer}/{campaign_id}
+    defaults: { _controller: DJBlasterBundle:AdminCustomerCampaigns:editCustomerCampaign, campaign_id:0 }
+
+dj_blaster_admin_campaign_list:    
+    path:     /admin/campaign/list/{customer}
+    defaults: { _controller: DJBlasterBundle:AdminCustomerCampaigns:listCustomerCampaigns }
+
+dj_blaster_admin_campaign_delete:    
+    path:     /admin/campaign/delete/{customer}/{campaign}
+    defaults: { _controller: DJBlasterBundle:AdminCustomerCampaigns:deleteCustomerCampaign }
+
+dj_blaster_admin_ad_list:    
+    path:     /admin/campaign/ad/list/{customer}/{campaign}
+    defaults: { _controller: DJBlasterBundle:AdminAds:listAds}    
+
+#
+# Admin routes for show sponsorship management
+#
+dj_blaster_admin_ad_show_sponsorship_edit:    
+    path:     /admin/campaign/ad/show-sponsorship/edit/{customer}/{campaign}/{sponsorship_id}
+    defaults: { _controller: DJBlasterBundle:AdminAdShowSponsorships:editAdShowSponsorship, sponsorship_id:0 }
+    
+dj_blaster_admin_ad_show_sponsorship_delete:    
+    path:     /admin/campaign/ad/show-sponsorship/delete/{customer}/{campaign}/{sponsorship}
+    defaults: { _controller: DJBlasterBundle:AdminAdShowSponsorships:deleteAdShowSponsorship}
+
+#
+# Admin routes for event management
+#
+dj_blaster_admin_ad_event_edit:    
+    path:     /admin/campaign/ad/event/edit/{customer}/{campaign}/{event_id}
+    defaults: { _controller: DJBlasterBundle:AdminAdEvents:editAdEvent, event_id:0 }
+    
+dj_blaster_admin_ad_event_delete:    
+    path:     /admin/campaign/ad/event/delete/{customer}/{campaign}/{event}
+    defaults: { _controller: DJBlasterBundle:AdminAdEvents:deleteAdEvent }
+
+#
+# Admin routes for psa management
+#
+dj_blaster_admin_ad_psa_edit:    
+    path:     /admin/campaign/ad/psa/edit/{customer}/{campaign}/{psa_id}
+    defaults: { _controller: DJBlasterBundle:AdminAdPSAs:editAdPSA, psa_id:0 }
+
+dj_blaster_admin_ad_psa_delete:    
+    path:     /admin/campaign/ad/psa/delete/{customer}/{campaign}/{psa}
+    defaults: { _controller: DJBlasterBundle:AdminAdPSAs:deleteAdPSA }
+
+#
+# Admin route for report generation
+#
+dj_blaster_admin_report_generator:    
+    path:     /admin/report/generator/{customer_id}/{campaign_id}/{action}
+    defaults: { _controller: DJBlasterBundle:AdminReports:reportGenerator, customer_id:0, campaign_id:0, action:'' }

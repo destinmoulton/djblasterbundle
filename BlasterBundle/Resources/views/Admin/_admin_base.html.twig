@@ -1,0 +1,54 @@
+{% extends "DJBlasterBundle::djblaster_base.html.twig" %}
+
+
+{% block title %}
+Admin
+{% endblock %}
+
+{% block navbar %}
+    {# Get the current section in a testable string format #}
+    {% set path_sections = app.request.pathInfo|split('/') %}
+    {% set active_section = path_sections[2] %}
+    
+    <li {% if active_section == 'customers' %}class="active"{% endif %}>
+        <a href="{{ path('dj_blaster_admin_customer_list') }}">Customers</a>
+    </li>
+    <li {% if active_section == 'campaign' %}class="active"{% endif %}>
+        {% if (customer.getId() is defined) and (customer.getId() > 0) %}
+        <a href="{{ path('dj_blaster_admin_campaign_list', {'customer':customer.getId()}) }}">Campaigns</a>
+        {% else %}
+        <a href="{{ path('dj_blaster_admin_customer_list') }}">Campaigns</a>
+        {% endif %}
+    </li>
+    <li {% if active_section == 'report' %}class="active"{% endif %}>
+        <a href="{{ path('dj_blaster_admin_report_generator') }}">Reports</a>
+    </li>
+    <li {% if active_section == 'users' %}class="active"{% endif %}>
+        <a href="{{ path('dj_blaster_admin_user_list') }}">Users</a>
+    </li>
+
+{% endblock %}
+
+{% block navbaruser %}
+    <li class="dropdown">
+        <a href="javascript:void(0)" 
+           class="dropdown-toggle" 
+           data-toggle="dropdown"
+           role="button"
+           aria-expanded="false">
+           {{ app.user.name }}
+           <span class="caret"></span>
+       </a>
+       <ul class="dropdown-menu" role="menu">
+           <li>
+               <a href="{{ path('dj_blaster_admin_user_change_password') }}">
+                   Change My Password
+               </a>
+           </li>
+       </ul>
+    </li>
+    <li>
+        <a href="{{ path('dj_blaster_admin_logout') }}">Logout</a>
+    </li>
+    
+{% endblock %}

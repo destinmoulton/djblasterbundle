@@ -1,0 +1,86 @@
+
+<h3>{{customer.getName()}}</h3>
+
+{% for campaign_id,campaign in campaigns_list %}
+
+    
+    {% if shows_list|length > 0 %}
+        <h4>{{campaign.getCampaignName()}} - Show Sponsorships</h4>
+        <ul class="list-group">
+        {% for show in shows_list[campaign_id] %}
+        <li class="list-group-item">
+        <h5><u>{{show.getAdName()}} Show Sponsorship</u></h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Initials</th>
+                    <th>Time Read</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for read in dj_show_reads[show.getSponsorshipId()] %}
+                <tr>
+                    <td>{{ read.getDjInitials() }}</td>
+                    <td>{{ read.getTimeRead().format('D M j, Y h:i a') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if events_list|length > 0 %}
+        <h4>{{campaign.getCampaignName()}} - Events</h4>
+        <ul class="list-group">
+        {% for event in events_list[campaign_id] %}
+        <li class="list-group-item">
+        <h5><u>{{event.getAdName()}} Event</u></h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Initials</th>
+                    <th>Time Read</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for read in dj_event_reads[event.getEventId()] %}
+                <tr>
+                    <td>{{ read.getDjInitials() }}</td>
+                    <td>{{ read.getTimeRead().format('D M j, Y h:i a') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if psas_list|length > 0 %}
+        <h4>{{campaign.getCampaignName()}} - PSAs</h4>
+        <ul class="list-group">
+        {% for psa in psas_list[campaign_id] %}
+        <li class="list-group-item">
+        <h5><u>{{psa.getAdName()}} PSA</u></h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Initials</th>
+                    <th>Time Read</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for read in dj_psa_reads[psa.getPsaId()] %}
+                <tr>
+                    <td>{{ read.getDjInitials() }}</td>
+                    <td>{{ read.getTimeRead().format('D M j, Y h:i a') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endfor %}
+

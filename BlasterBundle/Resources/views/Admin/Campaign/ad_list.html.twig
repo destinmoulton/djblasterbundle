@@ -1,0 +1,178 @@
+{% extends "DJBlasterBundle:Admin/Campaign:_campaign_base.html.twig" %}
+
+
+{% block content %}
+<style>
+    .affix{
+        position: fixed;
+    top: 20px;
+    width: inherit;
+    }
+</style>
+
+{% for notice in notices %}
+<div class='alert alert-success alert-dismissable' role='alert'>
+    <button type="button"
+    class="close"
+    data-dismiss="alert"
+    aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ notice }}
+</div>
+{% endfor %}
+<div class="col-md-3 pull-left"
+     data-spy="affix"
+      data-offset-top="100">
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            Options
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+            
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_ad_show_sponsorship_edit', {'customer':customer.getId(), 'campaign':campaign.getCampaignId()}) }}">Add Show Sponsorship</a>
+            </li>
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_ad_event_edit', {'customer':customer.getId(), 'campaign':campaign.getCampaignId()}) }}">Add Event</a>
+            </li>
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':customer.getId(), 'campaign':campaign.getCampaignId()}) }}">Add PSA</a>
+            </li>
+            </ul>
+            
+            <ul class="list-group">
+            
+            <li  class="list-group-item">
+                <a href="#show-sponsorships-list">List Show Sponsorships</a>
+            </li>
+            <li  class="list-group-item">
+                <a href="#events-list">List Events</a>
+            </li>
+            <li  class="list-group-item">
+                <a href="#psas-list">List PSAs</a>
+            </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-9 pull-right">
+    <div class="panel panel-success">
+        <div class="panel-heading clearfix">
+            <b class="panel-title pull-left" style="padding-top: 5px;">Show Sponsorships</b>
+            <a id='show-sponsorships-list'></a>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                </thead>
+                <tbody>
+                    {% for show_sponsorship in show_sponsorships %}
+                    <tr>
+                        <td>{{ show_sponsorship.getAdName() }}</td>
+                        <td><a href="{{ path('dj_blaster_admin_ad_show_sponsorship_edit', {'customer':customer.getId(), 'campaign':campaign.getCampaignId(), 'sponsorship_id':show_sponsorship.getSponsorshipId()}) }}">Edit</a></td>
+                        <td><a href="javascript:confirmShowSponsorshipDelete({{ show_sponsorship.getSponsorshipId() }})">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+            <b class="panel-title pull-left" style="padding-top: 5px;">Events</b>
+            <a id='events-list'></a>
+        </div>
+     
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>{{ event.getAdName() }}</td>
+                        <td><a href="{{ path('dj_blaster_admin_ad_event_edit', {'customer':customer.getId(), 'campaign':campaign.getCampaignId(), 'event_id':event.getEventId()}) }}">Edit</a></td>
+                        <td><a href="javascript:confirmEventDelete({{ event.getEventId() }})">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-warning">
+        <div class="panel-heading clearfix">
+            <b class="panel-title pull-left" style="padding-top: 5px;">PSAs</b>
+            <a id='psas-list'></a>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                </thead>
+                <tbody>
+                    {% for psa in psas %}
+                    <tr>
+                        <td>{{ psa.getAdName() }}</td>
+                        <td><a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':customer.getId(), 'campaign':campaign.getCampaignId(), 'psa_id':psa.getPsaId()}) }}">Edit</a></td>
+                        <td><a href="javascript:confirmPSADelete({{ psa.getPsaId() }})">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            
+            </table>
+        </div>
+    </div>
+</div>
+<script type='text/javascript'>
+    function confirmShowSponsorshipDelete(sponsorshipId) {
+        bootbox.confirm("Are you sure you want to delete this show sponsorship?", function(result) {
+            if (result) {
+                var url = "{{ path('dj_blaster_admin_ad_show_sponsorship_delete', {'customer':customer.getId(), 'campaign':campaign.getCampaignId(), 'sponsorship':'repl_sponsorship_id'}) }}";
+                url = url.replace('repl_sponsorship_id', sponsorshipId.toString());
+                window.location.href = url;
+            }
+        });
+    }
+    
+    function confirmEventDelete(eventId) {
+        bootbox.confirm("Are you sure you want to delete this event?", function(result) {
+            if (result) {
+                var url = "{{ path('dj_blaster_admin_ad_event_delete', {'customer':customer.getId(), 'campaign':campaign.getCampaignId(), 'event':'repl_event_id'}) }}";
+                url = url.replace('repl_event_id', eventId.toString());
+                window.location.href = url;
+            }
+        });
+    }
+    
+    function confirmPSADelete(psaId) {
+        bootbox.confirm("Are you sure you want to delete this PSA?", function(result) {
+            if (result) {
+                var url = "{{ path('dj_blaster_admin_ad_psa_delete', {'customer':customer.getId(), 'campaign':campaign.getCampaignId(), 'psa':'repl_psa_id'}) }}";
+                url = url.replace('repl_psa_id', psaId.toString());
+                window.location.href = url;
+            }
+        });
+    }
+</script>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/bootbox.min.js') }}"></script>
+{% endblock %}
