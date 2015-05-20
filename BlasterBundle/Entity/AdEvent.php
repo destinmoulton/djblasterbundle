@@ -122,6 +122,8 @@ class AdEvent {
         $this->last_read_date = new \DateTime();
         $this->last_read_date->setTimestamp(0);
 
+        $this->next_read_time = new \DateTime();
+        $this->next_read_time->setTimestamp(0);
     }
 
     public function setCustomer(Customer $customer) {
