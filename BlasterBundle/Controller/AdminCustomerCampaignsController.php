@@ -12,7 +12,7 @@ use DJBlaster\BlasterBundle\Form\Type\CustomerCampaignType;
 
 class AdminCustomerCampaignsController extends Controller {
     public function editCustomerCampaignAction(Request $request, Customer $customer, $campaign_id) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
 
         if ($campaign_id == 0) {
             $customerCampaign = new CustomerCampaign();
@@ -86,7 +86,7 @@ class AdminCustomerCampaignsController extends Controller {
 
         $session->getFlashBag()->add('campaign-notices', $campaign->getCampaignName() . ' was removed.');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $em->remove($campaign);
         $em->flush();
 

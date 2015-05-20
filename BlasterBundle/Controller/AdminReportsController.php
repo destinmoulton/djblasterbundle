@@ -18,7 +18,7 @@ use DJBlaster\BlasterBundle\Entity\DJReadShowSponsorship;
 
 class AdminReportsController extends Controller {
     public function reportGeneratorAction(Request $request, $customer_id, $campaign_id, $action){
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $customers_select = $this->getDoctrine()
                                  ->getRepository('DJBlasterBundle:Customer')
                                  ->findAllOrderedByName();

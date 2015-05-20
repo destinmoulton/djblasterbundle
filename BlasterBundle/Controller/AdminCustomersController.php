@@ -11,7 +11,7 @@ use DJBlaster\BlasterBundle\Form\Type\CustomerType;
 
 class AdminCustomersController extends Controller {
     public function editCustomerAction(Request $request, $customer_id) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
 
         if ($customer_id == 0) {
             $customer = new Customer();
@@ -67,7 +67,7 @@ class AdminCustomersController extends Controller {
 
         $session->getFlashBag()->add('customer-notices', $customer->getName() . ' was removed.');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $em->remove($customer);
         $em->flush();
 

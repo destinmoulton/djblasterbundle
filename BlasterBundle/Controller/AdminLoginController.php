@@ -51,7 +51,7 @@ class AdminLoginController extends Controller {
 
             if ($user) {
                 $session = $this->getRequest()->getSession();
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->get('doctrine')->getManager();
 
                 $encoder = $this->container->get('security.password_encoder');
 

@@ -13,7 +13,7 @@ use DJBlaster\BlasterBundle\Form\Type\AdEventType;
 
 class AdminAdEventsController extends Controller {
     public function editAdEventAction(Request $request, Customer $customer, CustomerCampaign $campaign, $event_id) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
     
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
@@ -100,7 +100,7 @@ class AdminAdEventsController extends Controller {
 
         $session->getFlashBag()->add('ad-notices', $event->getAdName() . ' was removed.');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $em->remove($event);
         $em->flush();
 

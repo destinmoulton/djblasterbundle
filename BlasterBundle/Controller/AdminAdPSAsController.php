@@ -13,7 +13,7 @@ use DJBlaster\BlasterBundle\Form\Type\AdPSAType;
 
 class AdminAdPSAsController extends Controller {
     public function editAdPSAAction(Request $request, Customer $customer, CustomerCampaign $campaign, $psa_id) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
     
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
@@ -90,7 +90,7 @@ class AdminAdPSAsController extends Controller {
 
         $session->getFlashBag()->add('ad-notices', $psa->getAdName() . ' PSA was removed.');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $em->remove($psa);
         $em->flush();
 

@@ -14,7 +14,7 @@ use DJBlaster\BlasterBundle\Form\Type\AdShowSponsorshipType;
 
 class AdminAdShowSponsorshipsController extends Controller {
     public function editAdShowSponsorshipAction(Request $request, Customer $customer, CustomerCampaign $campaign, $sponsorship_id) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
 
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
@@ -91,7 +91,7 @@ class AdminAdShowSponsorshipsController extends Controller {
         
         $session->getFlashBag()->add('ad-notices', $sponsorship->getAdName() . ' was removed.');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $em->remove($sponsorship);
         $em->flush();
 

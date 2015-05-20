@@ -15,7 +15,7 @@ use DJBlaster\BlasterBundle\Form\Model\ChangePassword;
 
 class AdminUsersController extends Controller {
     public function editUserAction(Request $request, $user_id) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
 
         if ($user_id == 0) {
             $user = new User();
@@ -79,7 +79,7 @@ class AdminUsersController extends Controller {
 
         $session->getFlashBag()->add('user-notices', 'Administrator ' . $user->getName() . ' was removed.');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $em->remove($user);
         $em->flush();
 
@@ -116,7 +116,7 @@ class AdminUsersController extends Controller {
             if ($form->isValid()) {
                 $data = $form->getData();
 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->get('doctrine')->getManager();
 
                 $encoder = $this->container->get('security.password_encoder');
 

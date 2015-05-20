@@ -69,7 +69,7 @@ class AjaxController extends Controller {
             return new JsonResponse(array('status'=>'error', 'message'=>'DJ Initials or Current Time not set.'));
         }
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         
 
         $djRead = new DJReadEvent();
@@ -152,7 +152,7 @@ class AjaxController extends Controller {
         if(!$sponsorship){
             return new JsonResponse(array('status'=>'error', 'message'=>'Unable to find that sponsorship.'));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $post = json_decode($request->getContent());
         
         $djRead = new DJReadShowSponsorship();
@@ -168,7 +168,7 @@ class AjaxController extends Controller {
         if(!$psa){
             return new JsonResponse(array('status'=>'error', 'message'=>'Unable to find that psa.'));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $post = json_decode($request->getContent());
         
         $djRead = new DJReadPSA();
