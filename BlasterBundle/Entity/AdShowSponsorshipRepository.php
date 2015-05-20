@@ -21,6 +21,16 @@ class AdShowSponsorshipRepository extends EntityRepository
     public function findAllForHour($hour, $time){
 
         $weekNum = date("W") - date("W", strtotime(date("Y-m-01", $time))) + 1;
+        
+        // Fix the odd case where the week is 5 or *possibly* 6
+        switch ($weekNum) {
+            case 5:
+                $weekNum = 1;
+                break;
+            case 6:
+                $weekNum = 2;
+        }
+
         $weekColumn = "days_week".$weekNum;
         $currentDay = date("D", $time);
         $currentDate = date("Y-m-d", $time);
