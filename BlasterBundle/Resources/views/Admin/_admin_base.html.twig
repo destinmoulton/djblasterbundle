@@ -4,7 +4,9 @@
 {% block title %}
 Admin
 {% endblock %}
-
+{% block brandtitle %}
+Admin
+{% endblock %}
 {% block navbar %}
     {# Get the current section in a testable string format #}
     {% set path_sections = app.request.pathInfo|split('/') %}
