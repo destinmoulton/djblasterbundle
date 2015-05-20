@@ -31,7 +31,8 @@
             style="margin-bottom: 0px;"
             ng-repeat="sponsorship in show_sponsorships track by $index" 
             ng-show="show_sponsorships">
-            <li class="list-group-item">
+            <li class="list-group-item" 
+                id="{{'ad-show-sponsorship-'+sponsorship.sponsorship_id}}">
                 <a href="#readItModal" 
                     class='btn btn-danger btn-xs pull-right'
                     ng-click="readitClicked('read-it-button-spons-'+sponsorship.sponsorship_id)"
@@ -62,7 +63,8 @@
             style="margin-bottom: 0px;"
             ng-repeat="event in events track by $index" 
             ng-show="events">
-            <li class="list-group-item">
+            <li class="list-group-item"
+                id="{{'ad-event-'+event.event_id}}">
                 <a href="#readItModal" 
                     class='btn btn-danger btn-xs pull-right'
                     ng-click="readitClicked('read-it-button-event-'+event.event_id)"
@@ -94,7 +96,8 @@
             style="margin-bottom: 0px;"
             ng-repeat="psa in psas track by $index" 
             ng-show="psas">
-            <li class="list-group-item">
+            <li class="list-group-item"
+                id="{{'ad-psa-'+psa.psa_id}}">
                 <a href="#readItModal" 
                     class='btn btn-danger btn-xs pull-right'
                     ng-click="readitClicked('read-it-button-psa-'+psa.psa_id)"
