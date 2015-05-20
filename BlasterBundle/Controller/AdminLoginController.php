@@ -87,8 +87,13 @@ class AdminLoginController extends Controller {
 
     private function _emailPasswordReset($recipientEmailAddress, $info) {
         $mailer = $this->get('mailer');
-
-        $message = $mailer->createMessage()->setSubject("DJ Blaster Password Reset")->setTo($recipientEmailAddress)->setFrom('ai.destin@gmail.com')->setBody($this->renderView('DJBlasterBundle:Emails:password_reset.html.twig', array('info' => $info)), 'text/html');
+        $from_address = $this->container->getParameter('mailer_from_address');
+        $from_name = $this->container->getParameter('mailer_from_name');
+        $message = $mailer->createMessage()
+                          ->setSubject("DJ Blaster Password Reset")
+                          ->setTo($recipientEmailAddress)
+                          ->setFrom(array($from_address => $from_name))
+                          ->setBody($this->renderView('DJBlasterBundle:Emails:password_reset.html.twig', array('info' => $info)), 'text/html');
         return $mailer->send($message);
     }
 
