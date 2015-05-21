@@ -183,4 +183,18 @@ class AjaxController extends Controller {
         $em->flush();
         return new JsonResponse(array('status'=>'success'));
     }
+    
+    public function psaSkipAction(Request $request, AdPSA $psa){
+        if(!$psa){
+            return new JsonResponse(array('status'=>'error', 'message'=>'Unable to find that psa.'));
+        }
+        $em = $this->get('doctrine')->getManager();
+        
+        // Just set the last read time to now
+        // this is a bit hacky but works fine        
+        $psa->setLastRead(new \Datetime());
+        $em->persist($psa);
+        $em->flush();
+        return new JsonResponse(array('status'=>'success'));
+    }
 }

@@ -32,6 +32,10 @@ dj_blaster_ajax_dj_read_events:
     path:     /ajax/dj-read/event/{event}
     defaults: { _controller: DJBlasterBundle:Ajax:eventReadIt }
 
+dj_blaster_ajax_skip_psa:
+    path:     /ajax/skip-psa/{psa}
+    defaults: { _controller: DJBlasterBundle:Ajax:psaSkip }
+
 #
 # Admin home page
 #
