@@ -30,8 +30,8 @@
 
     <div class="form-group {% if form.ad_content.vars.errors|length %}has-error{% endif %}" >
         {{ form_label(form.ad_content , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
-        <div class="col-sm-5">
-            {{ form_widget(form.ad_content, {'attr':{'rows':3, 'class':'form-control'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.ad_content, {'attr':{'rows':3, 'class':'form-control ckeditor'}}) }}
             {{ form_errors(form.ad_content) }}
         </div>
     </div>
@@ -106,6 +106,7 @@
 {{ parent() }}
 <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
 <script src="{{ asset('js/jquery.weekline.js') }}"></script>
+<script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript">
 $(function(){
     $('#customer_ad_show_sponsorship_begin_time').timepicker({'step':60});
