@@ -4,7 +4,7 @@
 {% for campaign_id,campaign in campaigns_list %}
 
     
-    {% if shows_list|length > 0 %}
+    {% if shows_list[campaign_id]|length > 0 %}
         <h4>{{campaign.getCampaignName()}} - Show Sponsorships</h4>
         <ul class="list-group">
         {% for show in shows_list[campaign_id] %}
@@ -30,7 +30,7 @@
         {% endfor %}
         </ul>
     {% endif %}
-    {% if events_list|length > 0 %}
+    {% if events_list[campaign_id]|length > 0 %}
         <h4>{{campaign.getCampaignName()}} - Events</h4>
         <ul class="list-group">
         {% for event in events_list[campaign_id] %}
@@ -56,7 +56,7 @@
         {% endfor %}
         </ul>
     {% endif %}
-    {% if psas_list|length > 0 %}
+    {% if psas_list[campaign_id]|length > 0 %}
         <h4>{{campaign.getCampaignName()}} - PSAs</h4>
         <ul class="list-group">
         {% for psa in psas_list[campaign_id] %}
