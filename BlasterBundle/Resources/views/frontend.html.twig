@@ -30,7 +30,8 @@
         <ul class="list-group"
             style="margin-bottom: 0px;"
             ng-repeat="sponsorship in show_sponsorships track by $index" 
-            ng-show="show_sponsorships">
+            ng-show="show_sponsorships"
+            >
             <li class="list-group-item" 
                 id="{{'ad-show-sponsorship-'+sponsorship.sponsorship_id}}">
                 <a href="#readItModal" 
@@ -41,7 +42,7 @@
                     data-ad_type="show-sponsorship"
                     data-ad_id="{{sponsorship.sponsorship_id}}">Confirm Read</a>
                 <b>{{sponsorship.ad_name}}</b><br/>
-                <span>{{sponsorship.ad_content}}</span>
+                <span ng-bind-html="sponsorship.ad_content | unsaftenHTML"></span>
                 
             </li>
         </ul> 
