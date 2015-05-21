@@ -12,16 +12,10 @@ Admin
     {% set path_sections = app.request.pathInfo|split('/') %}
     {% set active_section = path_sections[2] %}
     
-    <li {% if active_section == 'customers' %}class="active"{% endif %}>
+    <li {% if (active_section == 'customers' ) or (active_section == 'campaign') %}class="active"{% endif %}>
         <a href="{{ path('dj_blaster_admin_customer_list') }}">Customers</a>
     </li>
-    <li {% if active_section == 'campaign' %}class="active"{% endif %}>
-        {% if (customer.getId() is defined) and (customer.getId() > 0) %}
-        <a href="{{ path('dj_blaster_admin_campaign_list', {'customer':customer.getId()}) }}">Campaigns</a>
-        {% else %}
-        <a href="{{ path('dj_blaster_admin_customer_list') }}">Campaigns</a>
-        {% endif %}
-    </li>
+    
     <li {% if active_section == 'report' %}class="active"{% endif %}>
         <a href="{{ path('dj_blaster_admin_report_generator') }}">Reports</a>
     </li>
