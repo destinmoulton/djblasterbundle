@@ -55,6 +55,9 @@ class AdminAdEventsController extends Controller {
                 
                 $daysDiff = $endDate->diff($startDate)->format("%a");
                 
+                // The first day of the event should have reads
+                $daysDiff = $daysDiff+1; 
+                
                 //Calculate and store the number of reads per day
                 $no_reads_per_day = ceil($data->getNoReads()/$daysDiff);
                 $data->setNoReadsPerDay($no_reads_per_day);

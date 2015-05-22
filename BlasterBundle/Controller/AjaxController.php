@@ -94,7 +94,14 @@ class AjaxController extends Controller {
             // and subtract one (because of this read) 
             $campaignEndDate = $campaign->getEndDate();
             
-            $daysUntilCampaignEnd = $campaignEndDate->diff($currentDateTime)->format("%a");
+            // Create a new DateTime object (so time isn't a factor)
+            $freshCurrentDateTime = new DateTime($currentDate);
+            
+            // Get the difference
+            $daysUntilCampaignEnd = $campaignEndDate->diff($freshCurrentDateTime)->format("%a");
+
+            //Include today
+            $daysUntilCampaignEnd = $daysUntilCampaignEnd+1;
             
             // How many reads are left?
             $no_reads_performed = $event->getNoReadsPerformed();
@@ -104,7 +111,7 @@ class AjaxController extends Controller {
             $no_reads_per_day = ceil($reads_remaining/$daysUntilCampaignEnd);
             
             $no_reads_remaining_today = $no_reads_per_day - 1;
-            
+
             $event->setNoReadsRemainingToday($no_reads_remaining_today);
         } else {
             // Subtract from the number to read today

@@ -52,7 +52,7 @@
             {% if event.getEventId() == 0 %}
             {{ form_widget(form.no_reads, {'attr':{'size':2}}) }}
             {% else %}
-            {{ form_widget(form.no_reads, {'attr':{'size':2, 'disabled':'disabled'}}) }}
+            {{ form_widget(form.no_reads, {'attr':{'size':2, 'readonly':'readonly', 'style':'background-color:lightgray'}}) }}
             {% endif %}
             between {{ campaign.getStartDate()|date('M j, Y') }} and {{ campaign.getEndDate()|date('M j, Y') }}
             {{ form_errors(form.no_reads) }}
