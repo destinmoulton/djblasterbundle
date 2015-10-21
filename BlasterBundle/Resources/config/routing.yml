@@ -4,6 +4,10 @@
 dj_blaster_frontend:
     path:     /
     defaults: { _controller: DJBlasterBundle:Frontend:home }
+    
+dj_blaster_clear_cache:
+    path:     /clear-cache
+    defaults: { _controller: DJBlasterBundle:Frontend:clearCache}
 
 #
 # Ajax calls from the frontend

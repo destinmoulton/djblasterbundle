@@ -1,194 +1,448 @@
-{% extends "DJBlasterBundle::djblaster_base.html.twig" %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+        <title>DJ Blaster</title>
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+        <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet" />
+		<link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" />
+		
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+      
+  
+        
+    </head>
+    <body ng-app="djblasterApp">
+        <nav class="navbar navbar-default">
+        <div class="container">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ path('dj_blaster_frontend') }}">DJ Blaster</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                 <li class="active">
+                    <a href="{{ path('dj_blaster_frontend') }}">Home</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                <a href="{{ path('dj_blaster_admin_login') }}">Login</a>
+                </li></ul>
+        </div><!--/.nav-collapse -->
+        </div>
+        </nav>
+         
+        
+        <div class="container">
+        	<div class='col-md-12'>
+        		<div class="time">
+					
+						<span id="timeWrap">
+							<span id="currentDate"></span>
+							<span id="currentTime"></span>
+						</span>
+					
+				</div>
+        	</div>
+     
+       <div class="container">
+       
+       		<div class='col-md-6 '>
+	        	<div style="padding-left:0px; text-align:center" class='col-md-12 djAlert'>
+	        		<a target="_blank" href="http://us10.campaign-archive1.com/?u=7d0fd7e92ce03d3aaafea1bf8&id=3b2f111db5"><br/>
+	        			<button class='btn btn-warning btn-xl'><h3>DJ Update</h3><span>Click to see an<br/>update from management<br/>This is for DJ's, not the public</span></button>
+	        			<br/>
+	        		</a>
+	        	</div>
+        	</div>
+        	
+        	<div class='col-md-6 mailchimp'>
+        		<h3><strong>DJ Email List Signup</strong></h3>
+        		<p>Every DJ running a show at KNCE must be signed up for this email list. If you are not sure if your email is on this list, please resubmit your email address. Also, make sure you approve the confirmation that comes through, and make sure emails from us don't end up in your trash.<br/><em>If you use gmail, the confirmation will end up in your promotions tab</em><br/><b>This is mandatory, it is up to you to receive and read all DJ updates.<br/><span style="color:red;">If you are not signed up and confirmed by Nov 16th, you will lose DJ privileges.<span></b></p>
+	        		<!-- Begin MailChimp Signup Form -->
+						<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+						<style type="text/css">
+							#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+							#mc_embed_signup .mc-field-group input {padding:4px 0; font-size:12px;}
+							#mc_embed_signup form {padding:0px;}
+						</style>
+						<div id="mc_embed_signup">
+						<form action="//truetaosradio.us10.list-manage.com/subscribe/post?u=7d0fd7e92ce03d3aaafea1bf8&amp;id=c34ffa7ffb" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+						    <div id="mc_embed_signup_scroll">
+							
+						<div class="indicates-required">All Fields are Required</div>	
+						<div class="mc-field-group">
+							<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+						</label>
+							<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+						</div>
+						<div class="mc-field-group">
+							<label for="mce-FNAME">First Name  <span class="asterisk">*</span>
+						</label>
+							<input type="text" value="" name="FNAME" class="required" id="mce-FNAME">
+						</div>
+						<div class="mc-field-group">
+							<label for="mce-LNAME">Last Name  <span class="asterisk">*</span>
+						</label>
+							<input type="text" value="" name="LNAME" class="required" id="mce-LNAME">
+						</div>
+							<div id="mce-responses" class="clear">
+								<div class="response" id="mce-error-response" style="display:none"></div>
+								<div class="response" id="mce-success-response" style="display:none"></div>
+							</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+						    <div style="position: absolute; left: -5000px;"><input type="text" name="b_7d0fd7e92ce03d3aaafea1bf8_c34ffa7ffb" tabindex="-1" value=""></div>
+						    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+						    </div>
+						</form>
+						</div>
+						<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+					<!--End mc_embed_signup-->
 
-{% block navbar %}
-    <li class="active">
-        <a href="{{ path('dj_blaster_frontend') }}">Home</a>
-    </li>
-{% endblock %}
+        	</div>
+        	
+        </div>
+       <br/><br/>
+        
+       <div class='col-md-6 liveReads'>
 
-{% block navbaruser %}
-    <li>
-        <a href="{{ path('dj_blaster_admin_login') }}">Login</a>
-    </li>
-{% endblock %}
-
-{% block content %}
-{% verbatim %}
-<div ng-app="djblasterApp">
-    <div class='panel panel-primary' 
-         ng-controller="adShowSponsorshipCtrl">
-        <div class="panel-heading">
-            <div class="panel-title">Show Sponsorships</div>
-        </div>
-        <div class="panel-body">
-        <div class="row"
-            ng-hide="show_sponsorships">
-            <div class="center-block text-center" style="width:100px;">
-                <img src='/images/loading.gif'/><br/>Loading...
-            </div>
-        </div>
-        <ul class="list-group"
-            style="margin-bottom: 0px;"
-            ng-repeat="sponsorship in show_sponsorships track by $index" 
-            ng-show="show_sponsorships"
-            >
-            <li class="list-group-item" 
-                id="{{'ad-show-sponsorship-'+sponsorship.sponsorship_id}}">
-                <a href="#readItModal" 
-                    class='btn btn-danger btn-xs pull-right'
-                    ng-click="readitClicked('read-it-button-spons-'+sponsorship.sponsorship_id)"
-                    id="{{'read-it-button-spons-'+sponsorship.sponsorship_id}}"
-                    data-toggle="modal"
-                    data-ad_type="show-sponsorship"
-                    data-ad_id="{{sponsorship.sponsorship_id}}">Confirm Read</a>
-                <b>{{sponsorship.ad_name}}</b><br/>
-                <span ng-bind-html="sponsorship.ad_content | unsaftenHTML"></span>
-                
-            </li>
-        </ul> 
-        </div>
-    </div>
-    <div class='panel panel-info' 
-         ng-controller="adEventCtrl">
-         <div class="panel-heading">
-            <h3 class="panel-title">Event</h3>
-        </div>
-        <div class="panel-body">
-        <div class="row"
-            ng-hide="events">
-            <div class="center-block text-center" style="width:100px;">
-                <img src='/images/loading.gif'/><br/>Loading...
-            </div>
-        </div>
-        <ul class="list-group"
-            style="margin-bottom: 0px;"
-            ng-repeat="event in events track by $index" 
-            ng-show="events">
-            <li class="list-group-item"
-                id="{{'ad-event-'+event.event_id}}">
-                <a href="#readItModal" 
-                    class='btn btn-danger btn-xs pull-right'
-                    ng-click="readitClicked('read-it-button-event-'+event.event_id)"
-                    id="{{'read-it-button-event-'+event.event_id}}"
-                    data-toggle="modal"
-                    data-ad_type="event"
-                    data-ad_id="{{event.event_id}}">Confirm Read</a>
-                <b>{{event.ad_name}}</b><br/>
-                <span>{{event.ad_content}}</span>
-                
-            </li>
-        </ul> 
-        </div>
-    </div>
-    
-    <div class='panel panel-warning' 
-         ng-controller="adPSACtrl">
-        <div class="panel-heading">
-            <h3 class="panel-title">PSA</h3>
-        </div>
-        <div class="panel-body">
-        <div class="row"
-            ng-hide="psas">
-            <div class="center-block text-center" style="width:100px;">
-                <img src='/images/loading.gif'/><br/>Loading...
-            </div>
-        </div>
-        <ul class="list-group"
-            style="margin-bottom: 0px;"
-            ng-repeat="psa in psas track by $index" 
-            ng-show="psas">
-            <li class="list-group-item"
-                id="{{'ad-psa-'+psa.psa_id}}">
-                <a href="#readItModal" 
-                    class='btn btn-danger btn-xs pull-right'
-                    ng-click="readitClicked('read-it-button-psa-'+psa.psa_id)"
-                    id="{{'read-it-button-psa-'+psa.psa_id}}"
-                    data-toggle="modal"
-                    data-ad_type="psa"
-                    data-ad_id="{{psa.psa_id}}">Confirm Read</a>
-                <a href="javascript:void(0);" 
-                    class='btn btn-info btn-xs pull-right'
-                    style='margin-right:5px;'
-                    ng-click="skipitClicked(psa.psa_id)"
-                    id="{{'skip-it-button-psa-'+psa.psa_id}}"
-                    >Skip It</a>
-                <b>{{psa.ad_name}}</b><br/>
-                <span>{{psa.ad_content}}</span>
-                
-            </li>
-        </ul> 
-        </div>
-    </div>
-
-{% endverbatim %}
-    <div class='panel panel-danger' 
-         ng-controller="debugCtrl"
-         ng-show="debugActive"
-         >
-        <div class="panel-heading">
-            <h3 class="panel-title">DEBUG AND TEST</h3>
-        </div>
-        <div class="panel-body">
-            
-            Date:
-            <input id='debug-input-date'
-                    type='text'
-                    ng-value='currentDate' disabled>
-            <button class='btn btn-primary btn-xs' ng-click='decrementDate()'>-</button>
-            <button class='btn btn-primary btn-xs' ng-click='incrementDate()'>+</button>
-            Hour:
-            <input id='debug-input-hour'
-                    type='text'
-                    size='2'
-                    ng-value='currentHour'disabled>
-            <button class='btn btn-primary btn-xs' ng-click='decrementHour()'>-</button>
-            <button class='btn btn-primary btn-xs' ng-click='incrementHour()'>+</button>
-        </div>
-    </div>
-    <div class="modal fade" 
-         id="readItModal"
-         ng-controller="readitModalCtrl">
-        <div class="modal-dialog" >
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <button type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Confirm Read</h4>
+        {# Begin DJ Blaster Boxes #}
+        {% verbatim %}
+        <div >
+        	<h3>Live Reads</h3>
+            <div class='panel panel-primary' 
+                 ng-controller="adShowSponsorshipCtrl">
+                <div class="panel-heading">
+                    <div class="panel-title">Show Sponsorships</div>
                 </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                    <div class='form-group'
-                         id='readitFormGroup'>
-                        <label for="dj-initials" 
-                               class="control-label col-sm-2">DJ Initials</label>
-                        <div class="col-xs-2">
-                        <input type="text" 
-                               name="dj-initials" 
-                               class="form-control input-min" 
-                               id="inputDJInitials" >
+                <div class="panel-body">
+                <div class="row"
+                    ng-hide="show_sponsorships">
+                    <div class="center-block text-center" style="width:100px;">
+                        <img src='/images/loading.gif'/><br/>Loading...
+                    </div>
+                </div>
+                <ul class="list-group"
+                    style="margin-bottom: 0px;"
+                    ng-repeat="sponsorship in show_sponsorships track by $index" 
+                    ng-show="show_sponsorships"
+                    >
+                    <li class="list-group-item" 
+                        id="{{'ad-show-sponsorship-'+sponsorship.sponsorship_id}}">
+                        
+                        <h2>{{sponsorship.ad_name}}</h2><br/>
+                        <div ng-bind-html="sponsorship.ad_content | unsaftenHTML"></div>
+                        <div class="confirmBT">
+                        <a href="#readItModal" 
+                            class='btn btn-danger btn-lg'
+                            ng-click="readitClicked('read-it-button-spons-'+sponsorship.sponsorship_id)"
+                            id="{{'read-it-button-spons-'+sponsorship.sponsorship_id}}"
+                            data-toggle="modal"
+                            data-ad_type="show-sponsorship"
+                            data-ad_id="{{sponsorship.sponsorship_id}}">Confirm Read</a>
                         </div>
-                        <button class="btn btn-danger pull-right"
-                                ng-click="submitClicked()"
-                                id="readItSubmitButton"
-                                style="margin-right:20px;">Submit</button>
+                    </li>
+                </ul> 
+                </div>
+            </div>
+            <div class='panel panel-info' 
+                 ng-controller="adEventCtrl">
+                 <div class="panel-heading">
+                    <h3 class="panel-title">Paid Promotion</h3>
+                </div>
+                <div class="panel-body">
+                <div class="row"
+                    ng-hide="events">
+                    <div class="center-block text-center" style="width:100px;">
+                        <img src='/images/loading.gif'/><br/>Loading...
                     </div>
+                </div>
+                <ul class="list-group"
+                    style="margin-bottom: 0px;"
+                    ng-repeat="event in events track by $index" 
+                    ng-show="events">
+                    <li class="list-group-item"
+                        id="{{'ad-event-'+event.event_id}}">
+                       
+                        <h2>{{event.ad_name}}</h2>
+                        <p>{{event.ad_content}}</p>
+                         <div class="confirmBT">
+                         <a href="#readItModal" 
+                            class='btn btn-danger btn-lg'
+                            ng-click="readitClicked('read-it-button-event-'+event.event_id)"
+                            id="{{'read-it-button-event-'+event.event_id}}"
+                            data-toggle="modal"
+                            data-ad_type="event"
+                            data-ad_id="{{event.event_id}}">Confirm Read</a>
+                        </div>
+                    </li>
+                </ul> 
+                </div>
+            </div>
+            
+            <div class='panel panel-warning' 
+                 ng-controller="adPSACtrl">
+                <div class="panel-heading">
+                    <h3 class="panel-title">PSA <em>(Only read one per show)</em></h3>
+                </div>
+                <div class="panel-body">
+                <div class="row"
+                    ng-hide="psas">
+                    <div class="center-block text-center" style="width:100px;">
+                        <img src='/images/loading.gif'/><br/>Loading...
+                    </div>
+                </div>
+                <ul class="list-group"
+                    style="margin-bottom: 0px;"
+                    ng-repeat="psa in psas track by $index" 
+                    ng-show="psas">
+                    <li class="list-group-item"
+                        id="{{'ad-psa-'+psa.psa_id}}">
+                       
+                        <h2>{{psa.ad_name}}</h2>
+                        <p>{{psa.ad_content}}</p>
+                         <div class="confirmBT">
+                      	<div class="row">
+	                      	<div class="col-md-6">
+	                         	<a href="javascript:void(0);" 
+	                            class='btn btn-info btn-lg'
+	                            style='margin-right:5px;'
+	                            ng-click="skipitClicked(psa.psa_id)"
+	                            id="{{'skip-it-button-psa-'+psa.psa_id}}"
+	                            >Skip This One</a>
+                        	</div>
+                        	<div class="col-md-6">
+	                         	<a href="#readItModal" 
+	                            class='btn btn-danger btn-lg'
+	                            ng-click="readitClicked('read-it-button-psa-'+psa.psa_id)"
+	                            id="{{'read-it-button-psa-'+psa.psa_id}}"
+	                            data-toggle="modal"
+	                            data-ad_type="psa"
+	                            data-ad_id="{{psa.psa_id}}">Confirm Read</a>
+                            </div>
+                       </div>
+                       </div>
+                    </li>
+                </ul> 
+                </div>
+            </div>
+            <div id="panic">
+           	 <a href='#' onclick='location.reload(true); return false;'>Is something wrong?<br/>Something not loading?<br/><img src='/images/djblaster-panic.gif'/></a>
+            </div>
+        {% endverbatim %}
+        {# End DJ Blaster Boxes #}
+        </div>
+        </div>
+		<div class='col-md-6'>
+			
+			
+			<div id="tab-full-container" class='tab-container'>
+			 <div class='etabs'>
+			  <span class='tab' id="tab-1"><a href="#tab-calendar">Calendar</a></span>
+			  <span class='tab' id="tab-2"><a href="#tab-weather">Weather</a></span>
+			  <span class='tab' id="tab-3"><a href="#tab-report">Reports</a></span>
+			  <span class='tab' id="tab-4"><a href="#tab-chat">Chat</a></span>
+			 </div>
+			 <div class='panel-container'>
+			  <div id="tab-calendar">
+			   			<div class="ltCalendar">
+							<h3>Live Taos Calendar for <span id="currentDate-2"></span></h3>
+							<p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and culture in Taos. If you think something is missing from this calendar, it's easy to submit your own events at LiveTaos.com! </p>
+	        				<iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed" src="http://livetaos.com/iframe-embeds/knce-dj-embed/"></iframe>
+	        			</div>
+			  </div>
+			   <div id="tab-weather">
+			   			<div class="weather">
+							<h3>Weather</h3>
+		        			<div id='weatherEmbed'></div>
+		        		</div>
+		        </div>
+		        <div id="tab-report">
+			   			<div class="report">
+							<h3>Reports</h3>
+		        			<p>This section is going to be for collecting information from DJ's about information discussed and other necessary information.</p>
+		        			<a href="http://truetaosradio.com/dj-interview-form/" target="_blank"
+                            class='btn btn-info btn-lg'>Interview Report</a>
+		        			
+		        		</div>
+		        </div>
+		         <div id="tab-chat">
+			   			<div class="chat">
+							<h3>Coming Soon</h3>
+		        			<p>I Promise, its something we have wanted to integrate for a loooong time... just like a lot of other stuff. For more information <a target="_blank" href="http://lmgtfy.com/?q=Define+Priorities">Click Here</a></p>
+		        		</div>
+		        </div>
+		        
+			   <!-- content -->
+			  </div>
+			 </div>
+			</div>
+			
+        </div>
+
+        
+        {# Begin Debug Bar #}
+            <div class='panel panel-danger' 
+                 ng-controller="debugCtrl"
+                 ng-show="debugActive"
+                 style="display:none;"
+                 >
+                <div class="panel-heading">
+                    <h3 class="panel-title">DEBUG AND TEST</h3>
+                </div>
+                <div class="panel-body">
                     
+                    Date:
+                    <input id='debug-input-date'
+                            type='text'
+                            ng-value='currentDate' disabled>
+                    <button class='btn btn-primary btn-xs' ng-click='decrementDate()'>-</button>
+                    <button class='btn btn-primary btn-xs' ng-click='incrementDate()'>+</button>
+                    Hour:
+                    <input id='debug-input-hour'
+                            type='text'
+                            size='2'
+                            ng-value='currentHour'disabled>
+                    <button class='btn btn-primary btn-xs' ng-click='decrementHour()'>-</button>
+                    <button class='btn btn-primary btn-xs' ng-click='incrementHour()'>+</button>
+                </div>
+            </div>
+        {# End Debug Bar #}
+        
+        <div class="modal fade" 
+             id="readItModal"
+             ng-controller="readitModalCtrl">
+            <div class="modal-dialog" >
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Confirm Read</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                        <div class='form-group'
+                             id='readitFormGroup'>
+                            <label for="dj-initials" 
+                                   class="control-label col-sm-2">DJ Initials</label>
+                            <div class="col-xs-2">
+                            <input type="text" 
+                                   name="dj-initials" 
+                                   class="form-control input-min" 
+                                   id="inputDJInitials" >
+                            </div>
+                            <button class="btn btn-danger pull-right"
+                                    ng-click="submitClicked()"
+                                    id="readItSubmitButton"
+                                    style="margin-right:20px;">Submit</button>
+                        </div>
+                        
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+        
+        
+        
+    <script type='text/javascript'>
+        var BASE_URL = "{{ url('dj_blaster_frontend') }}";
+        BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
+    </script>   
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ 
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="{{ asset('js/djblaster.js') }}"></script>
+  
+    <script src="{{ asset('js/jquery.zweatherfeed.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.easytabs.min.js') }}"></script>
+    
+    <script type='text/javascript'>
+		$(document).ready(function () {
+			$('#weatherEmbed').weatherfeed(['USNM0314'], {
+				forecast: true,
+				refresh:15,
+				linktarget: "_blank",
+				unit: 'f'
+			});
+			
+			$(function() {
+			   $("#tab-full-container").easytabs({
+				    animate: false,
+					  animationSpeed: 1000,
+					  defaultTab: "span#tab-1",
+					  panelActiveClass: "active-content-div",
+					  tabActiveClass: "selected-tab",
+					  tabs: "> div > span",
+					  updateHash: false
+				});
+			});
+			
+    		
+    		
+    		function getClockTime() {
+    			var currentdate = new Date(); 
+			var monthNames = [
+    							"January", "February", "March",
+    							"April", "May", "June",
+    							"July", "August", "September",
+    							"October", "November", "December"
+    						];
+    		
+    			var thisMonth;
+    			var date;
+    			var hour;
+    			var minute;
+    			var time = new Date ();
+    		
+	    		thisMonth = monthNames[currentdate.getMonth()];
+	    						
+				date = thisMonth + " " + currentdate.getDate() +", "+currentdate.getFullYear();
+	           	hour = currentdate.getHours()
+	           	ampm = hour > 12 ? "PM" : "AM";
+	           	
+	           	hour = hour % 12;
+				hour = hour ? hour : 12; // zero = 12;
+				
+				minute = currentdate.getMinutes();
+				minute = minute > 9 ? minute : "0" + minute;
+	
+	            time = + hour + ":" + minute;  
+				
+				$('#currentDate').html("<span id='date'>"+date+"</span>");
+				$('#currentDate-2').html("<span id='date'>"+date+"</span>");
+				$('#currentTime').html("<span id='time'>"+time+"</span>");
+				
+				
+				
+				if (minute == '00') {
+					$(window).scrollTop(0);
+				}
+			}
+			
+			getClockTime();
+			window.setInterval(getClockTime,60000);
+			 
+		});
+		
+		
+		
+    </script>
+    
+ </body>
+</html>
 
-{% block javascripts %}
-{{ parent() }}
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src="{{ asset('js/djblaster.js') }}"></script>
-<script type='text/javascript'>
-    var BASE_URL = "{{ url('dj_blaster_frontend') }}";
-    BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
-</script>
-{% endblock %}

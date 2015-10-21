@@ -31,7 +31,7 @@ class Customer {
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=35)
+     * @ORM\Column(type="string", length=35, nullable=true)
      */
     protected $info;
 
