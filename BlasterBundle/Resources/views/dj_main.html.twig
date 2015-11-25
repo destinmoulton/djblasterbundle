@@ -276,7 +276,7 @@
         
 {% block javascripts %}        
     <script type='text/javascript'>
-        var BASE_URL = "{{ url('dj_blaster_home') }}";
+        var BASE_URL = "{{ url('dj_blaster_base') }}";
         BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
     </script>   
         
@@ -367,4 +367,3 @@
         })(document);
     </script>
 {% endblock %}
-
