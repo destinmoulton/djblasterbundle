@@ -12,7 +12,7 @@ class DJSignInType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('show_title', 'text', array('label'=>'Show Title'));
         $builder->add(
-            $builder->create('show_start_time', 'text', array('label'=>'Show Start Time'))
+            $builder->create('show_start_time', 'text', array('label'=>'Show Time'))
                     ->addModelTransformer(new DateTimeToStringTransformer()));
         $builder->add($builder->create('show_end_time', 'text', array('label'=>'Show End Time'))
                     ->addModelTransformer(new DateTimeToStringTransformer()));
