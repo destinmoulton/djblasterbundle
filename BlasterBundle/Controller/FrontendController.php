@@ -25,7 +25,7 @@ class FrontendController extends Controller
         $data = array(
             'djsignin_information'=>$session->get('djsignin_information')
         );
-        return $this->render('DJBlasterBundle::frontend.html.twig', $data);
+        return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
     }
 
     public function djsigninAction(Request $request)
