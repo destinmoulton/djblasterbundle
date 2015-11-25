@@ -56,7 +56,7 @@
 				</div>
         	</div>
      
-       <div class="container">
+       <div class="container" style="display:none;">
        
        		<div class='col-md-6 '>
 	        	<div style="padding-left:0px; text-align:center" class='col-md-12 djAlert'>
@@ -244,14 +244,15 @@
         </div>
         </div>
 		<div class='col-md-6'>
-			
+			<h3>Chat Window</h3>
+			<p>If you spend all your time chatting and not DJing, we will get rid of this function. Pay attention to the reads to the left.</p>
+			<div id="chatwing-embedded-4415b9e0-870c-11e5-a7a1-25c0609413f9"></div>
 			
 			<div id="tab-full-container" class='tab-container'>
 			 <div class='etabs'>
 			  <span class='tab' id="tab-1"><a href="#tab-calendar">Calendar</a></span>
 			  <span class='tab' id="tab-2"><a href="#tab-weather">Weather</a></span>
 			  <span class='tab' id="tab-3"><a href="#tab-report">Reports</a></span>
-			  <span class='tab' id="tab-4"><a href="#tab-chat">Chat</a></span>
 			 </div>
 			 <div class='panel-container'>
 			  <div id="tab-calendar">
@@ -276,12 +277,7 @@
 		        			
 		        		</div>
 		        </div>
-		         <div id="tab-chat">
-			   			<div class="chat">
-							<h3>Coming Soon</h3>
-		        			<p>I Promise, its something we have wanted to integrate for a loooong time... just like a lot of other stuff. For more information <a target="_blank" href="http://lmgtfy.com/?q=Define+Priorities">Click Here</a></p>
-		        		</div>
-		        </div>
+
 		        
 			   <!-- content -->
 			  </div>
@@ -429,9 +425,7 @@
 				
 				
 				
-				if (minute == '00') {
-					$(window).scrollTop(0);
-				}
+				
 			}
 			
 			getClockTime();
@@ -439,9 +433,16 @@
 			 
 		});
 		
-		
-		
     </script>
+    
+    <script type="text/javascript">
+  (function(d) {
+    var cwjs, id='chatwing-js';  if(d.getElementById(id)) {return;}
+    cwjs = d.createElement('script'); cwjs.type = 'text/javascript'; cwjs.async = true; cwjs.id = id
+    cwjs.src = "//chatwing.com/code/4415b9e0-870c-11e5-a7a1-25c0609413f9/embedded";
+    d.getElementsByTagName('head')[0].appendChild(cwjs);
+  })(document);
+</script>
     
  </body>
 </html>
