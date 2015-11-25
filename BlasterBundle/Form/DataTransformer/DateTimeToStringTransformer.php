@@ -16,7 +16,10 @@ class DateTimeToStringTransformer implements DataTransformerInterface
     {
         
         if(!is_object($dateTime)){
-            return '8:00am';
+            $hour = date('H');
+            $minute = (date('i')>30)?'30':'00';
+            $ampm = date('a');
+            return "$hour:$minute$ampm";
         }
        
         return $dateTime->format('g:ia');
