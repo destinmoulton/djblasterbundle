@@ -1,8 +1,12 @@
 #
 # Default route to view the frontend
 #
-dj_blaster_frontend:
+dj_blaster_djsignin:
     path:     /
+    defaults: { _controller: DJBlasterBundle:Frontend:djsignin }
+
+dj_blaster_home:
+    path:     /home
     defaults: { _controller: DJBlasterBundle:Frontend:home }
     
 dj_blaster_clear_cache:

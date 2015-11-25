@@ -1,0 +1,99 @@
+{% extends "DJBlasterBundle::djblaster_base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/jquery.timepicker.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block navbar %}
+    <li class="active">
+        <a href="{{ path('dj_blaster_djsignin') }}">DJ Sign In</a>
+    </li>
+{% endblock %}
+
+
+{% block navbaruser %}
+    <li>
+        <a href="{{ path('dj_blaster_admin_login') }}">Admin Login</a>
+    </li>
+{% endblock %}
+
+
+{% block content %}
+    {% form_theme form 'DJBlasterBundle:Admin:_admin_form_errors.html.twig' %}
+    
+    {{ form_start(form, {'attr':{'novalidate':'novalidate','class':'form-horizontal'}}) }}
+    <fieldset>
+        <legend>
+            DJ Sign In
+        </legend>
+        {{ form_errors(form) }}
+    
+        <div class="form-group {% if form.show_title.vars.errors|length %}has-error{% endif %}" >
+            {{ form_label(form.show_title , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.show_title, {'attr':{'class':'form-control'}}) }}
+                {{ form_errors(form.show_title) }}
+            </div>
+        </div>
+    
+        <div class="form-group {% if form.show_start_time.vars.errors|length %}has-error{% endif %} {% if form.show_end_time.vars.errors|length %}has-error{% endif %}" >
+            {{ form_label(form.show_start_time , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+            <div class="col-sm-5 form-inline">
+                {{ form_widget(form.show_start_time, {'attr':{'class':'form-control', 'size':7}}) }}
+                to
+                {{ form_widget(form.show_end_time, {'attr':{'class':'form-control', 'size':7}}) }}
+                {{ form_errors(form.show_start_time) }}
+                {{ form_errors(form.show_end_time) }}
+            </div>
+        </div>
+        
+        <div class="form-group {% if form.dj_first_name.vars.errors|length %}has-error{% endif %}" >
+            {{ form_label(form.dj_first_name , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.dj_first_name, {'attr':{'class':'form-control'}}) }}
+                {{ form_errors(form.dj_first_name) }}
+            </div>
+        </div>
+    
+        <div class="form-group {% if form.dj_last_name.vars.errors|length %}has-error{% endif %}" >
+            {{ form_label(form.dj_last_name , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.dj_last_name, {'attr':{'class':'form-control'}}) }}
+                {{ form_errors(form.dj_last_name) }}
+            </div>
+        </div>
+    
+        <div class="form-group {% if form.dj_email.vars.errors|length %}has-error{% endif %}">
+            {{ form_label(form.dj_email , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+            <div class="controls col-sm-5">
+                {{ form_widget(form.dj_email, {'attr':{'class':'form-control'}}) }}
+                {{ form_errors(form.dj_email) }}
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-5">
+                {{ form_widget(form.signin, {'attr':{'class':'btn btn-primary'}}) }}
+            </div>
+        </div>
+    
+        {{ form_end(form) }}
+    </fieldset>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
+    <script type="text/javascript">
+    $(function(){
+        // Setup the timepicker
+        $('#djsignin_show_start_time').timepicker({'step':30, 'scrollDefault':'now'});
+        $('#djsignin_show_end_time').timepicker({'step':30, 'scrollDefault':'now'});
+    
+         // Set the focus on the show title
+        $('#djsignin_show_title').focus();
+    });
+    </script>
+{% endblock %}

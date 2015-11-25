@@ -19,5 +19,4 @@ class UserType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver -> setDefaults(array('data_class' => 'DJBlaster\BlasterBundle\Entity\User', 'cascade_validation' => true, ));
     }
-
 }
