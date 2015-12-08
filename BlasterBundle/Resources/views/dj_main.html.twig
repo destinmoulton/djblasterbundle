@@ -278,6 +278,7 @@
     <script type='text/javascript'>
         var BASE_URL = "{{ url('dj_blaster_base') }}";
         BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
+        var SHOW_END_TIME = '{{ djsignin_information.show_end_time }}';
     </script>   
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -309,11 +310,9 @@
 				});
 			});
 			
-    		
-    		
     		function getClockTime() {
     			var currentdate = new Date(); 
-			var monthNames = [
+			    var monthNames = [
     							"January", "February", "March",
     							"April", "May", "June",
     							"July", "August", "September",
@@ -330,12 +329,28 @@
 	    						
 				date = thisMonth + " " + currentdate.getDate() +", "+currentdate.getFullYear();
 	           	hour = currentdate.getHours()
+                minute = currentdate.getMinutes();
+
+                /*
+                 * MODIFIED BY: Destin
+                 * Check to determine if the show is over.
+                 * If show is ended, logout the DJ.
+                 */
+                var show_end_time = SHOW_END_TIME.split(':');
+                var show_end_hour = parseInt(show_end_time[0]);
+                var show_end_minute = parseInt(show_end_time[1]);
+                if(show_end_minute > 0 && show_end_minute==minute && show_end_hour==hour){
+                    location.href = BASE_URL;
+                } else if(show_end_hour <= hour){
+                    location.href = BASE_URL;
+                }
+                // END MODIFICATION
+
 	           	ampm = hour > 12 ? "PM" : "AM";
 	           	
 	           	hour = hour % 12;
 				hour = hour ? hour : 12; // zero = 12;
 				
-				minute = currentdate.getMinutes();
 				minute = minute > 9 ? minute : "0" + minute;
 	
 	            time = + hour + ":" + minute;  
@@ -343,10 +358,6 @@
 				$('#currentDate').html("<span id='date'>"+date+"</span>");
 				$('#currentDate-2').html("<span id='date'>"+date+"</span>");
 				$('#currentTime').html("<span id='time'>"+time+"</span>");
-				
-				
-				
-				
 			}
 			
 			getClockTime();

@@ -59,7 +59,8 @@ class FrontendController extends Controller
                 $session_data = array(
                     'dj_first_name' => $data->getDjFirstName(),
                     'dj_last_name' => $data->getDjLastName(),
-                    'dj_email' => $data->getDjEmail()
+                    'dj_email' => $data->getDjEmail(),
+                    'show_end_time' =>$data->getShowEndTime()->format('H:i:s')
                 );
                 $session->set('djsignin_information', $session_data);
 
