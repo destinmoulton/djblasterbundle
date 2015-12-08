@@ -341,7 +341,7 @@
                 var show_end_minute = parseInt(show_end_time[1]);
                 if(show_end_minute > 0 && show_end_minute==minute && show_end_hour==hour){
                     location.href = BASE_URL;
-                } else if(show_end_hour <= hour){
+                } else if(show_end_minute == 0 && minute==0 && show_end_hour <= hour){
                     location.href = BASE_URL;
                 }
                 // END MODIFICATION
