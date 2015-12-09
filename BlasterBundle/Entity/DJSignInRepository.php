@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class DJSignInRepository extends EntityRepository
 {
+    public function getDJSigninsBetweenDates($start_date, $end_date){
+        $q = $this
+           ->createQueryBuilder('e')
+           ->where('e.signin_datetime >= :start_date')
+           ->andWhere('e.signin_datetime <= :end_date')
+           ->setParameter('start_date', $start_date)
+           ->setParameter('end_date', $end_date)
+           ->getQuery();
+
+        return $q->getArrayResult();
+
+    }
 }
