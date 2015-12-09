@@ -165,3 +165,7 @@ dj_blaster_admin_ad_psa_delete:
 dj_blaster_admin_report_generator:    
     path:     /admin/report/generator/{customer_id}/{campaign_id}/{action}
     defaults: { _controller: DJBlasterBundle:AdminReports:reportGenerator, customer_id:0, campaign_id:0, action:'' }
+
+dj_blaster_admin_djsignin_report:    
+    path:     /admin/report/djsignin
+    defaults: { _controller: DJBlasterBundle:AdminReports:djsigninReportGenerator }

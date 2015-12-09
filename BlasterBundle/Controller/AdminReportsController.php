@@ -2,6 +2,8 @@
 
 namespace DJBlaster\BlasterBundle\Controller;
 
+use DateTime;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -143,5 +145,43 @@ class AdminReportsController extends Controller {
             return $this->render('DJBlasterBundle:Admin/Report:report_selector.html.twig', $options);
         }
         
+    }
+
+    public function djsigninReportGeneratorAction(Request $request){
+        $start_date = $request->request->get('start_date');
+        $end_date = $request->request->get('end_date');
+        $djsignins = array();
+        $query_performed = false;
+        if(!$start_date){
+            $dateTime = new DateTime('NOW');
+            $start_date=$dateTime->format('m/d/Y');
+            $end_date=$dateTime->format('m/d/Y');
+        } else {
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $sd_parts = explode('/', $start_date);
+            $ed_parts = explode('/', $end_date);
+            
+            $start_datetime = new DateTime();
+            $start_datetime->setDate($sd_parts[2],$sd_parts[0],$sd_parts[1]);
+            $start_datetime->setTime(0,0,0);
+
+            $end_datetime = new DateTime();
+            $end_datetime->setDate($ed_parts[2],$ed_parts[0],$ed_parts[1]);
+            $end_datetime->setTime(23,59,59);
+
+            $djsignins = $em->getRepository('DJBlasterBundle:DJSignIn')
+                            ->getDJSigninsBetweenDates($start_datetime->format("Y-m-d H:i:s"), $end_datetime->format("Y-m-d H:i:s"));
+            $query_performed = true;
+        }
+
+        $options = array(
+            'start_date'=>$start_date,
+            'end_date'=>$end_date,
+            'djsignins'=>$djsignins,
+            'query_performed'=>$query_performed
+        );
+        return $this->render('DJBlasterBundle:Admin/Report:djsignin_report.html.twig', $options);
     }
 } 
