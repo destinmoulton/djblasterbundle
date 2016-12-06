@@ -1,7 +1,10 @@
-## DJ Blaster Info
+## DJ Blaster Overview
 
-DJ Blaster is a platform to provide information for DJ's to read while on the air. 
+DJ Blaster is a platform to provide information for DJ's to read while on the air.
 
+Administrators can:
+* Add PSAs, Events, and Show Sponsorships
+* Generate Reports on DJ Reads 
 
 ### Technical Details
 
@@ -17,4 +20,4 @@ Two Symfony library bundles are used by DJBlaster:
 * [knplabs/knp-snappy-bundle](https://github.com/KnpLabs/KnpSnappyBundle) 
     * Generating report pdfs using wkhtmltopdf in the AdminReportsController
 
-NOTE: wkhtmltopdf is ridiculously hard to get working on some server configurations.  
+NOTE: wkhtmltopdf is ridiculously hard to get working on some server configurations.
