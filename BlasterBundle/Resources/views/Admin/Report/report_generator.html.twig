@@ -24,6 +24,10 @@
                     <td>{{ read.getTimeRead().format('D M j, Y h:i a') }}</td>
                 </tr>
                 {% endfor %}
+                <tr >
+                    <td><strong class="text-success">Total Reads</strong></td>
+                    <td><strong class="text-success">{{ dj_show_reads[show.getSponsorshipId()]|length }}</strong></td>
+                </tr>
             </tbody>
         </table>
         </li>
@@ -50,6 +54,10 @@
                     <td>{{ read.getTimeRead().format('D M j, Y h:i a') }}</td>
                 </tr>
                 {% endfor %}
+                <tr >
+                    <td><strong class="text-success">Total Reads</strong></td>
+                    <td><strong class="text-success">{{ dj_event_reads[event.getEventId()]|length }}</strong></td>
+                </tr>
             </tbody>
         </table>
         </li>
@@ -76,6 +84,10 @@
                     <td>{{ read.getTimeRead().format('D M j, Y h:i a') }}</td>
                 </tr>
                 {% endfor %}
+                <tr >
+                    <td><strong class="text-success">Total Reads</strong></td>
+                    <td><strong class="text-success">{{ dj_psa_reads[psa.getPsaId()]|length }}</strong></td>
+                </tr>
             </tbody>
         </table>
         </li>
