@@ -70,7 +70,6 @@ class AjaxController extends Controller {
         }
         
         $em = $this->get('doctrine')->getManager();
-        
 
         $djRead = new DJReadEvent();
         
@@ -121,8 +120,8 @@ class AjaxController extends Controller {
         }
         
         if($no_reads_remaining_today > 0){
-            // Setup the next time to read this event ad today between now and 10pm
-            $hour_diff = 22 - (int)$post->current_hour;
+            // Setup the next time to read this event ad today
+            $hour_diff = (int)$post->settings->adEvent->end_hour - (int)$post->current_hour;
             
             // Calculate the gap before the event should be read next
             $hour_gap = floor($hour_diff/($no_reads_remaining_today+1));
@@ -137,7 +136,7 @@ class AjaxController extends Controller {
             // for an event that shouldn't be read 
             // outside of the query bounds.
             $nextReadDateTime = new DateTime();
-            $nextReadDateTime->setTime(23, 0, 0);
+            $nextReadDateTime->setTime((int)$post->settings->adEvent->end_hour + 1, 0, 0);
             
             $event->setNextReadTime($nextReadDateTime);
         }
