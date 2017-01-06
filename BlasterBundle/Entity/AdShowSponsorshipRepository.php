@@ -19,15 +19,15 @@ class AdShowSponsorshipRepository extends EntityRepository
     }
     
     public function findAllForHour($hour, $time){
-
-        $startWeek = intval(date("W", strtotime(date("Y-m-01", $time))));
+	// Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
+        $startWeek = intval(date("W", strtotime(date("Y-m-01 6am", $time))));
+	
 	if ($startWeek > 52) {
 	    // Adjust for weird january bug
             $startWeek = $startWeek-52;
 	}
 
 	$weekNum = intval(date("W",$time)) - $startWeek + 1;
-       
         // Fix the odd case where the week is 5 or *possibly* 6
         switch ($weekNum) {
             case 5:
