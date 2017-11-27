@@ -82,7 +82,7 @@ dj_blaster_admin_user_list:
     
 dj_blaster_admin_user_edit:
     path:     /admin/users/edit/{user_id}
-    defaults: { _controller: DJBlasterBundle:AdminUsers:editUser, user_id:0}
+    defaults: { _controller: DJBlasterBundle:AdminUsers:editUser, user_id: 0}
 
 dj_blaster_admin_user_delete:
     path:     /admin/users/delete/{id}
@@ -97,7 +97,7 @@ dj_blaster_admin_user_change_password:
 #
 dj_blaster_admin_customer_edit:    
     path:     /admin/customers/edit/{customer_id}
-    defaults: { _controller: DJBlasterBundle:AdminCustomers:editCustomer, customer_id:0 }
+    defaults: { _controller: DJBlasterBundle:AdminCustomers:editCustomer, customer_id: 0 }
 
 dj_blaster_admin_customer_list:    
     path:     /admin/customers/list
@@ -112,7 +112,7 @@ dj_blaster_admin_customer_delete:
 #
 dj_blaster_admin_campaign_edit:    
     path:     /admin/campaign/edit/{customer}/{campaign_id}
-    defaults: { _controller: DJBlasterBundle:AdminCustomerCampaigns:editCustomerCampaign, campaign_id:0 }
+    defaults: { _controller: DJBlasterBundle:AdminCustomerCampaigns:editCustomerCampaign, campaign_id: 0 }
 
 dj_blaster_admin_campaign_list:    
     path:     /admin/campaign/list/{customer}
@@ -131,7 +131,7 @@ dj_blaster_admin_ad_list:
 #
 dj_blaster_admin_ad_show_sponsorship_edit:    
     path:     /admin/campaign/ad/show-sponsorship/edit/{customer}/{campaign}/{sponsorship_id}
-    defaults: { _controller: DJBlasterBundle:AdminAdShowSponsorships:editAdShowSponsorship, sponsorship_id:0 }
+    defaults: { _controller: DJBlasterBundle:AdminAdShowSponsorships:editAdShowSponsorship, sponsorship_id: 0 }
     
 dj_blaster_admin_ad_show_sponsorship_delete:    
     path:     /admin/campaign/ad/show-sponsorship/delete/{customer}/{campaign}/{sponsorship}
@@ -142,7 +142,7 @@ dj_blaster_admin_ad_show_sponsorship_delete:
 #
 dj_blaster_admin_ad_event_edit:    
     path:     /admin/campaign/ad/event/edit/{customer}/{campaign}/{event_id}
-    defaults: { _controller: DJBlasterBundle:AdminAdEvents:editAdEvent, event_id:0 }
+    defaults: { _controller: DJBlasterBundle:AdminAdEvents:editAdEvent, event_id: 0 }
     
 dj_blaster_admin_ad_event_delete:    
     path:     /admin/campaign/ad/event/delete/{customer}/{campaign}/{event}
@@ -153,7 +153,7 @@ dj_blaster_admin_ad_event_delete:
 #
 dj_blaster_admin_ad_psa_edit:    
     path:     /admin/campaign/ad/psa/edit/{customer}/{campaign}/{psa_id}
-    defaults: { _controller: DJBlasterBundle:AdminAdPSAs:editAdPSA, psa_id:0 }
+    defaults: { _controller: DJBlasterBundle:AdminAdPSAs:editAdPSA, psa_id: 0 }
 
 dj_blaster_admin_ad_psa_delete:    
     path:     /admin/campaign/ad/psa/delete/{customer}/{campaign}/{psa}
@@ -164,7 +164,7 @@ dj_blaster_admin_ad_psa_delete:
 #
 dj_blaster_admin_report_generator:    
     path:     /admin/report/generator/{customer_id}/{campaign_id}/{action}
-    defaults: { _controller: DJBlasterBundle:AdminReports:reportGenerator, customer_id:0, campaign_id:0, action:'' }
+    defaults: { _controller: DJBlasterBundle:AdminReports:reportGenerator, customer_id: 0, campaign_id: 0, action: '' }
 
 dj_blaster_admin_djsignin_report:    
     path:     /admin/report/djsignin
