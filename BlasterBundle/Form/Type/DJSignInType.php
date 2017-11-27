@@ -4,26 +4,29 @@ namespace DJBlaster\BlasterBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use DJBlaster\BlasterBundle\Form\DataTransformer\DateTimeToStringTransformer;
 
 class DJSignInType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('show_title', 'text', array('label'=>'Show Title'));
+        $builder->add('show_title', TextType::class, array('label'=>'Show Title'));
         $builder->add(
-            $builder->create('show_start_time', 'text', array('label'=>'Show Time'))
+            $builder->create('show_start_time', TextType::class, array('label'=>'Show Time'))
                     ->addModelTransformer(new DateTimeToStringTransformer()));
-        $builder->add($builder->create('show_end_time', 'text', array('label'=>'Show End Time'))
+        $builder->add($builder->create('show_end_time', TextType::class, array('label'=>'Show End Time'))
                     ->addModelTransformer(new DateTimeToStringTransformer()));
-        $builder->add('dj_first_name', 'text', array('label'=>'DJ First Name'));
-        $builder->add('dj_last_name', 'text', array('label'=>'DJ Last Name'));
-        $builder->add('dj_email', 'text', array('label'=>'DJ Email Address'));
-        $builder->add('signin', 'submit', array('label'=>'Sign In'));
+        $builder->add('dj_first_name', TextType::class, array('label'=>'DJ First Name'));
+        $builder->add('dj_last_name', TextType::class, array('label'=>'DJ Last Name'));
+        $builder->add('dj_email', TextType::class, array('label'=>'DJ Email Address'));
+        $builder->add('signin', SubmitType::class, array('label'=>'Sign In'));
 
     }
 
-    public function getName() {
+    public function getBlockPrefix() {
         return 'djsignin';
     }
 
