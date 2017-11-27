@@ -7,17 +7,15 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\DJSignIn;
 use DJBlaster\BlasterBundle\Form\Type\DJSignInType;
 
 class FrontendController extends Controller
 {
-    public function homeAction()
+    public function homeAction(SessionInterface $session)
     {
-        $session = $this->getRequest()->getSession();
-
-
         if(!$session->has('djsignin_information')){
             return $this->redirect($this->generateUrl('dj_blaster_djsignin'));
         }
@@ -28,12 +26,11 @@ class FrontendController extends Controller
         return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
     }
 
-    public function djsigninAction(Request $request)
+    public function djsigninAction(Request $request, SessionInterface $session)
     {
-        $session = $this->getRequest()->getSession();
         $action = $this->generateUrl('dj_blaster_djsignin');
         $options = array('action' => $action);
-        $form = $this->createForm(new DJSignInType, new DJSignIn, $options);
+        $form = $this->createForm(DJSignInType::class, new DJSignIn, $options);
 
         $form->handleRequest($request);
 
