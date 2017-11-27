@@ -4,14 +4,15 @@ namespace DJBlaster\BlasterBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\User;
 use DJBlaster\BlasterBundle\Utils\StringUtils;
 
 class AdminLoginController extends Controller {
 
-    public function loginAction(Request $request) {
-        $session = $this->getRequest()->getSession();
+    public function loginAction(Request $request, SessionInterface $session) {
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -34,7 +35,7 @@ class AdminLoginController extends Controller {
          */
     }
 
-    public function resetAction(Request $request) {
+    public function resetAction(Request $request, SessionInterface $session) {
         $error = '';
 
         $action = $this->generateUrl('dj_blaster_admin_login_reset');
@@ -50,7 +51,6 @@ class AdminLoginController extends Controller {
             $user = $this->getDoctrine()->getRepository('DJBlasterBundle:User')->findOneByEmail($data['email']);
 
             if ($user) {
-                $session = $this->getRequest()->getSession();
                 $em = $this->get('doctrine')->getManager();
 
                 $encoder = $this->container->get('security.password_encoder');
