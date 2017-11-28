@@ -5,6 +5,8 @@ namespace DJBlaster\BlasterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use DJBlaster\BlasterBundle\Entity\User;
 use DJBlaster\BlasterBundle\Utils\StringUtils;
@@ -40,7 +42,7 @@ class AdminLoginController extends Controller {
 
         $action = $this->generateUrl('dj_blaster_admin_login_reset');
 
-        $form = $this->createFormBuilder()->setAction($action)->add('email', 'text')->getForm();
+        $form = $this->createFormBuilder()->setAction($action)->add('email', TextType::class)->getForm();
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
