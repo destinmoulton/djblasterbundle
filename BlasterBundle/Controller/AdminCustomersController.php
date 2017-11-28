@@ -23,7 +23,7 @@ class AdminCustomersController extends Controller {
 
         $action = $this->generateUrl('dj_blaster_admin_customer_edit', array('customer_id' => $customer_id));
         $options = array('action' => $action);
-        $form = $this->createForm(new CustomerType(), $customer, $options);
+        $form = $this->createForm(CustomerType::class, $customer, $options);
 
         $form->handleRequest($request);
 
