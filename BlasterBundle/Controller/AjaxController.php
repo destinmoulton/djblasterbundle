@@ -24,7 +24,7 @@ class AjaxController extends Controller {
         $sponsorships = $this->getDoctrine()->getRepository('DJBlasterBundle:AdShowSponsorship')
                                             ->findAllForHour($params->current_hour, $params->current_time);
                                          
-        $serializedEntity = $this->container->get('serializer')->serialize($sponsorships,'json');
+        $serializedEntity = $this->container->get('jms_serializer')->serialize($sponsorships,'json');
         return new JsonResponse($serializedEntity);
     }
     
@@ -35,7 +35,7 @@ class AjaxController extends Controller {
         $psas = $this->getDoctrine()->getRepository('DJBlasterBundle:AdPSA')
                                             ->findOneLastRead($post->current_time);
                                             
-        $serializedEntity = $this->container->get('serializer')->serialize($psas,'json');
+        $serializedEntity = $this->container->get('jms_serializer')->serialize($psas,'json');
         return new JsonResponse($serializedEntity);
     }
     
@@ -54,7 +54,7 @@ class AjaxController extends Controller {
                                          ->findNextToRead($post->current_time, $post->current_hour);
         }
                                             
-        $serializedEntity = $this->container->get('serializer')->serialize($event,'json');
+        $serializedEntity = $this->container->get('jms_serializer')->serialize($event,'json');
         return new JsonResponse($serializedEntity);
     }
 
