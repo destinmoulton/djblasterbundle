@@ -5,6 +5,7 @@ namespace DJBlaster\BlasterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
@@ -12,8 +13,7 @@ use DJBlaster\BlasterBundle\Entity\AdShowSponsorship;
 
 class AdminAdsController extends Controller {
     
-    public function listAdsAction(Customer $customer, CustomerCampaign $campaign) {
-        $session = $this->getRequest()->getSession();
+    public function listAdsAction(SessionInterface $session, Customer $customer, CustomerCampaign $campaign) {
 
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
