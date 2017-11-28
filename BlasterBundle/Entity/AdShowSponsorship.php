@@ -81,7 +81,7 @@ class AdShowSponsorship {
     protected $days_week4 = "";
     
     /**
-     * @Assert\True(message="You must select at least one day for the show.")
+     * @Assert\IsTrue(message="You must select at least one day for the show.")
      */
     public function isDaysWeek(){
         // Make sure at least one day is selected

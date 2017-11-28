@@ -60,7 +60,7 @@ class CustomerCampaign {
     protected $end_date;
     
     /**
-     * @Assert\True(message="The end date must occur after the start date.")
+     * @Assert\IsTrue(message="The end date must occur after the start date.")
      */
     public function isDatesValid(){
         return ($this->start_date <= $this->end_date);
