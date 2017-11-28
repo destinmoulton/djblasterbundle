@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class UserType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder -> add('name') -> add('email') -> add('save', SubmitType::class);
-
     }
 
     public function getBlockPrefix() {
