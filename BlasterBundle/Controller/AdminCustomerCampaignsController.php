@@ -27,7 +27,7 @@ class AdminCustomerCampaignsController extends Controller {
             'campaign_id' => $campaign_id
         ));
         $options = array('action' => $action);
-        $form = $this->createForm(new CustomerCampaignType(), $customerCampaign, $options);
+        $form = $this->createForm(CustomerCampaignType::class, $customerCampaign, $options);
 
         $form->handleRequest($request);
 
