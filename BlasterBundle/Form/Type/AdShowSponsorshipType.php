@@ -28,7 +28,7 @@ class AdShowSponsorshipType extends AbstractType {
         $builder->add('days_week4', 'text', array('label'=>'Week 4'));
     }
 
-    public function getName() {
+    public function getBlockPrefix() {
         return 'customer_ad_show_sponsorship';
     }
 

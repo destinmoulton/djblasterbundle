@@ -13,7 +13,7 @@ class CustomerType extends AbstractType {
         $builder -> add('name', TextType::class) -> add('info', TextareaType::class);
     }
 
-    public function getName() {
+    public function getBlockPrefix() {
         return 'customer';
     }
 

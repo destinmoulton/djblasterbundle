@@ -19,7 +19,7 @@ class AdEventType extends AbstractType {
         
     }
 
-    public function getName() {
+    public function getBlockPrefix() {
         return 'customer_ad_event';
     }
 

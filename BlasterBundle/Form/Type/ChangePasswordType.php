@@ -23,7 +23,7 @@ class ChangePasswordType extends AbstractType {
         $resolver->setDefaults(array('data_class' => 'DJBlaster\BlasterBundle\Form\Model\ChangePassword', ));
     }
 
-    public function getName() {
+    public function getBlockPrefix() {
         return 'change_password';
     }
 
