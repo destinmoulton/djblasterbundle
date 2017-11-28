@@ -9,6 +9,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+use Welp\MailchimpBundle\Event\SubscriberEvent;
+use Welp\MailchimpBundle\Subscriber\Subscriber;
+
 use DJBlaster\BlasterBundle\Entity\DJSignIn;
 use DJBlaster\BlasterBundle\Form\Type\DJSignInType;
 
@@ -41,14 +44,19 @@ class FrontendController extends Controller
                 $data = $form->getData();
 
                 // Automatically add people to the MailChimp mailing list
-                // The configuration options are set in config.yml
-                $mailChimp = $this->get('hype_mailchimp');
-                $list = $mailChimp->getList()
-                                      ->addMerge_vars(array(
-                                          'FNAME' => $data->getDjFirstName(),
-                                          'LNAME' => $data->getDjLastName()
-                                  ))
-                                  ->subscribe($data->getDjEmail());
+                // The configuration options are set in parameters.yml and config.yml
+                $mailchimp_list_id = $this->container->getParameter('mailchimp_list_id');
+                $subscriber = new Subscriber($data->getDjEmail(), [
+                    'FNAME' => $data->getDjFirstName(),
+                    'LNAME' => $data->getDjLastName(),
+                ], [
+                    'language' => 'en'
+                ]);
+            
+                $this->container->get('event_dispatcher')->dispatch(
+                    SubscriberEvent::EVENT_SUBSCRIBE,
+                    new SubscriberEvent($mailchimp_list_id, $subscriber)
+                );
                 
                 $em->persist($data);
                 $em->flush();
