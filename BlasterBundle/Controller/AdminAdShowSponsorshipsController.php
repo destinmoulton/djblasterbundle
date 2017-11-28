@@ -6,6 +6,7 @@ use \DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
@@ -13,7 +14,7 @@ use DJBlaster\BlasterBundle\Entity\AdShowSponsorship;
 use DJBlaster\BlasterBundle\Form\Type\AdShowSponsorshipType;
 
 class AdminAdShowSponsorshipsController extends Controller {
-    public function editAdShowSponsorshipAction(Request $request, Customer $customer, CustomerCampaign $campaign, $sponsorship_id) {
+    public function editAdShowSponsorshipAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $sponsorship_id) {
         $em = $this->get('doctrine')->getManager();
 
         if (!$customer) {
@@ -37,14 +38,13 @@ class AdminAdShowSponsorshipsController extends Controller {
             'sponsorship_id' => $sponsorship_id
         ));
         $options = array('action' => $action);
-        $form = $this->createForm(new AdShowSponsorshipType(), $adShowSponsorship, $options);
+        $form = $this->createForm(AdShowSponsorshipType::class, $adShowSponsorship, $options);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $session = $this->getRequest()->getSession();
                 $data = $form->getData();
 
                 $data->setCustomer($customer);
@@ -75,8 +75,7 @@ class AdminAdShowSponsorshipsController extends Controller {
         ));
     }
 
-    public function deleteAdShowSponsorshipAction(Request $request, Customer $customer, CustomerCampaign $campaign, AdShowSponsorship $sponsorship) {
-        $session = $this->getRequest()->getSession();
+    public function deleteAdShowSponsorshipAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdShowSponsorship $sponsorship) {
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
