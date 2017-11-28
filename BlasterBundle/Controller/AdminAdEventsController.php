@@ -5,6 +5,7 @@ namespace DJBlaster\BlasterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
@@ -12,7 +13,7 @@ use DJBlaster\BlasterBundle\Entity\AdEvent;
 use DJBlaster\BlasterBundle\Form\Type\AdEventType;
 
 class AdminAdEventsController extends Controller {
-    public function editAdEventAction(Request $request, Customer $customer, CustomerCampaign $campaign, $event_id) {
+    public function editAdEventAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $event_id) {
         $em = $this->get('doctrine')->getManager();
     
         if (!$customer) {
@@ -36,14 +37,13 @@ class AdminAdEventsController extends Controller {
             'event_id' => $event_id
         ));
         $options = array('action' => $action);
-        $form = $this->createForm(new AdEventType(), $adEvent, $options);
+        $form = $this->createForm(AdEventType::class, $adEvent, $options);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $session = $this->getRequest()->getSession();
                 $data = $form->getData();
 
                 $data->setCustomer($customer);
@@ -87,8 +87,8 @@ class AdminAdEventsController extends Controller {
         ));
     }
 
-    public function deleteAdEventAction(Request $request, Customer $customer, CustomerCampaign $campaign, AdEvent $event) {
-        $session = $this->getRequest()->getSession();
+    public function deleteAdEventAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdEvent $event) {
+        
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
