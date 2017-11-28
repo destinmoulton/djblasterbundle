@@ -5,13 +5,14 @@ namespace DJBlaster\BlasterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
 use DJBlaster\BlasterBundle\Form\Type\CustomerCampaignType;
 
 class AdminCustomerCampaignsController extends Controller {
-    public function editCustomerCampaignAction(Request $request, Customer $customer, $campaign_id) {
+    public function editCustomerCampaignAction(Request $request, SessionInterface $session, Customer $customer, $campaign_id) {
         $em = $this->get('doctrine')->getManager();
 
         if ($campaign_id == 0) {
@@ -33,7 +34,6 @@ class AdminCustomerCampaignsController extends Controller {
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $session = $this->getRequest()->getSession();
                 $data = $form->getData();
 
                 $data->setCustomer($customer);
@@ -55,8 +55,7 @@ class AdminCustomerCampaignsController extends Controller {
         ));
     }
 
-    public function listCustomerCampaignsAction(Customer $customer) {
-        $session = $this->getRequest()->getSession();
+    public function listCustomerCampaignsAction(SessionInterface $session, Customer $customer) {
 
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
@@ -74,8 +73,7 @@ class AdminCustomerCampaignsController extends Controller {
         ));
     }
 
-    public function deleteCustomerCampaignAction(Request $request, Customer $customer, CustomerCampaign $campaign) {
-        $session = $this->getRequest()->getSession();
+    public function deleteCustomerCampaignAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign) {
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
