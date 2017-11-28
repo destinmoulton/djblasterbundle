@@ -5,12 +5,13 @@ namespace DJBlaster\BlasterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Form\Type\CustomerType;
 
 class AdminCustomersController extends Controller {
-    public function editCustomerAction(Request $request, $customer_id) {
+    public function editCustomerAction(Request $request, SessionInterface $session, $customer_id) {
         $em = $this->get('doctrine')->getManager();
 
         if ($customer_id == 0) {
@@ -29,7 +30,6 @@ class AdminCustomersController extends Controller {
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $session = $this->getRequest()->getSession();
                 $data = $form->getData();
 
                 $em->persist($data);
@@ -46,9 +46,7 @@ class AdminCustomersController extends Controller {
         ));
     }
 
-    public function listCustomersAction(Request $request) {
-        $session = $this->getRequest()->getSession();
-
+    public function listCustomersAction(Request $request, SessionInterface $session) {
         $customers = $this->getDoctrine()->getRepository('DJBlasterBundle:Customer')->findAllOrderedByName();
 
         $notices = $session->getFlashBag()->get('customer-notices', array());
@@ -59,8 +57,7 @@ class AdminCustomersController extends Controller {
         ));
     }
 
-    public function deleteCustomerAction(Request $request, Customer $customer) {
-        $session = $this->getRequest()->getSession();
+    public function deleteCustomerAction(Request $request, SessionInterface $session, Customer $customer) {
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
