@@ -5,12 +5,14 @@ namespace DJBlaster\BlasterBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AdPSAType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
-        $builder->add('ad_name', 'text', array('label'=>'Title'));
-        $builder->add('ad_content', 'textarea', array('label'=>'PSA Text'));
+        $builder->add('ad_name', TextType::class, array('label'=>'Title'));
+        $builder->add('ad_content', TextareaType::class, array('label'=>'PSA Text'));
         
     }
 

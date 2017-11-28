@@ -5,6 +5,7 @@ namespace DJBlaster\BlasterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
@@ -12,7 +13,7 @@ use DJBlaster\BlasterBundle\Entity\AdPSA;
 use DJBlaster\BlasterBundle\Form\Type\AdPSAType;
 
 class AdminAdPSAsController extends Controller {
-    public function editAdPSAAction(Request $request, Customer $customer, CustomerCampaign $campaign, $psa_id) {
+    public function editAdPSAAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $psa_id) {
         $em = $this->get('doctrine')->getManager();
     
         if (!$customer) {
@@ -36,14 +37,13 @@ class AdminAdPSAsController extends Controller {
             'psa_id' => $psa_id
         ));
         $options = array('action' => $action);
-        $form = $this->createForm(new AdPSAType(), $adPSA, $options);
+        $form = $this->createForm(AdPSAType::class, $adPSA, $options);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $session = $this->getRequest()->getSession();
                 $data = $form->getData();
 
                 $data->setCustomer($customer);
@@ -74,8 +74,8 @@ class AdminAdPSAsController extends Controller {
         ));
     }
 
-    public function deleteAdPSAAction(Request $request, Customer $customer, CustomerCampaign $campaign, AdPSA $psa) {
-        $session = $this->getRequest()->getSession();
+    public function deleteAdPSAAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdPSA $psa) {
+
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\Pbkdf2PasswordEncoder;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use DJBlaster\BlasterBundle\Entity\User;
 use DJBlaster\BlasterBundle\Form\Type\UserType;
@@ -26,7 +27,7 @@ class AdminUsersController extends Controller {
 
         $action = $this->generateUrl('dj_blaster_admin_user_edit', array('user_id' => $user_id));
         $options = array('action' => $action);
-        $form = $this->createForm(new UserType(), $user, $options);
+        $form = $this->createForm(UserType::class, $user, $options);
 
         $form->handleRequest($request);
 
@@ -71,8 +72,8 @@ class AdminUsersController extends Controller {
         ));
     }
 
-    public function deleteUserAction(Request $request, User $user) {
-        $session = $this->getRequest()->getSession();
+    public function deleteUserAction(Request $request, SessionInterface $session, User $user) {
+
         if (!$user) {
             throw $this->createNotFoundException("No user found.");
         }
@@ -86,8 +87,7 @@ class AdminUsersController extends Controller {
         return $this->redirect($this->generateUrl('dj_blaster_admin_user_list'));
     }
 
-    public function listUsersAction(Request $request) {
-        $session = $this->getRequest()->getSession();
+    public function listUsersAction(Request $request, SessionInterface $session) {
 
         $users = $this->getDoctrine()->getRepository('DJBlasterBundle:User')->findAllOrderedByName();
 
@@ -99,15 +99,13 @@ class AdminUsersController extends Controller {
         ));
     }
 
-    public function changePasswordAction(Request $request) {
-        $session = $this->getRequest()->getSession();
-
+    public function changePasswordAction(Request $request,SessionInterface $session) {
         $error = '';
 
         $changePasswordModel = new ChangePassword();
         $action = $this->generateUrl('dj_blaster_admin_login_reset');
 
-        $form = $this->createForm(new ChangePasswordType(), $changePasswordModel);
+        $form = $this->createForm(ChangePasswordType::class, $changePasswordModel);
 
         $user = $this->getUser();
 
