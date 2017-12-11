@@ -18,7 +18,7 @@ class DJReadPSARepository extends EntityRepository
     }
 
     public function getRecentReads($numToGet) {
-        $fields = array('r.dj_initials, r.time_read, p.ad_name, p.ad_content, u.name as customer_name');
+        $fields = array('r.dj_initials, r.time_read, p.ad_name, p.ad_content, u.name as customer_name, c.campaign_name');
         $qb = $this->createQueryBuilder('r');
         $query = $qb->select($fields)
             ->innerJoin('DJBlasterBundle:AdPSA', 'p', 'WITH', 'p.psa_id = r.psa')
