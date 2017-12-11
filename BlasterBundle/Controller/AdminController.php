@@ -13,12 +13,17 @@ class AdminController extends Controller {
             ->getRepository('DJBlasterBundle:DJReadShowSponsorship')
             ->getRecentReads(20);
 
+        $event_reads = $this->getDoctrine()
+            ->getRepository('DJBlasterBundle:DJReadEvent')
+            ->getRecentReads(20);
+
         $psa_reads = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:DJReadPSA')
             ->getRecentReads(20);
 
         return $this->render('DJBlasterBundle:Admin:admin_index.html.twig', array(
             'sponsorship_reads'=>$sponsorship_reads,
+            'event_reads'=>$event_reads,
             'psa_reads'=>$psa_reads
         ));
     }
