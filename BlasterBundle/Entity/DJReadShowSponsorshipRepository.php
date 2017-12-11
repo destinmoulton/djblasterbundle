@@ -22,6 +22,7 @@ class DJReadShowSponsorshipRepository extends EntityRepository
             'r.dj_initials',
             'r.time_read',
             's.ad_name',
+            'u.id as customer_id',
             'u.name as customer_name',
             'c.campaign_id',
             'c.campaign_name'
