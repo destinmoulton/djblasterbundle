@@ -10,6 +10,9 @@
         <li role="presentation" class="active">
             <a href="#spons_reads" aria-controls="spons_reads" role="tab" data-toggle="tab">Recent Sponsorship Reads</a>
         </li>
+        <li role="presentation">
+            <a href="#event_reads" aria-controls="event_reads" role="tab" data-toggle="tab">Recent Promotion Reads</a>
+        </li>
         <li role="presentation" >
             <a href="#psa_reads" aria-controls="psa_reads" role="tab" data-toggle="tab">Recent PSA Reads</a>
         </li>
@@ -17,6 +20,9 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="spons_reads">
             {{ include('DJBlasterBundle:Admin/Dashboard:recent_sponsorship_reads.html.twig')}}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="event_reads">
+            {{ include('DJBlasterBundle:Admin/Dashboard:recent_event_reads.html.twig')}}
         </div>
         <div role="tabpanel" class="tab-pane" id="psa_reads">
             {{ include('DJBlasterBundle:Admin/Dashboard:recent_psa_reads.html.twig')}}
