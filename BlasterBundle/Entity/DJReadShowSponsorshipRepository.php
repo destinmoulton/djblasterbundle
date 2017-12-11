@@ -16,4 +16,28 @@ class DJReadShowSponsorshipRepository extends EntityRepository
     public function findAllForShow(AdShowSponsorship $show) {
         return $this->findBy(array('showSponsorship' => $show), array('time_read' => 'ASC'));
     }
+
+    public function getRecentReads($numToGet) {
+        $fields = array(
+            'r.dj_initials',
+            'r.time_read',
+            's.ad_name',
+            'u.name as customer_name',
+            'c.campaign_id',
+            'c.campaign_name'
+        );
+
+        $qb = $this->createQueryBuilder('r');
+        $query = $qb->select($fields)
+            ->innerJoin('DJBlasterBundle:AdShowSponsorship', 's', 'WITH', 's.sponsorship_id = r.showSponsorship')
+            ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = s.campaign')
+            ->innerJoin('DJBlasterBundle:Customer', 'u', 'WITH', 'u.id = s.customer')
+            ->orderBy('r.time_read','DESC')
+            ->setMaxResults($numToGet)
+            ->getQuery();        
+
+        $result =  $query->getResult();
+        //echo $query->getSql();var_dump($query->getParameters());die;
+        return $result;
+    }
 }
