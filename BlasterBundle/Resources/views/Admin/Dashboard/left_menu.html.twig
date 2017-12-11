@@ -1,0 +1,45 @@
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Campaigns & Reports</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_customer_list') }}">Customers & Campaigns</a>    
+            </li>
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_report_generator') }}">Campaign Report Generator</a>    
+            </li>
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_djsignin_report') }}">DJ Sign In Report</a>    
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Account Tools</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li  class="list-group-item">
+                <a href="{{ path('dj_blaster_admin_user_change_password') }}">Change My Password</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title">Administrator Tools</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li  class="list-group-item">
+            <a href="{{ path('dj_blaster_admin_user_list') }}">Administrators</a>
+        </li>
+        <li  class="list-group-item">
+            <a href="{{ path('dj_blaster_admin_user_edit', {'id':0}) }}">Add Administrator</a>
+        </ul>
+    </div>
+</div>
