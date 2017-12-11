@@ -12,7 +12,7 @@
             {% for read in sponsorship_reads %}
             <tr>
                 <td>{{ read.dj_initials }}</td>
-                <td>{{ read.time_read|date('M j, Y') }}</td>
+                <td>{{ read.time_read|date('M j g:ia') }}</td>
                 <td>{{ read.ad_name }}</td>
                 <td>{{ read.customer_name }}</td>
                 <td>{{ read.campaign_name }}</td>
