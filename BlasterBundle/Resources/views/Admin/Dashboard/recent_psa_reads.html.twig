@@ -1,0 +1,28 @@
+
+<div class="panel panel-info">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        Recent PSA Reads
+    </div>
+    <div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>DJ</th>
+                <th>Time Read</th>
+                <th>PSA</th>
+                <th>Campaign</th>
+        </thead>
+        <tbody>
+            {% for read in psa_reads %}
+            <tr>
+                <td>{{ read.dj_initials }}</td>
+                <td>{{ read.time_read|date('M j, Y') }}</td>
+                <td>{{ read.ad_name }}</td>
+                <td>{{ read.campaign_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+</div>
