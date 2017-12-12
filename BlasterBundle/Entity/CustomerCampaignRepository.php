@@ -5,6 +5,8 @@ namespace DJBlaster\BlasterBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use DJBlaster\BlasterBundle\Entity\Customer;
 
+use \DateTime;
+
 /**
  * CustomerCampaignRepository
  *
@@ -16,4 +18,28 @@ class CustomerCampaignRepository extends EntityRepository {
         return $this->findBy(array('customer' => $customer), array('campaign_name' => 'ASC'));
     }
 
+    public function getActiveCampaigns(){
+        $currentDateTime = new DateTime();
+        $currentDay = $currentDateTime->format('Y-m-d');
+
+        $fields = array(
+            'c.campaign_id',
+            'c.campaign_name',
+            'c.start_date',
+            'c.end_date',
+            'u.id as customer_id',
+            'u.name as customer_name'
+        );
+        $qb = $this->createQueryBuilder('c');
+        $query = $qb->select($fields)
+            ->innerJoin('DJBlasterBundle:Customer', 'u', 'WITH', 'u.id = c.customer')
+            ->andWhere("c.end_date >= :currentDay")
+            ->setParameters(array('currentDay'=> $currentDay))
+            ->orderBy('c.end_date','ASC')
+            ->getQuery();        
+
+        $result =  $query->getResult();
+        //echo $query->getSql();var_dump($query->getParameters());die;
+        return $result;
+     }
 }
