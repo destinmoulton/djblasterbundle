@@ -35,7 +35,7 @@ class CustomerCampaignRepository extends EntityRepository {
             ->innerJoin('DJBlasterBundle:Customer', 'u', 'WITH', 'u.id = c.customer')
             ->andWhere("c.end_date >= :currentDay")
             ->setParameters(array('currentDay'=> $currentDay))
-            ->orderBy('c.end_date','ASC')
+            ->orderBy('c.campaign_name','ASC')
             ->getQuery();        
 
         $result =  $query->getResult();
