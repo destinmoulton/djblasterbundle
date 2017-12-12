@@ -16,6 +16,9 @@
         <li role="presentation" >
             <a href="#psa_reads" aria-controls="psa_reads" role="tab" data-toggle="tab">Recent PSA Reads</a>
         </li>
+        <li role="presentation" >
+            <a href="#active_campaigns" aria-controls="active_campaigns" role="tab" data-toggle="tab">All Active Campaigns</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="spons_reads">
@@ -26,6 +29,9 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="psa_reads">
             {{ include('DJBlasterBundle:Admin/Dashboard:recent_psa_reads.html.twig')}}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="active_campaigns">
+            {{ include('DJBlasterBundle:Admin/Dashboard:active_campaigns.html.twig')}}
         </div>
     </div>
 </div>
