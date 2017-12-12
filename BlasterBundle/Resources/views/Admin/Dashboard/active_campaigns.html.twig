@@ -1,4 +1,4 @@
-<div class="row">
+<div >
     <table class="table">
         <thead>
             <tr>
@@ -47,6 +47,17 @@
                                     <a href="{{ path('dj_blaster_admin_ad_event_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'event_id':event.getEventId()}) }}">
                                         {{ event.getAdName() }}
                                     </a>
+                                    <br/>
+                                    [<em>
+                                        <span>No. Reads: {{ event.getNoReadsPerformed() }}/{{ event.getNoReads() }} | </span>
+                                        <span>Last Read: {{ event.getLastRead()|date('M j g:ia') }} | </span>
+                                        {% if event.getNoReadsPerformed() == event.getNoReads() %}
+                                            <span>All Reads Completed.</span>
+                                        {% else %}
+                                            <span>Reads Per Day: {{ event.getNoReadsPerDay() }} | </span>
+                                            <span>Next Read Scheduled: {{ event.getNextReadTime()|date('g:ia') }}</span>
+                                        {% endif %}
+                                    </em>]
                                 </li>
                             {% endfor %}
                             </ul>
