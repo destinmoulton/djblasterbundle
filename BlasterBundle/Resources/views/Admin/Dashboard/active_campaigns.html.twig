@@ -10,25 +10,63 @@
         <tbody>
             {% for camp in active_campaigns %}
             <tr>
-                <td>{{ camp.campaign_name }}</td>
+                <td>
+                    <a href="{{ path('dj_blaster_admin_ad_list', {'customer':camp.customer_id, 'campaign':camp.campaign_id}) }}">
+                        <strong>{{ camp.campaign_name }}<strong>
+                    </a>
+                </td>
                 <td>{{ camp.start_date|date('M j, Y') }}</td>
                 <td>{{ camp.end_date|date('M j, Y') }}</td>
-                <td>{{ camp.customer_name }}</td>
+                <td>
+                    <a href="{{ path('dj_blaster_admin_campaign_list', {'customer':camp.customer_id}) }}">{{ camp.customer_name }}</a>
+                </td>
             </tr>
             <tr>
                 <td colspan="4">
-                    <strong>Sponsorships</strong>
-                    {% for spons in attribute(active_campaign_ads, camp.campaign_id).sponsorships %}
-                        {{ spons.ad_name }}
-                    {% endfor %}
-                    <strong>Promotions</strong>
-                    {% for event in attribute(active_campaign_ads, camp.campaign_id).events %}
-                        {{ event.ad_name }}
-                    {% endfor %}
-                    <strong>PSAs</strong>
-                    {% for psa in attribute(active_campaign_ads, camp.campaign_id).psas %}
-                        {{ psa.ad_name }}
-                    {% endfor %}
+                    <ul>
+                    {% if active_campaign_ads[camp.campaign_id]['sponsorships']|length > 0%}
+                        <li>
+                            <strong>Sponsorships</strong>
+                            <ul>
+                            {% for spons in active_campaign_ads[camp.campaign_id]['sponsorships'] %}
+                                <li>
+                                    <a href="{{ path('dj_blaster_admin_ad_show_sponsorship_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'sponsorship_id':spons.getSponsorshipId()}) }}">
+                                    {{ spons.getAdName() }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if active_campaign_ads[camp.campaign_id]['events']|length > 0%}
+                        <li>
+                            <strong>Promotions</strong>
+                            <ul>
+                            {% for event in active_campaign_ads[camp.campaign_id]['events'] %}
+                                <li>
+                                    <a href="{{ path('dj_blaster_admin_ad_event_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'event_id':event.getEventId()}) }}">
+                                        {{ event.getAdName() }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if active_campaign_ads[camp.campaign_id]['psas']|length > 0%}
+                        <li>
+                            <strong>PSAs</strong>
+                            <ul>
+                            {% for psa in active_campaign_ads[camp.campaign_id]['psas'] %}
+                                <li>
+                                    <a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'psa_id':psa.getPsaId()}) }}">
+                                        {{ psa.getAdName() }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    </ul>
                 </td>
             </tr>
             {% endfor %}
