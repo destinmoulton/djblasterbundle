@@ -1,0 +1,37 @@
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Campaign</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Customer</th>
+        </thead>
+        <tbody>
+            {% for camp in active_campaigns %}
+            <tr>
+                <td>{{ camp.campaign_name }}</td>
+                <td>{{ camp.start_date|date('M j, Y') }}</td>
+                <td>{{ camp.end_date|date('M j, Y') }}</td>
+                <td>{{ camp.customer_name }}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>Sponsorships</strong>
+                    {% for spons in attribute(active_campaign_ads, camp.campaign_id).sponsorships %}
+                        {{ spons.ad_name }}
+                    {% endfor %}
+                    <strong>Promotions</strong>
+                    {% for event in attribute(active_campaign_ads, camp.campaign_id).events %}
+                        {{ event.ad_name }}
+                    {% endfor %}
+                    <strong>PSAs</strong>
+                    {% for psa in attribute(active_campaign_ads, camp.campaign_id).psas %}
+                        {{ psa.ad_name }}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
