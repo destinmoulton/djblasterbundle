@@ -13,7 +13,7 @@ class AdEventType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
         $builder->add('ad_name', TextType::class, array('label'=>'Title'));
-        $builder->add('ad_content', TextareaType::class, array('label'=>'Event Text'));
+        $builder->add('ad_content', TextareaType::class, array('label'=>'Promo Text'));
         
         $builder->add('start_date', DateType::class, array('label'=>'Event Start Date'));
         $builder->add('end_date', DateType::class, array('label'=>'Event End Date'));
