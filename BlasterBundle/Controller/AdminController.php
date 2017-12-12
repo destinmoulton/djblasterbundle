@@ -47,16 +47,16 @@ class AdminController extends Controller {
             $collate[$camp['campaign_id']] = array();
             $collate[$camp['campaign_id']]['sponsorships'] = $this->getDoctrine()
                 ->getRepository('DJBlasterBundle:AdShowSponsorship')
-                ->findAllOrderedByNameForCampaignId($campaignObj);
+                ->findAllOrderedByNameForCampaign($campaignObj);
 
             $collate[$camp['campaign_id']]['events'] = $this->getDoctrine()
                 ->getRepository('DJBlasterBundle:AdEvent')
-                ->findAllOrderedByNameForCampaignId($campaignObj);
+                ->findAllOrderedByNameForCampaign($campaignObj);
             
             $collate[$camp['campaign_id']]['psas'] = $this->getDoctrine()
                 ->getRepository('DJBlasterBundle:AdPSA')
-                ->findAllOrderedByNameForCampaignId($campaignObj);
-
+                ->findAllOrderedByNameForCampaign($campaignObj);
+            
         }
 
         return $collate;
