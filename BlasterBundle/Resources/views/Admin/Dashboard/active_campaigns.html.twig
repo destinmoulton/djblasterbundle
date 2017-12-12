@@ -55,7 +55,11 @@
                                             <span>All Reads Completed.</span>
                                         {% else %}
                                             <span>Reads Per Day: {{ event.getNoReadsPerDay() }} | </span>
+                                            {% if event.getNextReadTime()|date('g:ia') == "10:00pm" %}
+                                            <span>Daily Read Quota Met. Next Sched. Read tomorrow.</span>
+                                            {% else %}
                                             <span>Next Read Scheduled: {{ event.getNextReadTime()|date('g:ia') }}</span>
+                                            {% endif %}
                                         {% endif %}
                                     </em>]
                                 </li>
