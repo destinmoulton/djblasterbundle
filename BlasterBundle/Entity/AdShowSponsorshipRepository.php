@@ -17,21 +17,26 @@ class AdShowSponsorshipRepository extends EntityRepository
     public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign) {
         return $this->findBy(array('customer' => $customer, 'campaign'=>$campaign), array('ad_name' => 'ASC'));
     }
+
+    public function findAllOrderedByNameForCampaignId(CustomerCampaign $campaign) {
+        return $this->findBy(array('campaign'=>$campaign), array('ad_name' => 'ASC'));
+    }
     
     public function findAllForHour($hour, $time){
-	// Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
-	$startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 6", $time));
-	$startWeek = intval($startDateTime->format('W'));
-	
-	if ($startWeek > 52) {
-	    // Adjust for weird january bug
-            $startWeek = $startWeek-52;
-	}
+        // Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
+        $startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 6", $time));
+        $startWeek = intval($startDateTime->format('W'));
+        
+        if ($startWeek > 52) {
+            // Adjust for weird january bug
+                $startWeek = $startWeek-52;
+        }
 
-	$currentDateTime = new DateTime();
-	$currentDateTime->setTimestamp($time);
-	$currentWeek = $currentDateTime->format("W");
-	$weekNum = intval($currentWeek) - $startWeek + 1;
+        $currentDateTime = new DateTime();
+        $currentDateTime->setTimestamp($time);
+        $currentWeek = $currentDateTime->format("W");
+        $weekNum = intval($currentWeek) - $startWeek + 1;
+
         // Fix the odd case where the week is 5 or *possibly* 6
         switch ($weekNum) {
             case 5:

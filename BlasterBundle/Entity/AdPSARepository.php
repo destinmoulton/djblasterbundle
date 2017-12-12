@@ -16,6 +16,10 @@ class AdPSARepository extends EntityRepository
     public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign) {
         return $this->findBy(array('customer' => $customer, 'campaign'=>$campaign), array('ad_name' => 'ASC'));
     }
+
+    public function findAllOrderedByNameForCampaignId(CustomerCampaign $campaign) {
+        return $this->findBy(array('campaign'=>$campaign), array('ad_name' => 'ASC'));
+    }
     
     public function findOneLastRead($currentTime){
        // echo $currentTime; die;
