@@ -17,9 +17,24 @@ use DJBlaster\BlasterBundle\Form\Type\DJSignInType;
 
 class FrontendController extends Controller
 {
+
+    private function isShowStillGoing(SessionInterface $session){
+        if($session->has('djsignin_information')){
+            $sess = $session->get('djsignin_information');
+            $dt_now = new \DateTime();
+            $dt_end_show = \DateTime::createFromFormat("H:i:s", $sess["show_end_time"]);
+
+            $dt_diff = $dt_now->diff($dt_end_show);
+            if($dt_diff->format("%R") === "+"){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function homeAction(SessionInterface $session)
     {
-        if(!$session->has('djsignin_information')){
+        if(!$this->isShowStillGoing($session)){
             return $this->redirect($this->generateUrl('dj_blaster_djsignin'));
         }
         
@@ -29,8 +44,19 @@ class FrontendController extends Controller
         return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
     }
 
+    public function djsignoutAction(Request $request, SessionInterface $session){
+        $session->remove('djsignin_information');
+        return $this->redirect($this->generateUrl('dj_blaster_djsignin'));
+    }
+
     public function djsigninAction(Request $request, SessionInterface $session)
     {
+        if($this->isShowStillGoing($session)){
+            // DJ still signed in: Redirect to the standard home page
+            return $this->redirect($this->generateUrl('dj_blaster_home'));
+        }
+        
+
         $action = $this->generateUrl('dj_blaster_djsignin');
         $options = array('action' => $action);
         $form = $this->createForm(DJSignInType::class, new DJSignIn, $options);
