@@ -13,6 +13,10 @@ dj_blaster_home:
     path:     /home
     defaults: { _controller: DJBlasterBundle:Frontend:home }
     
+dj_blaster_djsignout:
+    path:     /djsignout
+    defaults: { _controller: DJBlasterBundle:Frontend:djsignout }
+
 dj_blaster_clear_cache:
     path:     /clear-cache
     defaults: { _controller: DJBlasterBundle:Frontend:clearCache}
