@@ -270,22 +270,51 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" 
+             id="auto-signout-modal">
+            <div class="modal-dialog" >
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button"
+                                class="close"
+                                onclick="cancelAutomaticLogout()"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Automatic Log Out</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your show is scheduled to end at <strong><span id="auto-signout-show-endtime"></span></strong>.</p>
+                        <p>You will automatically be signed out in <strong><span id="auto-signout-timer-seconds"></span></strong> seconds.
+                    </div>
+                    <div class="modal-footer">
+                            <button class="btn btn-warning pull-left"
+                                    style="margin-right:20px;"
+                                    onclick="cancelAutomaticLogout()">Not Yet</button>
+                            <button class="btn btn-success pull-right"
+                                    style="margin-right:20px;"
+                                    onclick="logoutDJ()">Sign Out</button>
+                        </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}        
         
 {% block javascripts %}        
     <script type='text/javascript'>
         var BASE_URL = "{{ url('dj_blaster_base') }}";
         BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
-        var SHOW_END_TIME = '{{ djsignin_information.show_end_time }}';
+        var SHOW_INFO = {show_end_time: '{{ djsignin_information.show_end_time }}'};
+        var AUTO_SIGNOUT_TIMER_ID = null;
+        var AUTO_SIGNOUT_TIME = 30;
+        var AUTO_SIGNOUT_WANTS_TO_CONTINUE = false;
     </script>   
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="{{ asset('js/djblasterjs/djblaster.js') }}"></script>
-  
+    <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/jquery.zweatherfeed.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.easytabs.min.js') }}"></script>
     
     <script type='text/javascript'>
 		$(document).ready(function () {
@@ -296,72 +325,81 @@
 				unit: 'f'
 			});
 			
-			$(function() {
-			   $("#tab-full-container").easytabs({
-				    animate: false,
-					  animationSpeed: 1000,
-					  defaultTab: "span#tab-1",
-					  panelActiveClass: "active-content-div",
-					  tabActiveClass: "selected-tab",
-					  tabs: "> div > span",
-					  updateHash: false
-				});
-			});
-			
-    		function getClockTime() {
-    			var currentdate = new Date(); 
-			    var monthNames = [
-    							"January", "February", "March",
-    							"April", "May", "June",
-    							"July", "August", "September",
-    							"October", "November", "December"
-    						];
-    		
-    			var thisMonth;
-    			var date;
-    			var hour;
-    			var minute;
-    			var time = new Date ();
-    		
-	    		thisMonth = monthNames[currentdate.getMonth()];
-	    						
-				date = thisMonth + " " + currentdate.getDate() +", "+currentdate.getFullYear();
-	           	hour = currentdate.getHours()
-                minute = currentdate.getMinutes();
+            // Parse the show end time into usable pieces
+            var showEndArr = SHOW_INFO.show_end_time.split(':');
+            SHOW_INFO['show_end_hour'] = parseInt(showEndArr[0]);
+            SHOW_INFO['show_end_minute'] = parseInt(showEndArr[1]);
 
-                /*
-                 * MODIFIED BY: Destin
-                 * Check to determine if the show is over.
-                 * If show is ended, logout the DJ.
-                 */
-                var show_end_time = SHOW_END_TIME.split(':');
-                var show_end_hour = parseInt(show_end_time[0]);
-                var show_end_minute = parseInt(show_end_time[1]);
-                if(show_end_minute > 0 && show_end_minute==minute && show_end_hour==hour){
-                    location.href = BASE_URL;
-                } else if(show_end_minute == 0 && minute==0 && show_end_hour <= hour){
-                    location.href = BASE_URL;
-                }
-                // END MODIFICATION
+            // Start the clock
+			updateClock();
+			window.setInterval(updateClock,10000);
 
-	           	ampm = hour > 12 ? "PM" : "AM";
-	           	
-	           	hour = hour % 12;
-				hour = hour ? hour : 12; // zero = 12;
-				
-				minute = minute > 9 ? minute : "0" + minute;
-	
-	            time = + hour + ":" + minute;  
-				
-				$('#currentDate').html("<span id='date'>"+date+"</span>");
-				$('#currentDate-2').html("<span id='date'>"+date+"</span>");
-				$('#currentTime').html("<span id='time'>"+time+"</span>");
-			}
-			
-			getClockTime();
-			window.setInterval(getClockTime,60000);
+            window.setInterval(hasShowEnded, 10000);
 			 
 		});
+
+        function updateClock() {
+            var now = moment();
+            var date = now.format("MMMM D, YYYY");
+            var time = now.format("h:mm");
+            
+            $('#currentDate').html("<span id='date'>"+date+"</span>");
+            $('#currentDate-2').html("<span id='date'>"+date+"</span>");
+            $('#currentTime').html("<span id='time'>"+time+"</span>");
+        }
+
+        function hasShowEnded(){
+            var numMinutesBefore = 5;
+            var now = moment();
+            var showEnd = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time);
+            var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
+
+            if(now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE){
+                displaySignoutModal(30);
+            } else if(now.isAfter(showEnd)) {
+                displaySignoutModal(5);
+            }
+        }
+
+        function displaySignoutModal(numSeconds){
+            if(AUTO_SIGNOUT_TIMER_ID === null){
+                AUTO_SIGNOUT_TIME = numSeconds;
+
+                const endTimeText = moment(moment().format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time).format("h:mm a");
+                $("#auto-signout-show-endtime").text(endTimeText);
+                $('#auto-signout-timer-seconds').text(AUTO_SIGNOUT_TIME);
+                $('#auto-signout-modal').modal('show');
+
+                // Start the countdown timer
+                AUTO_SIGNOUT_TIMER_ID = setInterval(autoSignoutCountdown, 1000);
+            }
+        }
+
+        function autoSignoutCountdown(){
+            if(AUTO_SIGNOUT_TIME === 0){
+                resetAutoLogoutTimer();
+                logoutDJ();
+                return;
+            }
+
+            $('#auto-signout-timer-seconds').text(AUTO_SIGNOUT_TIME);
+            AUTO_SIGNOUT_TIME--;
+        }
+
+        function cancelAutomaticLogout(){
+            AUTO_SIGNOUT_WANTS_TO_CONTINUE = true;
+            $('#auto-signout-modal').modal('hide');
+            resetAutoLogoutTimer();
+        }
+
+        function resetAutoLogoutTimer(){
+            clearInterval(AUTO_SIGNOUT_TIMER_ID);
+            AUTO_SIGNOUT_TIMER_ID = null;
+        }
+
+        function logoutDJ(){
+            location.href= BASE_URL + "/djsignout";
+        }
 		
 		
 		
