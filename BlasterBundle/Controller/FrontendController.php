@@ -86,6 +86,6 @@ class FrontendController extends Controller
     {
         $fs = new Filesystem();
         $fs->remove($this->container->getParameter('kernel.cache_dir'));
-        header( 'Location: http://djblaster.knceradio.com/' );
+        return $this->redirect($this->generateUrl('dj_blaster_home'));
     }
 }
