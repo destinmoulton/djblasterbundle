@@ -53,6 +53,14 @@ dj_blaster_ajax_skip_psa:
     defaults: { _controller: DJBlasterBundle:Ajax:psaSkip }
 
 #
+# Feeds (publicly accessible)
+# 
+dj_blaster_feeds_dj_signins:
+    path:     /feeds/dj-signins-json
+    defaults: { _controller: DJBlasterBundle:Feeds:djSigninsJSON }
+
+
+#
 # Admin home page
 #
 dj_blaster_admin_home:
