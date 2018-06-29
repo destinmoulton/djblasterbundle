@@ -24,4 +24,22 @@ class DJSignInRepository extends EntityRepository
         return $q->getArrayResult();
 
     }
+
+    public function getByEndTimeDesc($limit, $ignore){
+        $csv_ignore = implode("','", $ignore);
+        $csv_ignore = "'".$csv_ignore."'";
+
+        $q = $this
+           ->createQueryBuilder('e')
+           ->select('e.dj_first_name, e.dj_last_name, e.show_end_time, e.show_start_time, e.show_title, e.signin_datetime')
+           ->where('e.show_title NOT IN ('.$csv_ignore.')')
+           ->orderBy('e.signin_datetime', "DESC")
+           ->addOrderBy('e.show_end_time', "DESC")
+           ->setMaxResults($limit)
+           //->setParameter('ignore', $csv_ignore)
+           ->getQuery();
+//echo $q->getSql();var_dump($q->getParameters());die;
+        return $q->getArrayResult();
+
+    }
 }
