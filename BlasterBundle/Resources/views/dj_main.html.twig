@@ -357,7 +357,7 @@
             var showEnd = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time);
             var showStart = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_start_time);
 
-            if(showEnd.isBefore(showStart)){
+            if(showEnd.isBefore(showStart) && now.isAfter(showStart)){
                 // For transition from late night (pm) to morning (am)
                 // ie 10:00pm to 1:00 am
                 showEnd.add(1, 'd');
