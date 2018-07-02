@@ -303,7 +303,10 @@
     <script type='text/javascript'>
         var BASE_URL = "{{ url('dj_blaster_base') }}";
         BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
-        var SHOW_INFO = {show_end_time: '{{ djsignin_information.show_end_time }}'};
+        var SHOW_INFO = {
+            show_end_time: '{{ djsignin_information.show_end_time }}',
+            show_start_time: '{{ djsignin_information.show_start_time }}'
+        };
         var AUTO_SIGNOUT_TIMER_ID = null;
         var AUTO_SIGNOUT_TIME = 30;
         var AUTO_SIGNOUT_WANTS_TO_CONTINUE = false;
@@ -352,13 +355,21 @@
             var numMinutesBefore = 5;
             var now = moment();
             var showEnd = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time);
-            var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
+            var showStart = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_start_time);
 
+            if(showEnd.isBefore(showStart)){
+                // For transition from late night (pm) to morning (am)
+                // ie 10:00pm to 1:00 am
+                showEnd.add(1, 'd');
+            }
+            var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
+            
             if(now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE){
                 displaySignoutModal(30);
             } else if(now.isAfter(showEnd)) {
                 displaySignoutModal(5);
             }
+
         }
 
         function displaySignoutModal(numSeconds){
