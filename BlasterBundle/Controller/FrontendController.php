@@ -21,11 +21,18 @@ class FrontendController extends Controller
     private function isShowStillGoing(SessionInterface $session){
         if($session->has('djsignin_information')){
             $sess = $session->get('djsignin_information');
+
             $dt_now = new \DateTime();
             $dt_end_show = \DateTime::createFromFormat("H:i:s", $sess["show_end_time"]);
+            $dt_start_show = \DateTime::createFromFormat("H:i:s", $sess["show_start_time"]);
+
+            // Determine the sign of the time difference
+            // 00:00 (12:00 am) will occur *before* the end time (so signs get swapped)
+            $diff_start_end = $dt_start_show->diff($dt_end_show);
+            $expected_sign = $diff_start_end->format("%R"); // Get '+' or '-'
 
             $dt_diff = $dt_now->diff($dt_end_show);
-            if($dt_diff->format("%R") === "+"){
+            if($dt_diff->format("%R") === $expected_sign){
                 return true;
             }
         }
@@ -91,6 +98,7 @@ class FrontendController extends Controller
                     'dj_first_name' => $data->getDjFirstName(),
                     'dj_last_name' => $data->getDjLastName(),
                     'dj_email' => $data->getDjEmail(),
+                    'show_start_time' => $data->getShowStartTime()->format('H:i:s'),
                     'show_end_time' =>$data->getShowEndTime()->format('H:i:s')
                 );
                 $session->set('djsignin_information', $session_data);
