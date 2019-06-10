@@ -7,8 +7,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 use DJBlaster\BlasterBundle\Entity\DJReadPSA;
 
-class AdminController extends Controller {
-    public function indexAction() {
+class AdminController extends Controller
+{
+    public function indexAction()
+    {
+        var_dump(date_default_timezone_get());
+        die();
         $active_campaigns = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:CustomerCampaign')
             ->getActiveCampaigns();
@@ -28,21 +32,22 @@ class AdminController extends Controller {
             ->getRecentReads(40);
 
         return $this->render('DJBlasterBundle:Admin:admin_index.html.twig', array(
-            'active_campaigns'=>$active_campaigns,
-            'active_campaign_ads'=>$active_campaign_ads,
-            'sponsorship_reads'=>$sponsorship_reads,
-            'event_reads'=>$event_reads,
-            'psa_reads'=>$psa_reads
+            'active_campaigns' => $active_campaigns,
+            'active_campaign_ads' => $active_campaign_ads,
+            'sponsorship_reads' => $sponsorship_reads,
+            'event_reads' => $event_reads,
+            'psa_reads' => $psa_reads
         ));
     }
 
     // Get all the Show Sponsorships, Events/Promotions, and PSAs for a campaign
-    private function _collateCampaignAds($campaigns){
+    private function _collateCampaignAds($campaigns)
+    {
         $collate = array();
-        foreach($campaigns as $camp){
+        foreach ($campaigns as $camp) {
             $campaignObj = $this->getDoctrine()
-                            ->getRepository('DJBlasterBundle:CustomerCampaign')
-                            ->find($camp['campaign_id']);
+                ->getRepository('DJBlasterBundle:CustomerCampaign')
+                ->find($camp['campaign_id']);
             //echo($camp['campaign_id']);die();
             $collate[$camp['campaign_id']] = array();
             $collate[$camp['campaign_id']]['sponsorships'] = $this->getDoctrine()
@@ -52,11 +57,10 @@ class AdminController extends Controller {
             $collate[$camp['campaign_id']]['events'] = $this->getDoctrine()
                 ->getRepository('DJBlasterBundle:AdEvent')
                 ->findAllOrderedByNameForCampaign($campaignObj);
-            
+
             $collate[$camp['campaign_id']]['psas'] = $this->getDoctrine()
                 ->getRepository('DJBlasterBundle:AdPSA')
                 ->findAllOrderedByNameForCampaign($campaignObj);
-            
         }
 
         return $collate;
