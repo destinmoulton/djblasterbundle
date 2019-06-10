@@ -11,7 +11,8 @@ use DJBlaster\BlasterBundle\Entity\AdShowSponsorship;
  * @ORM\Table(name="dj_read_show_sponsorships")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\DJReadShowSponsorshipRepository")
  */
-class DJReadShowSponsorship {
+class DJReadShowSponsorship
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -24,30 +25,32 @@ class DJReadShowSponsorship {
      * @ORM\JoinColumn(name="sponsorship_id", referencedColumnName="sponsorship_id")
      */
     protected $showSponsorship;
-    
+
     /**
      * @ORM\Column(type="string", length=20)
      */
     protected $dj_initials;
-    
+
     /**
      * @ORM\Column(type="datetime")
      */
     protected $time_read;
-    
+
     public function __construct()
     {
         $this->showSponsorship = new \Doctrine\Common\Collections\ArrayCollection();
         $this->time_read = new \DateTime();
     }
-    
-    public function setShowSponsorship(AdShowSponsorship $sponsorship) {
+
+    public function setShowSponsorship(AdShowSponsorship $sponsorship)
+    {
         $this->showSponsorship = $sponsorship;
-        
+
         return $this;
     }
 
-    public function getShowSponsorship() {
+    public function getShowSponsorship()
+    {
         return $this->showSponsorship;
     }
 

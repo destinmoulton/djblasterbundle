@@ -12,34 +12,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class DJSignInRepository extends EntityRepository
 {
-    public function getDJSigninsBetweenDates($start_date, $end_date){
+    public function getDJSigninsBetweenDates($start_date, $end_date)
+    {
         $q = $this
-           ->createQueryBuilder('e')
-           ->where('e.signin_datetime >= :start_date')
-           ->andWhere('e.signin_datetime <= :end_date')
-           ->setParameter('start_date', $start_date)
-           ->setParameter('end_date', $end_date)
-           ->getQuery();
+            ->createQueryBuilder('e')
+            ->where('e.signin_datetime >= :start_date')
+            ->andWhere('e.signin_datetime <= :end_date')
+            ->setParameter('start_date', $start_date)
+            ->setParameter('end_date', $end_date)
+            ->getQuery();
 
         return $q->getArrayResult();
-
     }
 
-    public function getByEndTimeDesc($limit, $ignore){
+    public function getByEndTimeDesc($limit, $ignore)
+    {
         $csv_ignore = implode("','", $ignore);
-        $csv_ignore = "'".$csv_ignore."'";
+        $csv_ignore = "'" . $csv_ignore . "'";
 
         $q = $this
-           ->createQueryBuilder('e')
-           ->select('e.dj_first_name, e.dj_last_name, e.show_end_time, e.show_start_time, e.show_title, e.signin_datetime')
-           ->where('e.show_title NOT IN ('.$csv_ignore.')')
-           ->orderBy('e.signin_datetime', "DESC")
-           ->addOrderBy('e.show_end_time', "DESC")
-           ->setMaxResults($limit)
-           //->setParameter('ignore', $csv_ignore)
-           ->getQuery();
-//echo $q->getSql();var_dump($q->getParameters());die;
+            ->createQueryBuilder('e')
+            ->select('e.dj_first_name, e.dj_last_name, e.show_end_time, e.show_start_time, e.show_title, e.signin_datetime')
+            ->where('e.show_title NOT IN (' . $csv_ignore . ')')
+            ->orderBy('e.signin_datetime', "DESC")
+            ->addOrderBy('e.show_end_time', "DESC")
+            ->setMaxResults($limit)
+            //->setParameter('ignore', $csv_ignore)
+            ->getQuery();
+        //echo $q->getSql();var_dump($q->getParameters());die;
         return $q->getArrayResult();
-
     }
 }

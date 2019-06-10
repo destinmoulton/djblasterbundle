@@ -12,14 +12,16 @@ use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
 use DJBlaster\BlasterBundle\Entity\AdPSA;
 use DJBlaster\BlasterBundle\Form\Type\AdPSAType;
 
-class AdminAdPSAsController extends Controller {
-    public function editAdPSAAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $psa_id) {
+class AdminAdPSAsController extends Controller
+{
+    public function editAdPSAAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $psa_id)
+    {
         $em = $this->get('doctrine')->getManager();
-    
+
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
@@ -48,7 +50,7 @@ class AdminAdPSAsController extends Controller {
 
                 $data->setCustomer($customer);
                 $data->setCampaign($campaign);
-                
+
 
                 $em->persist($data);
                 $em->flush();
@@ -57,33 +59,33 @@ class AdminAdPSAsController extends Controller {
                 } else {
                     $session->getFlashBag()->add('ad-notices', $data->getAdName() . ' PSA saved.');
                 }
-                
+
                 return $this->redirect($this->generateUrl('dj_blaster_admin_ad_list', array(
                     'customer' => $customer->getId(),
                     'campaign' => $campaign->getCampaignId(),
                 )));
-
             }
         }
 
         return $this->render('DJBlasterBundle:Admin/Campaign:ad_psa_form.html.twig', array(
             'form' => $form->createView(),
             'campaign' => $campaign,
-            'customer'=>$customer,
+            'customer' => $customer,
             'psa' => $adPSA,
         ));
     }
 
-    public function deleteAdPSAAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdPSA $psa) {
+    public function deleteAdPSAAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdPSA $psa)
+    {
 
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
-        
+
         if (!$psa) {
             throw $this->createNotFoundException("No psa found.");
         }
@@ -98,7 +100,5 @@ class AdminAdPSAsController extends Controller {
             'customer' => $customer->getId(),
             'campaign' => $campaign->getCampaignId(),
         )));
-
     }
-
 }

@@ -14,16 +14,15 @@ class DateTimeToStringTransformer implements DataTransformerInterface
      */
     public function transform($dateTime)
     {
-        
-        if(!is_object($dateTime)){
-            $hour = date('H');
-            $minute = (date('i')>30)?'30':'00';
-            $ampm = date('a');
-            return "$hour:$minute$ampm";
-        }
-       
-        return $dateTime->format('g:ia');
 
+        if (!is_object($dateTime)) {
+            $hour = date('H');
+            $minute = (date('i') > 30) ? '30' : '00';
+            $ampm = date('a');
+            return "$hour:$minute $ampm";
+        }
+
+        return $dateTime->format('g:ia');
     }
 
     /**
@@ -35,7 +34,7 @@ class DateTimeToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($timeString)
     {
-       
+
         $time = new DateTime();
         //$time->createFromFormat('g:ia', $timeString);
         $time->setTimestamp(strtotime($timeString));

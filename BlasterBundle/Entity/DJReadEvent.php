@@ -11,7 +11,8 @@ use DJBlaster\BlasterBundle\Entity\AdEvent;
  * @ORM\Table(name="dj_read_events")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\DJReadEventRepository")
  */
-class DJReadEvent {
+class DJReadEvent
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -24,30 +25,32 @@ class DJReadEvent {
      * @ORM\JoinColumn(name="event_id", referencedColumnName="event_id")
      */
     protected $event;
-    
+
     /**
      * @ORM\Column(type="string", length=20)
      */
     protected $dj_initials;
-    
+
     /**
      * @ORM\Column(type="datetime")
      */
     protected $time_read;
-    
+
     public function __construct()
     {
         $this->event = new \Doctrine\Common\Collections\ArrayCollection();
         $this->time_read = new \DateTime();
     }
-    
-    public function setEvent(AdEvent $event) {
+
+    public function setEvent(AdEvent $event)
+    {
         $this->event = $event;
-        
+
         return $this;
     }
 
-    public function getEvent() {
+    public function getEvent()
+    {
         return $this->event;
     }
 

@@ -12,7 +12,8 @@ use DJBlaster\BlasterBundle\Entity\Customer;
  * @ORM\Table(name="customer_campaigns")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\CustomerCampaignRepository")
  */
-class CustomerCampaign {
+class CustomerCampaign
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -25,12 +26,12 @@ class CustomerCampaign {
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="DJBlaster\BlasterBundle\Entity\AdShowSponsorship", mappedBy="campaign", cascade={"remove"}, orphanRemoval=true)
      */
     protected $adShowSponsorships = null;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="DJBlaster\BlasterBundle\Entity\AdEvent", mappedBy="campaign", cascade={"remove"}, orphanRemoval=true)
      */
@@ -58,37 +59,42 @@ class CustomerCampaign {
      * @Assert\Date(message="End date must be valid.")
      */
     protected $end_date;
-    
+
     /**
      * @Assert\IsTrue(message="The end date must occur after the start date.")
      */
-    public function isDatesValid(){
+    public function isDatesValid()
+    {
         return ($this->start_date <= $this->end_date);
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->customer = new \Doctrine\Common\Collections\ArrayCollection();
-        
+
         $this->start_date = new \DateTime();
         $this->end_date = new \DateTime();
     }
 
-    public function setCustomer(Customer $customer) {
+    public function setCustomer(Customer $customer)
+    {
         $this->customer = $customer;
     }
 
-    public function getCustomer() {
+    public function getCustomer()
+    {
         return $this->customer;
     }
-    
-    
+
+
 
     /**
      * Get campaign_id
      *
      * @return integer
      */
-    public function getCampaignId() {
+    public function getCampaignId()
+    {
         return $this->campaign_id;
     }
 
@@ -98,7 +104,8 @@ class CustomerCampaign {
      * @param string $campaignName
      * @return CustomerCampaign
      */
-    public function setCampaignName($campaignName) {
+    public function setCampaignName($campaignName)
+    {
         $this->campaign_name = $campaignName;
 
         return $this;
@@ -109,7 +116,8 @@ class CustomerCampaign {
      *
      * @return string
      */
-    public function getCampaignName() {
+    public function getCampaignName()
+    {
         return $this->campaign_name;
     }
 
@@ -119,7 +127,8 @@ class CustomerCampaign {
      * @param \DateTime $startDate
      * @return CustomerCampaign
      */
-    public function setStartDate($startDate) {
+    public function setStartDate($startDate)
+    {
         $this->start_date = $startDate;
 
         return $this;
@@ -130,7 +139,8 @@ class CustomerCampaign {
      *
      * @return \DateTime
      */
-    public function getStartDate() {
+    public function getStartDate()
+    {
         return $this->start_date;
     }
 
@@ -140,7 +150,8 @@ class CustomerCampaign {
      * @param \DateTime $endDate
      * @return CustomerCampaign
      */
-    public function setEndDate($endDate) {
+    public function setEndDate($endDate)
+    {
         $this->end_date = $endDate;
 
         return $this;
@@ -151,11 +162,12 @@ class CustomerCampaign {
      *
      * @return \DateTime
      */
-    public function getEndDate() {
+    public function getEndDate()
+    {
         return $this->end_date;
     }
-    
-    
+
+
 
 
     /**

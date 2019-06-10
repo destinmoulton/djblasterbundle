@@ -10,15 +10,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="customers")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\CustomerRepository")
  */
-class Customer {
+class Customer
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-    
+
+
     /**
      * @ORM\OneToMany(targetEntity="DJBlaster\BlasterBundle\Entity\CustomerCampaign", mappedBy="customer", cascade={"remove"}, orphanRemoval=true)
      */
@@ -40,7 +41,8 @@ class Customer {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -50,7 +52,8 @@ class Customer {
      * @param string $name
      * @return Customer
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -61,7 +64,8 @@ class Customer {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -71,7 +75,8 @@ class Customer {
      * @param string $info
      * @return Customer
      */
-    public function setInfo($info) {
+    public function setInfo($info)
+    {
         $this->info = $info;
 
         return $this;
@@ -82,7 +87,8 @@ class Customer {
      *
      * @return string
      */
-    public function getInfo() {
+    public function getInfo()
+    {
         return $this->info;
     }
 

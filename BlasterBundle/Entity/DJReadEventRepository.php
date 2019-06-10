@@ -5,6 +5,7 @@ namespace DJBlaster\BlasterBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 use DJBlaster\BlasterBundle\Entity\AdEvent;
+
 /**
  * DJReadEventRepository
  *
@@ -13,11 +14,13 @@ use DJBlaster\BlasterBundle\Entity\AdEvent;
  */
 class DJReadEventRepository extends EntityRepository
 {
-    public function findAllForEvent(AdEvent $event) {
+    public function findAllForEvent(AdEvent $event)
+    {
         return $this->findBy(array('event' => $event), array('time_read' => 'ASC'));
     }
 
-    public function getRecentReads($numToGet) {
+    public function getRecentReads($numToGet)
+    {
         $fields = array(
             'r.dj_initials',
             'r.time_read',
@@ -33,9 +36,9 @@ class DJReadEventRepository extends EntityRepository
             ->innerJoin('DJBlasterBundle:AdEvent', 'e', 'WITH', 'e.event_id = r.event')
             ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = e.campaign')
             ->innerJoin('DJBlasterBundle:Customer', 'u', 'WITH', 'u.id = e.customer')
-            ->orderBy('r.time_read','DESC')
+            ->orderBy('r.time_read', 'DESC')
             ->setMaxResults($numToGet)
-            ->getQuery();        
+            ->getQuery();
 
         $result =  $query->getResult();
         //echo $query->getSql();var_dump($query->getParameters());die;

@@ -13,18 +13,20 @@ use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
 use DJBlaster\BlasterBundle\Entity\AdShowSponsorship;
 use DJBlaster\BlasterBundle\Form\Type\AdShowSponsorshipType;
 
-class AdminAdShowSponsorshipsController extends Controller {
-    public function editAdShowSponsorshipAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $sponsorship_id) {
+class AdminAdShowSponsorshipsController extends Controller
+{
+    public function editAdShowSponsorshipAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $sponsorship_id)
+    {
         $em = $this->get('doctrine')->getManager();
 
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
-        
+
         if ($sponsorship_id == 0) {
             $adShowSponsorship = new AdShowSponsorship();
         } else {
@@ -49,8 +51,8 @@ class AdminAdShowSponsorshipsController extends Controller {
 
                 $data->setCustomer($customer);
                 $data->setCampaign($campaign);
-                
-                
+
+
                 $em->persist($data);
                 $em->flush();
                 if ($sponsorship_id == 0) {
@@ -58,12 +60,11 @@ class AdminAdShowSponsorshipsController extends Controller {
                 } else {
                     $session->getFlashBag()->add('ad-notices', $data->getAdName() . ' show sponsorship saved.');
                 }
-                
+
                 return $this->redirect($this->generateUrl('dj_blaster_admin_ad_list', array(
                     'customer' => $customer->getId(),
                     'campaign' => $campaign->getCampaignId(),
                 )));
-
             }
         }
 
@@ -75,19 +76,20 @@ class AdminAdShowSponsorshipsController extends Controller {
         ));
     }
 
-    public function deleteAdShowSponsorshipAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdShowSponsorship $sponsorship) {
+    public function deleteAdShowSponsorshipAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdShowSponsorship $sponsorship)
+    {
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
-        
+
         if (!$sponsorship) {
             throw $this->createNotFoundException("No show sponsorship found.");
         }
-        
+
         $session->getFlashBag()->add('ad-notices', $sponsorship->getAdName() . ' was removed.');
 
         $em = $this->get('doctrine')->getManager();
@@ -98,7 +100,5 @@ class AdminAdShowSponsorshipsController extends Controller {
             'customer' => $customer->getId(),
             'campaign' => $campaign->getCampaignId(),
         )));
-
     }
-
 }

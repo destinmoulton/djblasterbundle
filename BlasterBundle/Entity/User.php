@@ -8,13 +8,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\UserRepository")
  * @UniqueEntity("email", message="This email address is already used. The user can reset their password from the login page.")
  */
-class User implements UserInterface, \Serializable {
+class User implements UserInterface, \Serializable
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -56,7 +58,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -66,7 +69,8 @@ class User implements UserInterface, \Serializable {
      * @param string $name
      * @return Users
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -77,7 +81,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -87,7 +92,8 @@ class User implements UserInterface, \Serializable {
      * @param string $email
      * @return Users
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
@@ -98,7 +104,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -108,7 +115,8 @@ class User implements UserInterface, \Serializable {
      * @param string $password
      * @return User
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
 
         return $this;
@@ -119,7 +127,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -129,7 +138,8 @@ class User implements UserInterface, \Serializable {
      * @param string $salt
      * @return User
      */
-    public function setSalt($salt) {
+    public function setSalt($salt)
+    {
         $this->salt = $salt;
 
         return $this;
@@ -140,24 +150,28 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->salt;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         // username for these users is actually their email address
         return $this->email;
     }
 
-    public function getRoles() {
+    public function getRoles()
+    {
         return array('ROLE_ADMIN');
     }
 
-    public function eraseCredentials() {
-    }
+    public function eraseCredentials()
+    { }
 
     /** @see \Serializable::serialize() */
-    public function serialize() {
+    public function serialize()
+    {
         return serialize(array(
             $this->id,
             $this->name,
@@ -168,10 +182,12 @@ class User implements UserInterface, \Serializable {
     }
 
     /** @see \Serializable::unserialize() */
-    public function unserialize($serialized) {
-        list($this->id, $this->name, $this->password,
-        // see section on salt below
-        // $this->salt
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id, $this->name, $this->password,
+            // see section on salt below
+            // $this->salt
         ) = unserialize($serialized);
     }
 
@@ -181,10 +197,10 @@ class User implements UserInterface, \Serializable {
      * @param string $roles
      * @return User
      */
-    public function setRoles($roles) {
+    public function setRoles($roles)
+    {
         $this->roles = $roles;
 
         return $this;
     }
-
 }

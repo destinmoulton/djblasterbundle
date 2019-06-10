@@ -14,22 +14,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdShowSponsorshipRepository extends EntityRepository
 {
-    public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign) {
-        return $this->findBy(array('customer' => $customer, 'campaign'=>$campaign), array('ad_name' => 'ASC'));
+    public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign)
+    {
+        return $this->findBy(array('customer' => $customer, 'campaign' => $campaign), array('ad_name' => 'ASC'));
     }
 
-    public function findAllOrderedByNameForCampaign(CustomerCampaign $campaign) {
-        return $this->findBy(array('campaign'=>$campaign), array('ad_name' => 'ASC'));
+    public function findAllOrderedByNameForCampaign(CustomerCampaign $campaign)
+    {
+        return $this->findBy(array('campaign' => $campaign), array('ad_name' => 'ASC'));
     }
-    
-    public function findAllForHour($hour, $time){
+
+    public function findAllForHour($hour, $time)
+    {
         // Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
         $startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 6", $time));
         $startWeek = intval($startDateTime->format('W'));
-        
+
         if ($startWeek > 52) {
             // Adjust for weird january bug
-                $startWeek = $startWeek-52;
+            $startWeek = $startWeek - 52;
         }
 
         $currentDateTime = new DateTime();
@@ -46,31 +49,31 @@ class AdShowSponsorshipRepository extends EntityRepository
                 $weekNum = 2;
         }
 
-        $weekColumn = "days_week".$weekNum;
+        $weekColumn = "days_week" . $weekNum;
         $currentDay = date("D", $time);
         $currentDate = date("Y-m-d", $time);
 
-        $currentHour = $hour.":00:00";
-        
+        $currentHour = $hour . ":00:00";
+
         $fields = array('s.sponsorship_id, s.ad_name, s.ad_content');
         $qb = $this->createQueryBuilder('s');
         $query = $qb->select($fields)
-             ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = s.campaign')
-             ->where("c.start_date <= :currentDate")
-             ->andWhere("c.end_date >= :currentDate")
-             ->andWhere("s.begin_time <= :currentHour")
-             ->andWhere("s.end_time > :currentHour")
-             ->andWhere("s.".$weekColumn." LIKE :currentDay")
-             ->setParameters(array('currentDate'=>$currentDate,
-                                    'currentHour'=>$currentHour, 
-                                   'currentDay'=>"%".$currentDay."%",
-                                   ))
-             
-             ->getQuery();        
+            ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = s.campaign')
+            ->where("c.start_date <= :currentDate")
+            ->andWhere("c.end_date >= :currentDate")
+            ->andWhere("s.begin_time <= :currentHour")
+            ->andWhere("s.end_time > :currentHour")
+            ->andWhere("s." . $weekColumn . " LIKE :currentDay")
+            ->setParameters(array(
+                'currentDate' => $currentDate,
+                'currentHour' => $currentHour,
+                'currentDay' => "%" . $currentDay . "%",
+            ))
+
+            ->getQuery();
 
         $result =  $query->getResult();
         //echo $query->getSql();var_dump($query->getParameters());die;
         return $result;
-        
     }
 }

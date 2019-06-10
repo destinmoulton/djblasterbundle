@@ -5,7 +5,8 @@ namespace DJBlaster\BlasterBundle\Form\Model;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ChangePassword {
+class ChangePassword
+{
     /**
      * @SecurityAssert\UserPassword(message="The current password is incorrect.")
      */
@@ -17,22 +18,25 @@ class ChangePassword {
      */
     protected $newPassword;
 
-    public function getCurrentPassword() {
+    public function getCurrentPassword()
+    {
         return $this->currentPassword;
     }
 
-    public function setCurrentPassword($password) {
+    public function setCurrentPassword($password)
+    {
         $this->currentPassword = $password;
         return $this;
     }
 
-    public function getNewPassword() {
+    public function getNewPassword()
+    {
         return $this->newPassword;
     }
 
-    public function setNewPassword($password) {
+    public function setNewPassword($password)
+    {
         $this->newPassword = $password;
         return $this;
     }
-
 }

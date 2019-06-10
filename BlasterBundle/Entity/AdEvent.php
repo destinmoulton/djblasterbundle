@@ -13,7 +13,8 @@ use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
  * @ORM\Table(name="customer_ad_events")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\AdEventRepository")
  */
-class AdEvent {
+class AdEvent
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -26,42 +27,42 @@ class AdEvent {
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="DJBlaster\BlasterBundle\Entity\CustomerCampaign", inversedBy="adEvents")
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="campaign_id")
      */
     protected $campaign;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="DJBlaster\BlasterBundle\Entity\DJReadEvent", mappedBy="event", cascade={"remove"}, orphanRemoval=true)
      */
     protected $djReadEvents = null;
-    
+
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\NotBlank(message="You must include the ad name.")
      */
     protected $ad_name;
-    
+
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="You must include some text for this event.")
      */
     protected $ad_content;
-    
+
     /**
      * @ORM\Column(type="date")
      * @Assert\Date(message="Start date must be valid.")
      */
     protected $start_date;
-    
+
     /**
      * @ORM\Column(type="date")
      * @Assert\Date(message="End date must be valid.")
      */
     protected $end_date;
-    
+
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="You must include a number of times to read this event.")
@@ -69,56 +70,58 @@ class AdEvent {
      * @Assert\GreaterThan(value=0, message="The number of reads must be greater than zero.")
      */
     protected $no_reads;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     protected $no_reads_per_day = 0;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     protected $no_reads_remaining_today = 0;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     protected $no_reads_performed = 0;
-    
+
     /**
      * @ORM\Column(type="time")
      */
     protected $next_read_time;
-    
-     /**
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $last_read;
-    
+
     /**
      * @ORM\Column(type="date")
      */
     protected $last_read_date;
-    
-   
+
+
 
     /**
      * @Assert\IsTrue(message="The end date must occur after the start date.")
      */
-    public function isDatesValid(){
+    public function isDatesValid()
+    {
         return ($this->start_date <= $this->end_date);
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->customer = new \Doctrine\Common\Collections\ArrayCollection();
         $this->campaign = new \Doctrine\Common\Collections\ArrayCollection();
-        
+
         $this->start_date = new \DateTime();
         $this->end_date = new \DateTime();
-        
+
         $this->last_read = new \DateTime();
         $this->last_read->setTimestamp(0);
-        
+
         $this->last_read_date = new \DateTime();
         $this->last_read_date->setTimestamp(0);
 
@@ -126,23 +129,27 @@ class AdEvent {
         $this->next_read_time->setTimestamp(0);
     }
 
-    public function setCustomer(Customer $customer) {
+    public function setCustomer(Customer $customer)
+    {
         $this->customer = $customer;
     }
 
-    public function getCustomer() {
+    public function getCustomer()
+    {
         return $this->customer;
     }
-    
-    public function setCampaign(CustomerCampaign $campaign) {
+
+    public function setCampaign(CustomerCampaign $campaign)
+    {
         $this->campaign = $campaign;
     }
 
-    public function getCampaign() {
+    public function getCampaign()
+    {
         return $this->campaign;
     }
 
-    
+
     /**
      * Set ad_name
      *
@@ -211,7 +218,7 @@ class AdEvent {
     {
         return $this->start_date;
     }
-    
+
 
     /**
      * Set end_date
@@ -259,7 +266,7 @@ class AdEvent {
         return $this->no_reads;
     }
 
-    
+
     /**
      * Get event_id
      *

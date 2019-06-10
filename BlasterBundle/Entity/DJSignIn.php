@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="dj_signin")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\DJSignInRepository")
  */
-class DJSignIn {
+class DJSignIn
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -23,7 +24,7 @@ class DJSignIn {
      * @ORM\Column(type="string", length=250)
      * @Assert\NotBlank(message="You must include the show title.")
      */
-    protected $show_title;    
+    protected $show_title;
 
     /**
      * @ORM\Column(type="time")
@@ -55,7 +56,7 @@ class DJSignIn {
      * @Assert\Email()p
      */
     protected $dj_email;
-    
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -65,7 +66,7 @@ class DJSignIn {
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $signout_datetime;
-    
+
     public function __construct()
     {
         $this->signin_datetime = new \DateTime();

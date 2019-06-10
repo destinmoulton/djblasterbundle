@@ -11,9 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use DJBlaster\BlasterBundle\Entity\User;
 use DJBlaster\BlasterBundle\Utils\StringUtils;
 
-class AdminLoginController extends Controller {
+class AdminLoginController extends Controller
+{
 
-    public function loginAction(Request $request, SessionInterface $session) {
+    public function loginAction(Request $request, SessionInterface $session)
+    {
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -30,14 +32,15 @@ class AdminLoginController extends Controller {
         ));
     }
 
-    public function loginCheckAction() {
+    public function loginCheckAction()
+    {
         /*
          This should remain empty.
          This is a stub function for the security authenticator route.
-         */
-    }
+         */ }
 
-    public function resetAction(Request $request, SessionInterface $session) {
+    public function resetAction(Request $request, SessionInterface $session)
+    {
         $error = '';
 
         $action = $this->generateUrl('dj_blaster_admin_login_reset');
@@ -77,7 +80,6 @@ class AdminLoginController extends Controller {
                 return $this->redirect($this->generateUrl('dj_blaster_admin_login'));
             } else {
                 $error = "Unable to find that email address.";
-
             }
         }
 
@@ -87,16 +89,16 @@ class AdminLoginController extends Controller {
         ));
     }
 
-    private function _emailPasswordReset($recipientEmailAddress, $info) {
+    private function _emailPasswordReset($recipientEmailAddress, $info)
+    {
         $mailer = $this->get('mailer');
         $from_address = $this->container->getParameter('mailer_from_address');
         $from_name = $this->container->getParameter('mailer_from_name');
         $message = $mailer->createMessage()
-                          ->setSubject("DJ Blaster Password Reset")
-                          ->setTo($recipientEmailAddress)
-                          ->setFrom(array($from_address => $from_name))
-                          ->setBody($this->renderView('DJBlasterBundle:Emails:password_reset.html.twig', array('info' => $info)), 'text/html');
+            ->setSubject("DJ Blaster Password Reset")
+            ->setTo($recipientEmailAddress)
+            ->setFrom(array($from_address => $from_name))
+            ->setBody($this->renderView('DJBlasterBundle:Emails:password_reset.html.twig', array('info' => $info)), 'text/html');
         return $mailer->send($message);
     }
-
 }

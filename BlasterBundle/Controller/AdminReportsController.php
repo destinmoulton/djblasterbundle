@@ -18,13 +18,15 @@ use DJBlaster\BlasterBundle\Entity\DJReadEvent;
 use DJBlaster\BlasterBundle\Entity\DJReadPSA;
 use DJBlaster\BlasterBundle\Entity\DJReadShowSponsorship;
 
-class AdminReportsController extends Controller {
-    public function reportGeneratorAction(Request $request, $customer_id, $campaign_id, $action){
+class AdminReportsController extends Controller
+{
+    public function reportGeneratorAction(Request $request, $customer_id, $campaign_id, $action)
+    {
         $em = $this->get('doctrine')->getManager();
         $customers_select = $this->getDoctrine()
-                                 ->getRepository('DJBlasterBundle:Customer')
-                                 ->findAllOrderedByName();
-                                 
+            ->getRepository('DJBlasterBundle:Customer')
+            ->findAllOrderedByName();
+
         $campaigns_list = array();
         $shows_list = array();
         $events_list = array();
@@ -35,80 +37,77 @@ class AdminReportsController extends Controller {
         $campaigns_select = array();
         $campaigns = false;
         $customer = false;
-        if($customer_id > 0){
+        if ($customer_id > 0) {
             $customer = $em->getRepository('DJBlasterBundle:Customer')
-                           ->find($customer_id);
+                ->find($customer_id);
             $campaigns_select = $this->getDoctrine()
-                                     ->getRepository('DJBlasterBundle:CustomerCampaign')
-                                     ->findAllOrderedByNameForCustomer($customer);
-            
+                ->getRepository('DJBlasterBundle:CustomerCampaign')
+                ->findAllOrderedByNameForCustomer($customer);
         }
-        
-        if($action == 'generate' || $action == 'pdf'){
-            if($campaign_id==0){
-                foreach($campaigns_select as $campaign){
+
+        if ($action == 'generate' || $action == 'pdf') {
+            if ($campaign_id == 0) {
+                foreach ($campaigns_select as $campaign) {
                     $campaigns_list[$campaign->getCampaignId()] = $campaign;
-                    
+
                     $currShows = $this->getDoctrine()
-                                       ->getRepository('DJBlasterBundle:AdShowSponsorship')
-                                       ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
+                        ->getRepository('DJBlasterBundle:AdShowSponsorship')
+                        ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
                     $shows_list[$campaign->getCampaignId()] = $currShows;
-                    
+
                     $currEvents = $this->getDoctrine()
-                                       ->getRepository('DJBlasterBundle:AdEvent')
-                                       ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
+                        ->getRepository('DJBlasterBundle:AdEvent')
+                        ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
                     $events_list[$campaign->getCampaignId()] = $currEvents;
-                    
+
                     $currPSAs = $this->getDoctrine()
-                                     ->getRepository('DJBlasterBundle:AdPSA')
-                                     ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
+                        ->getRepository('DJBlasterBundle:AdPSA')
+                        ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
                     $psas_list[$campaign->getCampaignId()] = $currPSAs;
                 }
             } else {
                 $campaign = $em->getRepository('DJBlasterBundle:CustomerCampaign')
-                               ->find($campaign_id);
+                    ->find($campaign_id);
                 $campaigns_list[$campaign_id] = $campaign;
-                
+
                 $currShows = $this->getDoctrine()
-                                       ->getRepository('DJBlasterBundle:AdShowSponsorship')
-                                       ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
+                    ->getRepository('DJBlasterBundle:AdShowSponsorship')
+                    ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
                 $shows_list[$campaign->getCampaignId()] = $currShows;
-                
+
                 $currEvents = $this->getDoctrine()
-                                   ->getRepository('DJBlasterBundle:AdEvent')
-                                   ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
+                    ->getRepository('DJBlasterBundle:AdEvent')
+                    ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
                 $events_list[$campaign_id] = $currEvents;
-                
+
                 $currPSAs = $this->getDoctrine()
-                                 ->getRepository('DJBlasterBundle:AdPSA')
-                                 ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
+                    ->getRepository('DJBlasterBundle:AdPSA')
+                    ->findAllOrderedByNameForCustomerAndCampaign($customer, $campaign);
                 $psas_list[$campaign->getCampaignId()] = $currPSAs;
             }
-            
-            foreach($campaigns_list as $camp_id => $campaign){
-                
-                foreach($shows_list[$camp_id] as $show){
+
+            foreach ($campaigns_list as $camp_id => $campaign) {
+
+                foreach ($shows_list[$camp_id] as $show) {
                     $dj_show_reads[$show->getSponsorshipId()] = $this->getDoctrine()
-                                                                     ->getRepository('DJBlasterBundle:DJReadShowSponsorship')
-                                                                     ->findAllForShow($show);
-                } 
-                
-                foreach($events_list[$camp_id] as $event){
+                        ->getRepository('DJBlasterBundle:DJReadShowSponsorship')
+                        ->findAllForShow($show);
+                }
+
+                foreach ($events_list[$camp_id] as $event) {
                     $dj_event_reads[$event->getEventId()] = $this->getDoctrine()
-                                                                 ->getRepository('DJBlasterBundle:DJReadEvent')
-                                                                 ->findAllForEvent($event);
-                } 
-                
-                foreach($psas_list[$camp_id] as $psa){
+                        ->getRepository('DJBlasterBundle:DJReadEvent')
+                        ->findAllForEvent($event);
+                }
+
+                foreach ($psas_list[$camp_id] as $psa) {
                     $dj_psa_reads[$psa->getPsaId()] = $this->getDoctrine()
-                                                                 ->getRepository('DJBlasterBundle:DJReadPSA')
-                                                                 ->findAllForPSA($psa);
-                } 
+                        ->getRepository('DJBlasterBundle:DJReadPSA')
+                        ->findAllForPSA($psa);
+                }
             }
-            
-            
         }
-        
+
         $options = array(
             'action' => $action,
             'customer_id' => $customer_id,
@@ -116,72 +115,71 @@ class AdminReportsController extends Controller {
             'customers_select' => $customers_select,
             'campaigns_select' => $campaigns_select,
             'customer' => $customer,
-            'campaigns_list'=>$campaigns_list,
-            'shows_list'=>$shows_list,
-            'events_list'=>$events_list,
-            'psas_list'=>$psas_list,
-            'dj_show_reads'=>$dj_show_reads,
-            'dj_event_reads'=>$dj_event_reads,
-            'dj_psa_reads'=>$dj_psa_reads
+            'campaigns_list' => $campaigns_list,
+            'shows_list' => $shows_list,
+            'events_list' => $events_list,
+            'psas_list' => $psas_list,
+            'dj_show_reads' => $dj_show_reads,
+            'dj_event_reads' => $dj_event_reads,
+            'dj_psa_reads' => $dj_psa_reads
         );
-        
-        if($action=='pdf'){
+
+        if ($action == 'pdf') {
             // Disable the symfony profile so it doesn't interfere with report generation
-            if ($this->container->has('profiler'))
-            {
+            if ($this->container->has('profiler')) {
                 $this->container->get('profiler')->disable();
             }
             $html = $this->renderView('DJBlasterBundle:Admin/Report:pdf_generator.html.twig', $options);
-            $title = $customer->getName()."_".date('d-m-Y_H_i_s').".pdf";
+            $title = $customer->getName() . "_" . date('d-m-Y_H_i_s') . ".pdf";
             return new Response(
                 $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
                 200,
                 array(
                     'Content-Type'          => 'application/pdf',
-                    'Content-Disposition'   => 'attachment; filename="'.$title.'"'
+                    'Content-Disposition'   => 'attachment; filename="' . $title . '"'
                 )
             );
         } else {
             return $this->render('DJBlasterBundle:Admin/Report:report_selector.html.twig', $options);
         }
-        
     }
 
-    public function djsigninReportGeneratorAction(Request $request){
+    public function djsigninReportGeneratorAction(Request $request)
+    {
         $start_date = $request->request->get('start_date');
         $end_date = $request->request->get('end_date');
         $djsignins = array();
         $query_performed = false;
-        if(!$start_date){
+        if (!$start_date) {
             $dateTime = new DateTime('NOW');
-            $start_date=$dateTime->format('m/d/Y');
-            $end_date=$dateTime->format('m/d/Y');
+            $start_date = $dateTime->format('m/d/Y');
+            $end_date = $dateTime->format('m/d/Y');
         } else {
-            
+
             $em = $this->getDoctrine()->getManager();
-            
+
             $sd_parts = explode('/', $start_date);
             $ed_parts = explode('/', $end_date);
-            
+
             $start_datetime = new DateTime();
-            $start_datetime->setDate($sd_parts[2],$sd_parts[0],$sd_parts[1]);
-            $start_datetime->setTime(0,0,0);
+            $start_datetime->setDate($sd_parts[2], $sd_parts[0], $sd_parts[1]);
+            $start_datetime->setTime(0, 0, 0);
 
             $end_datetime = new DateTime();
-            $end_datetime->setDate($ed_parts[2],$ed_parts[0],$ed_parts[1]);
-            $end_datetime->setTime(23,59,59);
+            $end_datetime->setDate($ed_parts[2], $ed_parts[0], $ed_parts[1]);
+            $end_datetime->setTime(23, 59, 59);
 
             $djsignins = $em->getRepository('DJBlasterBundle:DJSignIn')
-                            ->getDJSigninsBetweenDates($start_datetime->format("Y-m-d H:i:s"), $end_datetime->format("Y-m-d H:i:s"));
+                ->getDJSigninsBetweenDates($start_datetime->format("Y-m-d H:i:s"), $end_datetime->format("Y-m-d H:i:s"));
             $query_performed = true;
         }
 
         $options = array(
-            'start_date'=>$start_date,
-            'end_date'=>$end_date,
-            'djsignins'=>$djsignins,
-            'query_performed'=>$query_performed
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'djsignins' => $djsignins,
+            'query_performed' => $query_performed
         );
         return $this->render('DJBlasterBundle:Admin/Report:djsignin_report.html.twig', $options);
     }
-} 
+}

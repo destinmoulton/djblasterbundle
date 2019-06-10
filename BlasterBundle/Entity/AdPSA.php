@@ -13,7 +13,8 @@ use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
  * @ORM\Table(name="customer_ad_psas")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\AdPSARepository")
  */
-class AdPSA {
+class AdPSA
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -26,57 +27,62 @@ class AdPSA {
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="DJBlaster\BlasterBundle\Entity\CustomerCampaign", inversedBy="adPSAs")
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="campaign_id")
      */
     protected $campaign;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="DJBlaster\BlasterBundle\Entity\DJReadPSA", mappedBy="psa", cascade={"remove"}, orphanRemoval=true)
      */
     protected $djReadPSAs = null;
-    
+
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\NotBlank(message="You must include the PSA title.")
      */
     protected $ad_name;
-    
+
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="You must include some text for the PSA.")
      */
     protected $ad_content;
-    
+
     /**
      * @ORM\Column(type="datetime")
      */
     protected $last_read;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->customer = new \Doctrine\Common\Collections\ArrayCollection();
         $this->campaign = new \Doctrine\Common\Collections\ArrayCollection();
-        
+
         $this->last_read = new \DateTime();
         $this->last_read->setTimestamp(0);
     }
 
-    public function setCustomer(Customer $customer) {
+    public function setCustomer(Customer $customer)
+    {
         $this->customer = $customer;
     }
 
-    public function getCustomer() {
+    public function getCustomer()
+    {
         return $this->customer;
     }
-    
-    public function setCampaign(CustomerCampaign $campaign) {
+
+    public function setCampaign(CustomerCampaign $campaign)
+    {
         $this->campaign = $campaign;
     }
 
-    public function getCampaign() {
+    public function getCampaign()
+    {
         return $this->campaign;
     }
 

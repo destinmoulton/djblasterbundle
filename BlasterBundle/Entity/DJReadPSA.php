@@ -11,7 +11,8 @@ use DJBlaster\BlasterBundle\Entity\AdPSA;
  * @ORM\Table(name="dj_read_psas")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\DJReadPSARepository")
  */
-class DJReadPSA {
+class DJReadPSA
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -24,30 +25,32 @@ class DJReadPSA {
      * @ORM\JoinColumn(name="psa_id", referencedColumnName="psa_id")
      */
     protected $psa;
-    
+
     /**
      * @ORM\Column(type="string", length=20)
      */
     protected $dj_initials;
-    
+
     /**
      * @ORM\Column(type="datetime")
      */
     protected $time_read;
-    
+
     public function __construct()
     {
         $this->psa = new \Doctrine\Common\Collections\ArrayCollection();
         $this->time_read = new \DateTime();
     }
-    
-    public function setPsa(AdPSA $psa) {
+
+    public function setPsa(AdPSA $psa)
+    {
         $this->psa = $psa;
-        
+
         return $this;
     }
 
-    public function getPsa() {
+    public function getPsa()
+    {
         return $this->psa;
     }
 

@@ -11,8 +11,10 @@ use DJBlaster\BlasterBundle\Entity\Customer;
 use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
 use DJBlaster\BlasterBundle\Form\Type\CustomerCampaignType;
 
-class AdminCustomerCampaignsController extends Controller {
-    public function editCustomerCampaignAction(Request $request, SessionInterface $session, Customer $customer, $campaign_id) {
+class AdminCustomerCampaignsController extends Controller
+{
+    public function editCustomerCampaignAction(Request $request, SessionInterface $session, Customer $customer, $campaign_id)
+    {
         $em = $this->get('doctrine')->getManager();
 
         if ($campaign_id == 0) {
@@ -40,22 +42,26 @@ class AdminCustomerCampaignsController extends Controller {
 
                 $em->persist($data);
                 $em->flush();
-                
-                return $this->redirect($this->generateUrl('dj_blaster_admin_ad_list', 
-                                                            array('customer' => $customer->getId(),
-                                                                  'campaign' => $data->getCampaignId())));
 
+                return $this->redirect($this->generateUrl(
+                    'dj_blaster_admin_ad_list',
+                    array(
+                        'customer' => $customer->getId(),
+                        'campaign' => $data->getCampaignId()
+                    )
+                ));
             }
         }
 
         return $this->render('DJBlasterBundle:Admin/Campaign:campaign_form.html.twig', array(
             'form' => $form->createView(),
-            'customer'=>$customer,
+            'customer' => $customer,
             'campaign' => $customerCampaign,
         ));
     }
 
-    public function listCustomerCampaignsAction(SessionInterface $session, Customer $customer) {
+    public function listCustomerCampaignsAction(SessionInterface $session, Customer $customer)
+    {
 
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
@@ -65,7 +71,7 @@ class AdminCustomerCampaignsController extends Controller {
 
         $notices = $session->getFlashBag()->get('campaign-notices', array());
 
-        
+
         return $this->render('DJBlasterBundle:Admin/Campaign:campaign_list.html.twig', array(
             'campaigns' => $campaigns,
             'customer' => $customer,
@@ -73,11 +79,12 @@ class AdminCustomerCampaignsController extends Controller {
         ));
     }
 
-    public function deleteCustomerCampaignAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign) {
+    public function deleteCustomerCampaignAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign)
+    {
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
@@ -88,7 +95,6 @@ class AdminCustomerCampaignsController extends Controller {
         $em->remove($campaign);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('dj_blaster_admin_campaign_list', array('customer'=>$customer->getId())));
+        return $this->redirect($this->generateUrl('dj_blaster_admin_campaign_list', array('customer' => $customer->getId())));
     }
-
 }

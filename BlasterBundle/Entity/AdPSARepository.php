@@ -5,6 +5,7 @@ namespace DJBlaster\BlasterBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 use \DateTime;
+
 /**
  * AdPSARepository
  *
@@ -13,30 +14,33 @@ use \DateTime;
  */
 class AdPSARepository extends EntityRepository
 {
-    public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign) {
-        return $this->findBy(array('customer' => $customer, 'campaign'=>$campaign), array('ad_name' => 'ASC'));
+    public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign)
+    {
+        return $this->findBy(array('customer' => $customer, 'campaign' => $campaign), array('ad_name' => 'ASC'));
     }
 
-    public function findAllOrderedByNameForCampaign(CustomerCampaign $campaign) {
-        return $this->findBy(array('campaign'=>$campaign), array('ad_name' => 'ASC'));
+    public function findAllOrderedByNameForCampaign(CustomerCampaign $campaign)
+    {
+        return $this->findBy(array('campaign' => $campaign), array('ad_name' => 'ASC'));
     }
-    
-    public function findOneLastRead($currentTime){
-       // echo $currentTime; die;
+
+    public function findOneLastRead($currentTime)
+    {
+        // echo $currentTime; die;
         $currentDateTime = new DateTime();
         $currentDateTime->setTimestamp($currentTime);
         $currentDay = $currentDateTime->format('Y-m-d');
-        
+
         $fields = array('p.psa_id, p.ad_name, p.ad_content');
         $qb = $this->createQueryBuilder('p');
         $query = $qb->select($fields)
-             ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = p.campaign')
-             ->where("c.start_date <= :currentDay")
-             ->andWhere("c.end_date >= :currentDay")
-             ->setParameters(array('currentDay'=> $currentDay))
-             ->orderBy('p.last_read','ASC')
-             ->setMaxResults(1)
-             ->getQuery();        
+            ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = p.campaign')
+            ->where("c.start_date <= :currentDay")
+            ->andWhere("c.end_date >= :currentDay")
+            ->setParameters(array('currentDay' => $currentDay))
+            ->orderBy('p.last_read', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery();
 
         $result =  $query->getResult();
         //echo $query->getSql();var_dump($query->getParameters());die;

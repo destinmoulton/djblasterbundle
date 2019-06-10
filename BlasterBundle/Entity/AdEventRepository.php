@@ -5,6 +5,7 @@ namespace DJBlaster\BlasterBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 use \DateTime;
+
 /**
  * AdEventRepository
  *
@@ -13,58 +14,62 @@ use \DateTime;
  */
 class AdEventRepository extends EntityRepository
 {
-    public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign) {
-        return $this->findBy(array('customer' => $customer, 'campaign'=>$campaign), array('ad_name' => 'ASC'));
+    public function findAllOrderedByNameForCustomerAndCampaign(Customer $customer, CustomerCampaign $campaign)
+    {
+        return $this->findBy(array('customer' => $customer, 'campaign' => $campaign), array('ad_name' => 'ASC'));
     }
 
-    public function findAllOrderedByNameForCampaign(CustomerCampaign $campaign) {
-        return $this->findBy(array('campaign'=>$campaign), array('ad_name' => 'ASC'));
+    public function findAllOrderedByNameForCampaign(CustomerCampaign $campaign)
+    {
+        return $this->findBy(array('campaign' => $campaign), array('ad_name' => 'ASC'));
     }
-    
-    public function findUnreadToday($currentTime){
+
+    public function findUnreadToday($currentTime)
+    {
         $currentDateTime = new DateTime();
         $currentDateTime->setTimestamp($currentTime);
         $currentDate = $currentDateTime->format('Y-m-d');
-        
+
         $fields = array('e.event_id, e.ad_name, e.ad_content, e.start_date, e.end_date');
         $qb = $this->createQueryBuilder('e');
         $query = $qb->select($fields)
-             ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = e.campaign')
-             ->where("c.start_date <= :currentDate")
-             ->andWhere("c.end_date >= :currentDate")
-             ->andWhere("e.last_read_date != :currentDate")
-             ->andWhere("e.no_reads_performed < e.no_reads")
-             ->setParameters(array('currentDate'=> $currentDate))
-             ->orderBy('e.last_read','ASC')
-             ->setMaxResults(1)
-             ->getQuery();        
+            ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = e.campaign')
+            ->where("c.start_date <= :currentDate")
+            ->andWhere("c.end_date >= :currentDate")
+            ->andWhere("e.last_read_date != :currentDate")
+            ->andWhere("e.no_reads_performed < e.no_reads")
+            ->setParameters(array('currentDate' => $currentDate))
+            ->orderBy('e.last_read', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery();
 
         $result =  $query->getResult();
         //echo $query->getSql();var_dump($query->getParameters());die;
         return $result;
     }
-    
-    public function findNextToRead($currentTime, $currentHour){
+
+    public function findNextToRead($currentTime, $currentHour)
+    {
         $currentDateTime = new DateTime();
         $currentDateTime->setTimestamp($currentTime);
         $currentDate = $currentDateTime->format('Y-m-d');
-        
-        $currentHour = $currentHour.":00:00";
-        
+
+        $currentHour = $currentHour . ":00:00";
+
         $fields = array('e.event_id, e.ad_name, e.ad_content, e.start_date, e.end_date');
         $qb = $this->createQueryBuilder('e');
         $query = $qb->select($fields)
-             ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = e.campaign')
-             ->where("c.start_date <= :currentDate")
-             ->andWhere("c.end_date >= :currentDate")
-             ->andWhere("e.last_read_date = :currentDate")
-             ->andWhere("e.no_reads_performed < e.no_reads")
-             ->andWhere("e.no_reads_remaining_today > 0")
-             ->andWhere("e.next_read_time <= :currentHour")
-             ->setParameters(array('currentDate'=> $currentDate, 'currentHour'=>$currentHour))
-             ->orderBy('e.last_read','ASC')
-             ->setMaxResults(1)
-             ->getQuery();        
+            ->innerJoin('DJBlasterBundle:CustomerCampaign', 'c', 'WITH', 'c.campaign_id = e.campaign')
+            ->where("c.start_date <= :currentDate")
+            ->andWhere("c.end_date >= :currentDate")
+            ->andWhere("e.last_read_date = :currentDate")
+            ->andWhere("e.no_reads_performed < e.no_reads")
+            ->andWhere("e.no_reads_remaining_today > 0")
+            ->andWhere("e.next_read_time <= :currentHour")
+            ->setParameters(array('currentDate' => $currentDate, 'currentHour' => $currentHour))
+            ->orderBy('e.last_read', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery();
 
         $result =  $query->getResult();
         //echo $query->getSql();var_dump($query->getParameters());die;

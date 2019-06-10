@@ -13,7 +13,8 @@ use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
  * @ORM\Table(name="customer_ad_show_sponsorships")
  * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\AdShowSponsorshipRepository")
  */
-class AdShowSponsorship {
+class AdShowSponsorship
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -26,35 +27,35 @@ class AdShowSponsorship {
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="DJBlaster\BlasterBundle\Entity\CustomerCampaign", inversedBy="adShowSponsorships")
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="campaign_id")
      */
     protected $campaign;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="DJBlaster\BlasterBundle\Entity\DJReadShowSponsorship", mappedBy="showSponsorship", cascade={"remove"}, orphanRemoval=true)
      */
     protected $djReadShowSponsorships = null;
-    
+
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\NotBlank(message="You must include the sponsorship title.")
      */
     protected $ad_name;
-    
+
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="You must include some sponsorship text.")
      */
     protected $ad_content = "";
-    
+
     /**
      * @ORM\Column(type="time")
      */
     protected $begin_time = "8:00:00";
-    
+
     /**
      * @ORM\Column(type="time")
      */
@@ -64,65 +65,71 @@ class AdShowSponsorship {
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $days_week1 = "";
-    
+
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $days_week2 = "";
-    
+
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $days_week3 = "";
-    
+
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $days_week4 = "";
-    
+
     /**
      * @Assert\IsTrue(message="You must select at least one day for the show.")
      */
-    public function isDaysWeek(){
+    public function isDaysWeek()
+    {
         // Make sure at least one day is selected
         $not_blank = false;
-        if($this->days_week1!=null && $this->days_week1!=""){
+        if ($this->days_week1 != null && $this->days_week1 != "") {
             $not_blank = true;
         }
-        if($this->days_week2!=null && $this->days_week2!=""){
+        if ($this->days_week2 != null && $this->days_week2 != "") {
             $not_blank = true;
         }
-        if($this->days_week3!=null && $this->days_week3!=""){
+        if ($this->days_week3 != null && $this->days_week3 != "") {
             $not_blank = true;
         }
-        if($this->days_week4!=null && $this->days_week4!=""){
+        if ($this->days_week4 != null && $this->days_week4 != "") {
             $not_blank = true;
         }
         return $not_blank;
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->customer = new \Doctrine\Common\Collections\ArrayCollection();
         $this->campaign = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function setCustomer(Customer $customer) {
+    public function setCustomer(Customer $customer)
+    {
         $this->customer = $customer;
-        
+
         return $this;
     }
 
-    public function getCustomer() {
+    public function getCustomer()
+    {
         return $this->customer;
     }
-    
-    public function setCampaign(CustomerCampaign $campaign) {
+
+    public function setCampaign(CustomerCampaign $campaign)
+    {
         $this->campaign = $campaign;
-        
+
         return $this;
     }
 
-    public function getCampaign() {
+    public function getCampaign()
+    {
         return $this->campaign;
     }
 
@@ -320,7 +327,7 @@ class AdShowSponsorship {
         return $this->end_time;
     }
 
-    
+
 
     /**
      * Set show_persist_hours

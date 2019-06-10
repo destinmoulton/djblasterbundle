@@ -1,6 +1,7 @@
 <?php
 
 namespace DJBlaster\BlasterBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -18,8 +19,9 @@ use DJBlaster\BlasterBundle\Form\Type\DJSignInType;
 class FrontendController extends Controller
 {
 
-    private function isShowStillGoing(SessionInterface $session){
-        if($session->has('djsignin_information')){
+    private function isShowStillGoing(SessionInterface $session)
+    {
+        if ($session->has('djsignin_information')) {
             $sess = $session->get('djsignin_information');
 
             $dt_now = new \DateTime();
@@ -32,7 +34,7 @@ class FrontendController extends Controller
             $expected_sign = $diff_start_end->format("%R"); // Get '+' or '-'
 
             $dt_diff = $dt_now->diff($dt_end_show);
-            if($dt_diff->format("%R") === $expected_sign){
+            if ($dt_diff->format("%R") === $expected_sign) {
                 return true;
             }
         }
@@ -41,28 +43,29 @@ class FrontendController extends Controller
 
     public function homeAction(SessionInterface $session)
     {
-        if(!$this->isShowStillGoing($session)){
+        if (!$this->isShowStillGoing($session)) {
             return $this->redirect($this->generateUrl('dj_blaster_djsignin'));
         }
-        
+
         $data = array(
-            'djsignin_information'=>$session->get('djsignin_information')
+            'djsignin_information' => $session->get('djsignin_information')
         );
         return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
     }
 
-    public function djsignoutAction(Request $request, SessionInterface $session){
+    public function djsignoutAction(Request $request, SessionInterface $session)
+    {
         $session->remove('djsignin_information');
         return $this->redirect($this->generateUrl('dj_blaster_djsignin'));
     }
 
     public function djsigninAction(Request $request, SessionInterface $session)
     {
-        if($this->isShowStillGoing($session)){
+        if ($this->isShowStillGoing($session)) {
             // DJ still signed in: Redirect to the standard home page
             return $this->redirect($this->generateUrl('dj_blaster_home'));
         }
-        
+
 
         $action = $this->generateUrl('dj_blaster_djsignin');
         $options = array('action' => $action);
@@ -85,12 +88,12 @@ class FrontendController extends Controller
                 ], [
                     'language' => 'en'
                 ]);
-            
+
                 $this->container->get('event_dispatcher')->dispatch(
                     SubscriberEvent::EVENT_SUBSCRIBE,
                     new SubscriberEvent($mailchimp_list_id, $subscriber)
                 );
-                
+
                 $em->persist($data);
                 $em->flush();
 
@@ -99,12 +102,11 @@ class FrontendController extends Controller
                     'dj_last_name' => $data->getDjLastName(),
                     'dj_email' => $data->getDjEmail(),
                     'show_start_time' => $data->getShowStartTime()->format('H:i:s'),
-                    'show_end_time' =>$data->getShowEndTime()->format('H:i:s')
+                    'show_end_time' => $data->getShowEndTime()->format('H:i:s')
                 );
                 $session->set('djsignin_information', $session_data);
 
                 return $this->redirect($this->generateUrl('dj_blaster_home'));
-
             }
         } else {
             // Clear the session information
@@ -115,7 +117,7 @@ class FrontendController extends Controller
             'form' => $form->createView()
         ));
     }
-    
+
     public function clearCacheAction()
     {
         $fs = new Filesystem();

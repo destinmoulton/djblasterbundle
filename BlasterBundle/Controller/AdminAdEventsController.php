@@ -12,14 +12,16 @@ use DJBlaster\BlasterBundle\Entity\CustomerCampaign;
 use DJBlaster\BlasterBundle\Entity\AdEvent;
 use DJBlaster\BlasterBundle\Form\Type\AdEventType;
 
-class AdminAdEventsController extends Controller {
-    public function editAdEventAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $event_id) {
+class AdminAdEventsController extends Controller
+{
+    public function editAdEventAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, $event_id)
+    {
         $em = $this->get('doctrine')->getManager();
-    
+
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
@@ -48,20 +50,20 @@ class AdminAdEventsController extends Controller {
 
                 $data->setCustomer($customer);
                 $data->setCampaign($campaign);
-                
+
                 //Calculate the number of days between the start and end of the campaign
                 $startDate = $campaign->getStartDate();
                 $endDate = $campaign->getEndDate();
-                
+
                 $daysDiff = $endDate->diff($startDate)->format("%a");
-                
+
                 // The first day of the event should have reads
-                $daysDiff = $daysDiff+1; 
-                
+                $daysDiff = $daysDiff + 1;
+
                 //Calculate and store the number of reads per day
-                $no_reads_per_day = ceil($data->getNoReads()/$daysDiff);
+                $no_reads_per_day = ceil($data->getNoReads() / $daysDiff);
                 $data->setNoReadsPerDay($no_reads_per_day);
-                
+
 
                 $em->persist($data);
                 $em->flush();
@@ -70,33 +72,33 @@ class AdminAdEventsController extends Controller {
                 } else {
                     $session->getFlashBag()->add('ad-notices', $data->getAdName() . ' event saved.');
                 }
-                
+
                 return $this->redirect($this->generateUrl('dj_blaster_admin_ad_list', array(
                     'customer' => $customer->getId(),
                     'campaign' => $campaign->getCampaignId(),
                 )));
-
             }
         }
 
         return $this->render('DJBlasterBundle:Admin/Campaign:ad_event_form.html.twig', array(
             'form' => $form->createView(),
             'campaign' => $campaign,
-            'customer'=>$customer,
+            'customer' => $customer,
             'event' => $adEvent,
         ));
     }
 
-    public function deleteAdEventAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdEvent $event) {
-        
+    public function deleteAdEventAction(Request $request, SessionInterface $session, Customer $customer, CustomerCampaign $campaign, AdEvent $event)
+    {
+
         if (!$customer) {
             throw $this->createNotFoundException("No customer found.");
         }
-        
+
         if (!$campaign) {
             throw $this->createNotFoundException("No campaign found.");
         }
-        
+
         if (!$event) {
             throw $this->createNotFoundException("No event found.");
         }
@@ -111,7 +113,5 @@ class AdminAdEventsController extends Controller {
             'customer' => $customer->getId(),
             'campaign' => $campaign->getCampaignId(),
         )));
-
     }
-
 }

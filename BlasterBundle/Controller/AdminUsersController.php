@@ -14,8 +14,10 @@ use DJBlaster\BlasterBundle\Utils\StringUtils;
 use DJBlaster\BlasterBundle\Form\Type\ChangePasswordType;
 use DJBlaster\BlasterBundle\Form\Model\ChangePassword;
 
-class AdminUsersController extends Controller {
-    public function editUserAction(Request $request, $user_id) {
+class AdminUsersController extends Controller
+{
+    public function editUserAction(Request $request, $user_id)
+    {
         $em = $this->get('doctrine')->getManager();
 
         if ($user_id == 0) {
@@ -62,7 +64,6 @@ class AdminUsersController extends Controller {
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('dj_blaster_admin_user_list'));
-
             }
         }
 
@@ -72,7 +73,8 @@ class AdminUsersController extends Controller {
         ));
     }
 
-    public function deleteUserAction(Request $request, SessionInterface $session, User $user) {
+    public function deleteUserAction(Request $request, SessionInterface $session, User $user)
+    {
 
         if (!$user) {
             throw $this->createNotFoundException("No user found.");
@@ -87,7 +89,8 @@ class AdminUsersController extends Controller {
         return $this->redirect($this->generateUrl('dj_blaster_admin_user_list'));
     }
 
-    public function listUsersAction(Request $request, SessionInterface $session) {
+    public function listUsersAction(Request $request, SessionInterface $session)
+    {
 
         $users = $this->getDoctrine()->getRepository('DJBlasterBundle:User')->findAllOrderedByName();
 
@@ -99,7 +102,8 @@ class AdminUsersController extends Controller {
         ));
     }
 
-    public function changePasswordAction(Request $request,SessionInterface $session) {
+    public function changePasswordAction(Request $request, SessionInterface $session)
+    {
         $error = '';
 
         $changePasswordModel = new ChangePassword();
@@ -127,7 +131,6 @@ class AdminUsersController extends Controller {
 
                 $session->getFlashBag()->add('admin-notices', 'Your password has been changed.');
                 return $this->redirect($this->generateUrl('dj_blaster_admin_home'));
-
             }
         }
 
@@ -135,19 +138,18 @@ class AdminUsersController extends Controller {
             'form' => $form->createView(),
             'error' => $error,
         ));
-
     }
 
-    private function _emailRegistration($recipientEmailAddress, $info) {
+    private function _emailRegistration($recipientEmailAddress, $info)
+    {
         $mailer = $this->get('mailer');
         $from_address = $this->container->getParameter('mailer_from_address');
         $from_name = $this->container->getParameter('mailer_from_name');
         $message = $mailer->createMessage()
-                          ->setSubject("DJ Blaster Administrator Registration Information")
-                          ->setTo($recipientEmailAddress)
-                          ->setFrom(array($from_address => $from_name))
-                          ->setBody($this->renderView('DJBlasterBundle:Emails:registration.html.twig', array('info' => $info)), 'text/html');
+            ->setSubject("DJ Blaster Administrator Registration Information")
+            ->setTo($recipientEmailAddress)
+            ->setFrom(array($from_address => $from_name))
+            ->setBody($this->renderView('DJBlasterBundle:Emails:registration.html.twig', array('info' => $info)), 'text/html');
         return $mailer->send($message);
     }
-
 }
