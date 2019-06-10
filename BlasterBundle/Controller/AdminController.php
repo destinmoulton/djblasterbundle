@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function indexAction()
     {
         var_dump(date_default_timezone_get());
-        var_dump(date("l F j, Y h:g"));
+        var_dump(date("l F j, Y h:i"));
         die();
         $active_campaigns = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:CustomerCampaign')
