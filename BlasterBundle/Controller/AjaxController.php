@@ -20,10 +20,7 @@ class AjaxController extends Controller
 {
     public function getShowSponsorshipsAction(Request $request)
     {
-        var_dump(date("g:i"));
-        die();
         $params = json_decode($request->getContent());
-
         $sponsorships = $this->getDoctrine()->getRepository('DJBlasterBundle:AdShowSponsorship')
             ->findAllForHour($params->current_hour, $params->current_time);
 
