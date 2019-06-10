@@ -4,8 +4,8 @@
     {{ parent() }}
     <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
-  
-        
+
+
 {% block bodyattrs %}ng-app="djblasterApp"{% endblock %}
 
 {% block navbar %}
@@ -33,24 +33,24 @@
                 <span id="currentTime"></span>
             </span>
         </div>
-        
+
         <div class="" style="text-align:center; padding-bottom:2em;">
         	<h2>Interview Submission</h2>
         	<p>All interviews hosted on KNCE need to be logged by DJ's.<br/>You must log the interview within 12 hours of your show.<br/>If you don't have time during your show, please log it from home.</p>
         	<a href="http://truetaosradio.com/dj-interview-form/" target="_blank"
                             class='btn btn-info btn-lg'>Interview Report</a>
         </div>
-        
+
     </div>
     <br/><br/>
-        
+
     <div class='col-md-6 liveReads'>
 
         {# Begin DJ Blaster Boxes #}
         {% verbatim %}
         <div >
         	<h3>Live Reads</h3>
-            <div class='panel panel-primary' 
+            <div class='panel panel-primary'
                  ng-controller="adShowSponsorshipCtrl">
                 <div class="panel-heading">
                     <div class="panel-title">Show Sponsorships</div>
@@ -64,16 +64,16 @@
                 </div>
                 <ul class="list-group"
                     style="margin-bottom: 0px;"
-                    ng-repeat="sponsorship in show_sponsorships track by $index" 
+                    ng-repeat="sponsorship in show_sponsorships track by $index"
                     ng-show="show_sponsorships"
                     >
-                    <li class="list-group-item" 
+                    <li class="list-group-item"
                         id="{{'ad-show-sponsorship-'+sponsorship.sponsorship_id}}">
-                        
+
                         <h2>{{sponsorship.ad_name}}</h2><br/>
                         <div ng-bind-html="sponsorship.ad_content | unsaftenHTML"></div>
                         <div class="confirmBT">
-                        <a href="#readItModal" 
+                        <a href="#readItModal"
                             class='btn btn-danger btn-lg'
                             ng-click="readitClicked('read-it-button-spons-'+sponsorship.sponsorship_id)"
                             id="{{'read-it-button-spons-'+sponsorship.sponsorship_id}}"
@@ -82,10 +82,10 @@
                             data-ad_id="{{sponsorship.sponsorship_id}}">Confirm Read</a>
                         </div>
                     </li>
-                </ul> 
+                </ul>
                 </div>
             </div>
-            <div class='panel panel-info' 
+            <div class='panel panel-info'
                  ng-controller="adEventCtrl">
                  <div class="panel-heading">
                     <h3 class="panel-title">Paid Promotion</h3>
@@ -99,15 +99,15 @@
                 </div>
                 <ul class="list-group"
                     style="margin-bottom: 0px;"
-                    ng-repeat="event in events track by $index" 
+                    ng-repeat="event in events track by $index"
                     ng-show="events">
                     <li class="list-group-item"
                         id="{{'ad-event-'+event.event_id}}">
-                       
+
                         <h2>{{event.ad_name}}</h2>
                         <p>{{event.ad_content}}</p>
                          <div class="confirmBT">
-                         <a href="#readItModal" 
+                         <a href="#readItModal"
                             class='btn btn-danger btn-lg'
                             ng-click="readitClicked('read-it-button-event-'+event.event_id)"
                             id="{{'read-it-button-event-'+event.event_id}}"
@@ -116,11 +116,11 @@
                             data-ad_id="{{event.event_id}}">Confirm Read</a>
                         </div>
                     </li>
-                </ul> 
+                </ul>
                 </div>
             </div>
-            
-            <div class='panel panel-warning' 
+
+            <div class='panel panel-warning'
                  ng-controller="adPSACtrl">
                 <div class="panel-heading">
                     <h3 class="panel-title">PSA <em>(Only read one per show)</em></h3>
@@ -134,17 +134,17 @@
                 </div>
                 <ul class="list-group"
                     style="margin-bottom: 0px;"
-                    ng-repeat="psa in psas track by $index" 
+                    ng-repeat="psa in psas track by $index"
                     ng-show="psas">
                     <li class="list-group-item"
                         id="{{'ad-psa-'+psa.psa_id}}">
-                       
+
                         <h2>{{psa.ad_name}}</h2>
                         <p>{{psa.ad_content}}</p>
                          <div class="confirmBT">
                       	<div class="row">
 	                      	<div class="col-md-6">
-	                         	<a href="javascript:void(0);" 
+	                         	<a href="javascript:void(0);"
 	                            class='btn btn-info btn-lg'
 	                            style='margin-right:5px;'
 	                            ng-click="skipitClicked(psa.psa_id)"
@@ -152,7 +152,7 @@
 	                            >Skip This One</a>
                         	</div>
                         	<div class="col-md-6">
-	                         	<a href="#readItModal" 
+	                         	<a href="#readItModal"
 	                            class='btn btn-danger btn-lg'
 	                            ng-click="readitClicked('read-it-button-psa-'+psa.psa_id)"
 	                            id="{{'read-it-button-psa-'+psa.psa_id}}"
@@ -163,7 +163,7 @@
                        </div>
                        </div>
                     </li>
-                </ul> 
+                </ul>
                 </div>
             </div>
             <div id="panic">
@@ -175,11 +175,11 @@
         </div>
 		<div class='col-md-6'>
 			<h3>Chat Window</h3>
-			<div id="chatwing-embedded-4415b9e0-870c-11e5-a7a1-25c0609413f9"></div>
-			
+			<iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/knce-radio---chat-with-the-dj?id=xqSpx3J_zp8&platform=html"></iframe>
+
 			<div id="tab-full-container" class='tab-container'>
 			 <div class='etabs'>
-			 
+
 			 </div>
 			 <div class='panel-container'>
 			  <div id="tab-calendar">
@@ -190,25 +190,25 @@
 	        				<p style="font-weight:bold; color:#dc4503; font-size:1.275em;">Review the calendar listings before you begin reading over the air; if you feel you need more information about an event, CLICK on it to review the complete listing at LiveTaos.com. DO NOT ANNOUNCE OVER THE AIR that you don't have enough details or don't know what a listing means; either get more details, or skip reading the listing.</P>
 							<br/><br/>
 							<p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and culture in Taos. If you think something is missing from this calendar, it's easy to submit your own events at LiveTaos.com! </p>
-	        				
-	        				
+
+
 	        				<iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed" src="http://livetaos.com/iframe-embeds/knce-dj-embed/"></iframe>
 	        			</div>
 			  </div>
-			  
-		        
 
-		        
+
+
+
 			   <!-- content -->
 			  </div>
 			 </div>
 			</div>
-			
+
         </div>
 
-        
+
         {# Begin Debug Bar #}
-            <div class='panel panel-danger' 
+            <div class='panel panel-danger'
                  ng-controller="debugCtrl"
                  ng-show="debugActive"
                  style="display:none;"
@@ -217,7 +217,7 @@
                     <h3 class="panel-title">DEBUG AND TEST</h3>
                 </div>
                 <div class="panel-body">
-                    
+
                     Date:
                     <input id='debug-input-date'
                             type='text'
@@ -234,8 +234,8 @@
                 </div>
             </div>
         {# End Debug Bar #}
-        
-        <div class="modal fade" 
+
+        <div class="modal fade"
              id="readItModal"
              ng-controller="readitModalCtrl">
             <div class="modal-dialog" >
@@ -251,12 +251,12 @@
                         <div class="form-horizontal">
                         <div class='form-group'
                              id='readitFormGroup'>
-                            <label for="dj-initials" 
+                            <label for="dj-initials"
                                    class="control-label col-sm-2">DJ Initials</label>
                             <div class="col-xs-2">
-                            <input type="text" 
-                                   name="dj-initials" 
-                                   class="form-control input-min" 
+                            <input type="text"
+                                   name="dj-initials"
+                                   class="form-control input-min"
                                    id="inputDJInitials" >
                             </div>
                             <button class="btn btn-danger pull-right"
@@ -264,14 +264,14 @@
                                     id="readItSubmitButton"
                                     style="margin-right:20px;">Submit</button>
                         </div>
-                        
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" 
+        <div class="modal fade"
              id="auto-signout-modal">
             <div class="modal-dialog" >
                 <div class="modal-content" >
@@ -297,9 +297,9 @@
                 </div>
             </div>
         </div>
-{% endblock %}        
-        
-{% block javascripts %}        
+{% endblock %}
+
+{% block javascripts %}
     <script type='text/javascript'>
         var BASE_URL = "{{ url('dj_blaster_base') }}";
         BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
@@ -310,15 +310,15 @@
         var AUTO_SIGNOUT_TIMER_ID = null;
         var AUTO_SIGNOUT_TIME = 30;
         var AUTO_SIGNOUT_WANTS_TO_CONTINUE = false;
-    </script>   
-        
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="{{ asset('js/djblasterjs/djblaster.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/jquery.zweatherfeed.min.js') }}"></script>
-    
+
     <script type='text/javascript'>
 		$(document).ready(function () {
 			$('#weatherEmbed').weatherfeed(['USNM0314'], {
@@ -327,7 +327,7 @@
 				linktarget: "_blank",
 				unit: 'f'
 			});
-			
+
             // Parse the show end time into usable pieces
             var showEndArr = SHOW_INFO.show_end_time.split(':');
             SHOW_INFO['show_end_hour'] = parseInt(showEndArr[0]);
@@ -338,14 +338,14 @@
 			window.setInterval(updateClock,10000);
 
             window.setInterval(hasShowEnded, 10000);
-			 
+
 		});
 
         function updateClock() {
             var now = moment();
             var date = now.format("MMMM D, YYYY");
             var time = now.format("h:mm");
-            
+
             $('#currentDate').html("<span id='date'>"+date+"</span>");
             $('#currentDate-2').html("<span id='date'>"+date+"</span>");
             $('#currentTime').html("<span id='time'>"+time+"</span>");
@@ -363,7 +363,7 @@
                 showEnd.add(1, 'd');
             }
             var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
-            
+
             if(now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE){
                 displaySignoutModal(30);
             } else if(now.isAfter(showEnd)) {
@@ -411,17 +411,9 @@
         function logoutDJ(){
             location.href= BASE_URL + "/djsignout";
         }
-		
-		
-		
+
+
+
     </script>
-    
-    <script type="text/javascript">
-        (function(d) {
-            var cwjs, id='chatwing-js';  if(d.getElementById(id)) {return;}
-            cwjs = d.createElement('script'); cwjs.type = 'text/javascript'; cwjs.async = true; cwjs.id = id
-            cwjs.src = "//chatwing.com/code/4415b9e0-870c-11e5-a7a1-25c0609413f9/embedded";
-            d.getElementsByTagName('head')[0].appendChild(cwjs);
-        })(document);
-    </script>
+
 {% endblock %}
