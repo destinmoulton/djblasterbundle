@@ -4,7 +4,7 @@
 {% block content %}
 	<h2>DJ Sign In Report</h2>
 	<div class="jumbotron">
-		<form class="form-horizontal" id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
+		<form class="form-horizontal" id="report_form" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
 			<div class="form-group">
 				<label class="col-sm-2" for="start_date">Start Date:</label>
 				<div class="col-sm-2">
@@ -29,7 +29,9 @@
 					<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
 				</div>
 			</div>
-			<button class='col-sm-offset-2 btn btn-primary btn-sm' id="buttonContinue">Generate</button>
+			<input type="text" name="type_of_report" id="type_of_report" value="html" style="display:none">
+			<button type="button" class='col-sm-offset-1 btn btn-primary btn-sm' id="button_html">Generate HTML</button>
+			<button type="button" class='col-sm-offset-1 btn btn-secondary btn-sm' id="button_csv">Generate CSV</button>
 		</form>
 	</div>
 	{% if query_performed %}
@@ -84,5 +86,15 @@ $('#end_date').datepicker({'dateFormat': 'mm/dd/yy'});
 $('#start_time').timepicker();
 $('#end_time').timepicker();
 
+// Set the buttons to change the report type
+$('#button_html').on('click', function () {
+$('#type_of_report').val("html");
+$('#report_form').submit();
+});
+
+$('#button_csv').on('click', function () {
+$('#type_of_report').val("csv");
+$('#report_form').submit();
+});
 
 });</script>{% endblock %}
