@@ -41,7 +41,8 @@
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th>Sign In Time</th>
+				<th>Date</th>
+				<th>Time</th>
 				<th>Show Title</th>
 				<th>Show Time</th>
 				<th>DJ Name</th>
@@ -51,7 +52,8 @@
 		<tbody>
 			{% for djs in djsignins %}
 				<tr>
-					<td>{{ djs.signin_datetime|date("F jS \\a\\t g:ia") }}</td>
+					<td>{{ djs.signin_datetime|date("F j") }}</td>
+					<td>{{ djs.signin_datetime|date("g:ia") }}</td>
 					<td>{{ djs.show_title }}</td>
 					<td>{{ djs.show_start_time|date("g:ia") }}
 						to
