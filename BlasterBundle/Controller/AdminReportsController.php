@@ -152,6 +152,8 @@ class AdminReportsController extends Controller
         $end_date = $request->request->get('end_date');
         $start_time = $request->request->get('start_time');
         $end_time = $request->request->get('end_time');
+        $type_of_report = $request->request->get('type_of_report');
+
         $djsignins = array();
         $query_performed = false;
         if (!$start_date) {
@@ -198,6 +200,24 @@ class AdminReportsController extends Controller
             'djsignins' => $djsignins,
             'query_performed' => $query_performed
         );
-        return $this->render('DJBlasterBundle:Admin/Report:djsignin_report.html.twig', $options);
+
+        if ($type_of_report == "html") {
+
+            return $this->render('DJBlasterBundle:Admin/Report:djsignin_report.html.twig', $options);
+        } else if ($type_of_report == "csv") {
+            $fp = fopen('php://temp', 'w');
+            foreach ($djsignins as $fields) {
+                fputcsv($fp, $fields);
+            }
+
+            rewind($fp);
+            $response = new Response(stream_get_contents($fp));
+            fclose($fp);
+
+            $response->headers->set('Content-Type', 'text/csv');
+            $response->headers->set('Content-Disposition', 'attachment; filename="testing.csv"');
+
+            return $response;
+        }
     }
 }
