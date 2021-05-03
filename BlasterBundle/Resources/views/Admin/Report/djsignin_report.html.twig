@@ -6,24 +6,28 @@
 
 <form class="form-horizontal" id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
 	<div class="form-group">
-		<label for="start_date">Start Date:</label>
+		<label class="col-sm-2" for="start_date">Start Date:</label>
 		<div class="col-sm-2">
 			<input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="end_date">End Date:</label>
+		<label class="col-sm-2" for="end_date">End Date:</label>
 		<div class="col-sm-2">
 			<input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}"/>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="start_time">Start Time:</label>
-		<input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}"/>
+		<label class="col-sm-2" for="start_time">Start Time:</label>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}"/>
+		</div>
 	</div>
 	<div class="form-group">
-		<label for="end_time">End Time:</label>
-		<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
+		<label class="col-sm-2" for="end_time">End Time:</label>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
+		</div>
 	</div>
 	<button class='btn btn-default btn-sm' id="buttonContinue">Generate</button>
 </form>
