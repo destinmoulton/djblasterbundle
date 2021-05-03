@@ -4,70 +4,67 @@
 {% block content %}
 <h2>DJ Sign In Report</h2>
 
-<form class="form-inline" 
-      id="reportForm"
-      method="post"
-      action="{{ path('dj_blaster_admin_djsignin_report') }}"
-      name="djsignin_report_form">
-    <div class="form-group">
-        <label for="start_date">Start Date:</label>
-        <input type="text" 
-               class="form-control" 
-               id="start_date"
-               name="start_date" 
-               value="{{ start_date }}"/>
-    </div>
-    <div class="form-group">
-        <label for="end_date">End Date:</label>
-        <input type="text" 
-               class="form-control" 
-               id="end_date"
-               name="end_date" 
-               value="{{ end_date }}"/>
-    </div>
-    <button class='btn btn-default btn-sm' 
-            id="buttonContinue">Generate</button>
+<form id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
+	<div class="form-group">
+		<label for="start_date">Start Date:</label>
+		<input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
+	</div>
+	<div class="form-group">
+		<label for="end_date">End Date:</label>
+		<input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}"/>
+	</div>
+	<div class="form-group">
+		<label for="start_time">Start Time:</label>
+		<input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}"/>
+	</div>
+	<div class="form-group">
+		<label for="end_time">End Time:</label>
+		<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
+	</div>
+	<button class='btn btn-default btn-sm' id="buttonContinue">Generate</button>
 </form>
 {% if query_performed %}
-    {% if djsignins[0] is defined %}
-        <h3>DJ Signins for {{ start_date }} to {{end_date}}</h3>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Sign In Time</th>
-                    <th>Show Title</th>
-                    <th>Show Time</th>
-                    <th>DJ Name</th>
-                    <th>DJ Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for djs in djsignins %}
-                    <tr>
-                        <td>{{ djs.signin_datetime|date("F jS \\a\\t g:ia") }}</td>
-                        <td>{{ djs.show_title }}</td>
-                        <td>{{ djs.show_start_time|date("g:ia") }} to {{ djs.show_end_time|date("g:ia") }}</td>
-                        <td>{{ djs.dj_first_name }} {{ djs.dj_last_name }}</td>
-                        <td>{{ djs.dj_email }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <h3>No DJ Signins to Report for {{ start_date }} to {{end_date}}</h3>
-    {% endif %}
-{% endif %}
-{% endblock %}
+	{% if djsignins[0] is defined %}
+		<h3>DJ Signins for
+			{{ start_date }}
+			to
+		{{end_date}}
+	</h3>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Sign In Time</th>
+				<th>Show Title</th>
+				<th>Show Time</th>
+				<th>DJ Name</th>
+				<th>DJ Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for djs in djsignins %}
+				<tr>
+					<td>{{ djs.signin_datetime|date("F jS \\a\\t g:ia") }}</td>
+					<td>{{ djs.show_title }}</td>
+					<td>{{ djs.show_start_time|date("g:ia") }}
+						to
+						{{ djs.show_end_time|date("g:ia") }}</td>
+					<td>{{ djs.dj_first_name }}
+						{{ djs.dj_last_name }}</td>
+					<td>{{ djs.dj_email }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% else %}
+	<h3>No DJ Signins to Report for
+		{{ start_date }}
+		to
+	{{end_date}}
+</h3>{% endif %}{% endif %}{% endblock %}{% block javascripts %}{{ parent() }}<link href="/css/jquery.timepicker.css" type="text/css" rel="stylesheet"/><script src="/js/jquery.timepicker.min.js"></script><script type='text/javascript'>$(function () {
+$('#start_date').datepicker({'dateFormat': 'mm/dd/yy'});
+$('#end_date').datepicker({'dateFormat': 'mm/dd/yy'});
+$('#start_time').timepicker();
+$('#end_time').timepicker();
 
-{% block javascripts %}
-{{ parent() }}
-<script type='text/javascript'>
 
-$(function(){
-     $('#start_date').datepicker({'dateFormat':'mm/dd/yy'});
-     $('#end_date').datepicker({'dateFormat':'mm/dd/yy'});
-
-     
-});
-</script>
-{% endblock %}
+});</script>{% endblock %}

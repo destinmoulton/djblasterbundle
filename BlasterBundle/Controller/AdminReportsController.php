@@ -2,6 +2,8 @@
 
 namespace DJBlaster\BlasterBundle\Controller;
 
+use DateInterval;
+use DatePeriod;
 use DateTime;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -148,29 +150,40 @@ class AdminReportsController extends Controller
     {
         $start_date = $request->request->get('start_date');
         $end_date = $request->request->get('end_date');
+        $start_time = $request->request->get('start_time');
+        $end_time = $request->request->get('end_time');
         $djsignins = array();
         $query_performed = false;
         if (!$start_date) {
             $dateTime = new DateTime('NOW');
             $start_date = $dateTime->format('m/d/Y');
             $end_date = $dateTime->format('m/d/Y');
+            $start_time = "12:00am";
+            $end_time = "12:00pm";
         } else {
 
             $em = $this->getDoctrine()->getManager();
 
-            $sd_parts = explode('/', $start_date);
-            $ed_parts = explode('/', $end_date);
+            $start_dt = DateTime::createFromFormat("m/d/Y", $start_date);
+            $end_dt = DateTime::createFromFormat("m/d/Y", $end_date);
 
-            $start_datetime = new DateTime();
-            $start_datetime->setDate($sd_parts[2], $sd_parts[0], $sd_parts[1]);
-            $start_datetime->setTime(0, 0, 0);
+            $interval = DateInterval::createFromDateString("1 day");
+            $period = new DatePeriod($start_dt, $interval, $end_dt);
 
-            $end_datetime = new DateTime();
-            $end_datetime->setDate($ed_parts[2], $ed_parts[0], $ed_parts[1]);
-            $end_datetime->setTime(23, 59, 59);
 
-            $djsignins = $em->getRepository('DJBlasterBundle:DJSignIn')
-                ->getDJSigninsBetweenDates($start_datetime->format("Y-m-d H:i:s"), $end_datetime->format("Y-m-d H:i:s"));
+            foreach ($period as $day) {
+                $date = $day->format("m/d/Y");
+                $start_datetime = DateTime::createFromFormat("m/d/Y h:ia", $date . " " . $start_time);
+                $end_datetime = DateTime::createFromFormat("m/d/Y h:ia", $date . " " . $end_time);
+
+                $signins = $em->getRepository('DJBlasterBundle:DJSignIn')
+                    ->getDJSigninsBetweenDates($start_datetime->format("Y-m-d H:i:s"), $end_datetime->format("Y-m-d H:i:s"));
+
+                // Compile the return
+                foreach ($signins as $signin) {
+                    $djsignins[] = $signin;
+                }
+            }
             $query_performed = true;
         }
 
