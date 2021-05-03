@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<button class='col-sm-offset-1 btn btn-primary btn-sm' id="button_html">Generate HTML</button>
-			<a target="_blank" class='btn btn-info btn-sm' id="button_csv">Generate CSV</a>
+			<a target="_blank" href='{{ path('dj_blaster_admin_djsignin_report', {'report_type':'csv'})}}' class='btn btn-info btn-sm' id="button_csv">Generate CSV</a>
 		</form>
 	</div>
 	{% if query_performed %}
