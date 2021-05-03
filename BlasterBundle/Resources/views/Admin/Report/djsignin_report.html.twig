@@ -59,7 +59,7 @@
 		<tbody>
 			{% for djs in djsignins %}
 				<tr>
-					<td>{{ djs.signin_datetime|date("F j") }}</td>
+					<td>{{ djs.signin_datetime }}</td>
 					<td>{{ djs.signin_datetime|date("g:ia") }}</td>
 					<td>{{ djs.show_title }}</td>
 					<td>{{ djs.show_start_time|date("g:ia") }}
