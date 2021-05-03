@@ -159,7 +159,7 @@ class AdminReportsController extends Controller
             $start_date = $dateTime->format('m/d/Y');
             $end_date = $dateTime->format('m/d/Y');
             $start_time = "12:00am";
-            $end_time = "12:00pm";
+            $end_time = "11:59pm";
         } else {
 
             $em = $this->getDoctrine()->getManager();
