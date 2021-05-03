@@ -146,12 +146,13 @@ class AdminReportsController extends Controller
         }
     }
 
-    public function djsigninReportGeneratorAction(Request $request, $report_type = "html")
+    public function djsigninReportGeneratorAction(Request $request)
     {
         $start_date = $request->request->get('start_date');
         $end_date = $request->request->get('end_date');
         $start_time = $request->request->get('start_time');
         $end_time = $request->request->get('end_time');
+        $report_type = $request->request->get('report_type');
 
         $djsignins = array();
         $query_performed = false;
@@ -161,6 +162,7 @@ class AdminReportsController extends Controller
             $end_date = $dateTime->format('m/d/Y');
             $start_time = "12:00am";
             $end_time = "11:59pm";
+            $report_type = "html";
         } else {
 
             $em = $this->getDoctrine()->getManager();
@@ -214,7 +216,7 @@ class AdminReportsController extends Controller
             fclose($fp);
 
             $response->headers->set('Content-Type', 'text/csv');
-            $response->headers->set('Content-Disposition', 'attachment; filename="testing.csv"');
+            $response->headers->set('Content-Disposition', 'attachment; filename="djsignins.csv"');
 
             return $response;
         }
