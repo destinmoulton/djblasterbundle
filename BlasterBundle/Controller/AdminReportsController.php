@@ -162,6 +162,7 @@ class AdminReportsController extends Controller
             $end_date = $dateTime->format('m/d/Y');
             $start_time = "12:00am";
             $end_time = "11:59pm";
+            $type_of_report = "html";
         } else {
 
             $em = $this->getDoctrine()->getManager();
