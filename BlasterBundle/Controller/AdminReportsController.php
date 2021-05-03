@@ -146,13 +146,12 @@ class AdminReportsController extends Controller
         }
     }
 
-    public function djsigninReportGeneratorAction(Request $request)
+    public function djsigninReportGeneratorAction(Request $request, $report_type = "html")
     {
         $start_date = $request->request->get('start_date');
         $end_date = $request->request->get('end_date');
         $start_time = $request->request->get('start_time');
         $end_time = $request->request->get('end_time');
-        $type_of_report = $request->request->get('type_of_report');
 
         $djsignins = array();
         $query_performed = false;
@@ -162,7 +161,6 @@ class AdminReportsController extends Controller
             $end_date = $dateTime->format('m/d/Y');
             $start_time = "12:00am";
             $end_time = "11:59pm";
-            $type_of_report = "html";
         } else {
 
             $em = $this->getDoctrine()->getManager();
@@ -202,7 +200,7 @@ class AdminReportsController extends Controller
             'query_performed' => $query_performed
         );
 
-        if ($type_of_report == "html") {
+        if ($report_type == "html") {
 
             return $this->render('DJBlasterBundle:Admin/Report:djsignin_report.html.twig', $options);
         } else if ($type_of_report == "csv") {

@@ -29,9 +29,8 @@
 					<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
 				</div>
 			</div>
-			<input type="text" name="type_of_report" id="type_of_report" value="html" style="display:none">
-			<button type="button" class='col-sm-offset-1 btn btn-primary btn-sm' id="button_html">Generate HTML</button>
-			<button type="button" class='col-sm-offset-1 btn btn-secondary btn-sm' id="button_csv">Generate CSV</button>
+			<button class='col-sm-offset-1 btn btn-primary btn-sm' id="button_html">Generate HTML</button>
+			<a target="_blank" class='btn btn-info btn-sm' id="button_csv">Generate CSV</a>
 		</form>
 	</div>
 	{% if query_performed %}
@@ -86,15 +85,5 @@ $('#end_date').datepicker({'dateFormat': 'mm/dd/yy'});
 $('#start_time').timepicker();
 $('#end_time').timepicker();
 
-// Set the buttons to change the report type
-$('#button_html').on('click', function () {
-$('#type_of_report').val("html");
-$('#report_form').submit();
-});
-
-$('#button_csv').on('click', function () {
-$('#type_of_report').val("csv");
-$('#report_form').submit();
-});
 
 });</script>{% endblock %}
