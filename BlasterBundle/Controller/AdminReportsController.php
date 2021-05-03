@@ -209,10 +209,10 @@ class AdminReportsController extends Controller
             $fp = fopen('php://temp', 'w');
             foreach ($djsignins as $fields) {
                 $clean = array();
-                $clean['date'] = date("F j", $fields['signin_datetime']);
-                $clean['time'] = date("g:ia", $fields['signin_datetime']);
+                $clean['date'] = $fields['signin_datetime']->format("F j");
+                $clean['time'] = $fields['signin_datetime']->format("g:ia");
                 $clean['show_title'] = $fields['show_title'];
-                $clean['show_time'] = date("g:ia", $fields['show_start_time']) . " to " . date("g:ia", $fields['show_end_time']);
+                $clean['show_time'] = $fields['show_start_time']->format("g:ia") . " to " . $fields['show_end_time']->format("g:ia");
                 $clean['dj_first_name'] = $fields['dj_first_name'];
                 $clean['dj_last_name'] = $fields['dj_last_name'];
                 $clean['dj_email'] = $fields['dj_email'];
