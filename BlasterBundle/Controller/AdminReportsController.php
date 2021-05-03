@@ -167,6 +167,9 @@ class AdminReportsController extends Controller
             $start_dt = DateTime::createFromFormat("m/d/Y", $start_date);
             $end_dt = DateTime::createFromFormat("m/d/Y", $end_date);
 
+            //Include the end date
+            $end_dt->modify("+1 day");
+
             $interval = DateInterval::createFromDateString("1 day");
             $period = new DatePeriod($start_dt, $interval, $end_dt);
 
