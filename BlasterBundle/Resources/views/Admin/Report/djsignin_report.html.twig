@@ -2,41 +2,45 @@
 
 
 {% block content %}
-<h2>DJ Sign In Report</h2>
+	<h2>DJ Sign In Report</h2>
 
-<form class="form-horizontal" id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
-	<div class="form-group">
-		<label class="col-sm-2" for="start_date">Start Date:</label>
-		<div class="col-sm-2">
-			<input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
+	<form class="form-horizontal" id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
+		<div class="form-group">
+			<label class="col-sm-2" for="start_date">Start Date:</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2" for="end_date">End Date:</label>
-		<div class="col-sm-2">
-			<input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}"/>
+		<div class="form-group">
+			<label class="col-sm-2" for="end_date">End Date:</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2" for="start_time">Start Time:</label>
-		<div class="col-sm-2">
-			<input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}"/>
+		<div class="form-group">
+			<label class="col-sm-2" for="start_time">Start Time:</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2" for="end_time">End Time:</label>
-		<div class="col-sm-2">
-			<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
+		<div class="form-group">
+			<label class="col-sm-2" for="end_time">End Time:</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}"/>
+			</div>
 		</div>
-	</div>
-	<button class='btn btn-default btn-sm' id="buttonContinue">Generate</button>
-</form>
-{% if query_performed %}
-	{% if djsignins[0] is defined %}
-		<h3>DJ Signins for
-			{{ start_date }}
+		<button class='btn btn-default btn-sm' id="buttonContinue">Generate</button>
+	</form>
+	{% if query_performed %}
+		{% if djsignins[0] is defined %}
+			<h3>DJ Signins for
+				{{ start_date }}
+				to
+			{{end_date}}
+			from
+			{{start_time}}
 			to
-		{{end_date}}
+		{{end_time}}
 	</h3>
 	<table class="table table-bordered table-striped">
 		<thead>
@@ -70,7 +74,10 @@
 		{{ start_date }}
 		to
 	{{end_date}}
-</h3>{% endif %}{% endif %}{% endblock %}{% block javascripts %}{{ parent() }}<link href="/css/jquery.timepicker.css" type="text/css" rel="stylesheet"/><script src="/js/jquery.timepicker.min.js"></script><script type='text/javascript'>$(function () {
+	from
+	{{start_time}}
+	to
+{{end_time}}</h3>{% endif %}{% endif %}{% endblock %}{% block javascripts %}{{ parent() }}<link href="/css/jquery.timepicker.css" type="text/css" rel="stylesheet"/><script src="/js/jquery.timepicker.min.js"></script><script type='text/javascript'>$(function () {
 $('#start_date').datepicker({'dateFormat': 'mm/dd/yy'});
 $('#end_date').datepicker({'dateFormat': 'mm/dd/yy'});
 $('#start_time').timepicker();
