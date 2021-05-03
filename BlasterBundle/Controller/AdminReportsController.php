@@ -203,7 +203,7 @@ class AdminReportsController extends Controller
         if ($report_type == "html") {
 
             return $this->render('DJBlasterBundle:Admin/Report:djsignin_report.html.twig', $options);
-        } else if ($type_of_report == "csv") {
+        } else if ($report_type == "csv") {
             $fp = fopen('php://temp', 'w');
             foreach ($djsignins as $fields) {
                 fputcsv($fp, $fields);
