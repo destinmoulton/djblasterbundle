@@ -208,7 +208,16 @@ class AdminReportsController extends Controller
         } else if ($report_type == "csv") {
             $fp = fopen('php://temp', 'w');
             foreach ($djsignins as $fields) {
-                fputcsv($fp, $fields);
+                $clean = array();
+                $clean['date'] = date("F j", $fields['signin_datetime']);
+                $clean['time'] = date("g:ia", $fields['signin_datetime']);
+                $clean['show_title'] = $fields['show_title'];
+                $clean['show_time'] = date("g:ia", $fields['show_start_time']) . " to " . date("g:ia", $fields['show_end_time']);
+                $clean['dj_first_name'] = $fields['dj_first_name'];
+                $clean['dj_last_name'] = $fields['dj_last_name'];
+                $clean['dj_email'] = $fields['dj_email'];
+
+                fputcsv($fp, $clean);
             }
 
             rewind($fp);
