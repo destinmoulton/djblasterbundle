@@ -4,10 +4,12 @@
 {% block content %}
 <h2>DJ Sign In Report</h2>
 
-<form id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
+<form class="form-horizontal" id="reportForm" method="post" action="{{ path('dj_blaster_admin_djsignin_report') }}" name="djsignin_report_form">
 	<div class="form-group">
 		<label for="start_date">Start Date:</label>
-		<input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="end_date">End Date:</label>
