@@ -73,7 +73,7 @@
 </h3>{% endif %}{% endif %}{% endblock %}{% block javascripts %}{{ parent() }}<link href="/css/jquery.timepicker.css" type="text/css" rel="stylesheet"/><script src="/js/jquery.timepicker.min.js"></script><script type='text/javascript'>$(function () {
 $('#start_date').datepicker({'dateFormat': 'mm/dd/yy'});
 $('#end_date').datepicker({'dateFormat': 'mm/dd/yy'});
-$('#start_time').timepicker();
+$('#start_time').timepicker().val($("#start_time").val());
 $('#end_time').timepicker();
 
 
