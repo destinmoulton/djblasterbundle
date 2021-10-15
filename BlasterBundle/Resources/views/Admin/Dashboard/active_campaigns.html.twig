@@ -65,10 +65,6 @@
 													{% if event.getNoReadsPerformed() == event.getNoReads() %}
 														<span>All Reads Completed.</span>
 													{% else %}
-														<span>Avg. Reads Per Day:
-															{{ event.getNoReadsPerDay() }}
-															|
-														</span>
 														{% if event.getNextReadTime()|date('g:ia') == "10:00pm" %}
 															<span>Daily Read Quota Met. Next Sched. Read tomorrow.</span>
 														{% elseif event.getLastReadDate()|date('Ymd') < date()|date('Ymd') %}
@@ -80,29 +76,33 @@
 														{% else %}
 															<span>Next Read Scheduled:
 																{{ event.getNextReadTime()|date('g:ia') }}</span>
+															|
+															<span>Number of reads left today to meet quota:
+																{{event.getNoReadsRemainingToday()}}
+															{% endif %}
 														{% endif %}
-													{% endif %}
-												</em>]
-											</li>
-										{% endfor %}
-									</ul>
-								</li>
-							{% endif %}
-							{% if active_campaign_ads[camp.campaign_id]['psas']|length > 0%}
-								<li>
-									<strong>PSAs</strong>
-									<ul>
-										{% for psa in active_campaign_ads[camp.campaign_id]['psas'] %}
-											<li>
-												<a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'psa_id':psa.getPsaId()}) }}">
-													{{ psa.getAdName() }}
-												</a>
-											</li>
-										{% endfor %}
-									</ul>
-								</li>
-							{% endif %}
-						</ul>
+													</em>]
+												</li>
+											{% endfor %}
+										</ul>
+									</li>
+								{% endif %}
+								{% if active_campaign_ads[camp.campaign_id]['psas']|length > 0%}
+									<li>
+										<strong>PSAs</strong>
+										<ul>
+											{% for psa in active_campaign_ads[camp.campaign_id]['psas'] %}
+												<li>
+													<a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'psa_id':psa.getPsaId()}) }}">
+														{{ psa.getAdName() }}
+													</a>
+												</li>
+											{% endfor %}
+										</ul>
+									</li>
+								{% endif %}
+							</ul>
+						</td>
 					</td>
 				</tr>
 			{% endfor %}
