@@ -19,7 +19,7 @@ class AdminController extends Controller
 
         $sponsorship_reads = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:DJReadShowSponsorship')
-            ->getRecentReads(40);
+            ->getRecentReads(200);
 
         $event_reads = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:DJReadEvent')
@@ -27,7 +27,7 @@ class AdminController extends Controller
 
         $psa_reads = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:DJReadPSA')
-            ->getRecentReads(40);
+            ->getRecentReads(200);
 
         return $this->render('DJBlasterBundle:Admin:admin_index.html.twig', array(
             'active_campaigns' => $active_campaigns,
