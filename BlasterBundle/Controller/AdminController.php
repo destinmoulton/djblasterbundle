@@ -23,7 +23,7 @@ class AdminController extends Controller
 
         $event_reads = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:DJReadEvent')
-            ->getRecentReads(40);
+            ->getRecentReads(200);
 
         $psa_reads = $this->getDoctrine()
             ->getRepository('DJBlasterBundle:DJReadPSA')
