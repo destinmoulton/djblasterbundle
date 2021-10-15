@@ -68,7 +68,7 @@
 														</span>
 														{% if event.getNextReadTime()|date('g:ia') == "10:00pm" %}
 															<span>Daily Read Quota Met. Next Sched. Read tomorrow.</span>
-														{% elseif event.getLastReadDate()|date < date()|date %}
+														{% elseif event.getLastReadDate()|date('M j, Y') < date()|date('M j, Y') %}
 															<span>{{event.getLastReadDate()|date}}
 																{{date()|date}}
 																Last run yesterday. In first-run queue.</span>
