@@ -1,90 +1,104 @@
-<div >
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Campaign</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Customer</th>
-        </thead>
-        <tbody>
-            {% for camp in active_campaigns %}
-            <tr>
-                <td>
-                    <a href="{{ path('dj_blaster_admin_ad_list', {'customer':camp.customer_id, 'campaign':camp.campaign_id}) }}">
-                        <strong>{{ camp.campaign_name }}<strong>
-                    </a>
-                </td>
-                <td>{{ camp.start_date|date('M j, Y') }}</td>
-                <td>{{ camp.end_date|date('M j, Y') }}</td>
-                <td>
-                    <a href="{{ path('dj_blaster_admin_campaign_list', {'customer':camp.customer_id}) }}">{{ camp.customer_name }}</a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <ul>
-                    {% if active_campaign_ads[camp.campaign_id]['sponsorships']|length > 0%}
-                        <li>
-                            <strong>Sponsorships</strong>
-                            <ul>
-                            {% for spons in active_campaign_ads[camp.campaign_id]['sponsorships'] %}
-                                <li>
-                                    <a href="{{ path('dj_blaster_admin_ad_show_sponsorship_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'sponsorship_id':spons.getSponsorshipId()}) }}">
-                                    {{ spons.getAdName() }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
-                    {% if active_campaign_ads[camp.campaign_id]['events']|length > 0%}
-                        <li>
-                            <strong>Promotions</strong>
-                            <ul>
-                            {% for event in active_campaign_ads[camp.campaign_id]['events'] %}
-                                <li>
-                                    <a href="{{ path('dj_blaster_admin_ad_event_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'event_id':event.getEventId()}) }}">
-                                        {{ event.getAdName() }}
-                                    </a>
-                                    <br/>
-                                    [<em>
-                                        <span>No. Reads: {{ event.getNoReadsPerformed() }}/{{ event.getNoReads() }} | </span>
-                                        <span>Last Read: {{ event.getLastRead()|date('M j g:ia') }} | </span>
-                                        {% if event.getNoReadsPerformed() == event.getNoReads() %}
-                                            <span>All Reads Completed.</span>
-                                        {% else %}
-                                            <span>Reads Per Day: {{ event.getNoReadsPerDay() }} | </span>
-                                            {% if event.getNextReadTime()|date('g:ia') == "10:00pm" %}
-                                            <span>Daily Read Quota Met. Next Sched. Read tomorrow.</span>
-                                            {% else %}
-                                            <span>Next Read Scheduled: {{ event.getNextReadTime()|date('g:ia') }}</span>
-                                            {% endif %}
-                                        {% endif %}
-                                    </em>]
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
-                    {% if active_campaign_ads[camp.campaign_id]['psas']|length > 0%}
-                        <li>
-                            <strong>PSAs</strong>
-                            <ul>
-                            {% for psa in active_campaign_ads[camp.campaign_id]['psas'] %}
-                                <li>
-                                    <a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'psa_id':psa.getPsaId()}) }}">
-                                        {{ psa.getAdName() }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
-                    </ul>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Campaign</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Customer</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for camp in active_campaigns %}
+				<tr>
+					<td>
+						<a href="{{ path('dj_blaster_admin_ad_list', {'customer':camp.customer_id, 'campaign':camp.campaign_id}) }}">
+							<strong>{{ camp.campaign_name }}<strong></a>
+							</td>
+							<td>{{ camp.start_date|date('M j, Y') }}</td>
+							<td>{{ camp.end_date|date('M j, Y') }}</td>
+							<td>
+								<a href="{{ path('dj_blaster_admin_campaign_list', {'customer':camp.customer_id}) }}">{{ camp.customer_name }}</a>
+							</td>
+						</tr>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<ul>
+							{% if active_campaign_ads[camp.campaign_id]['sponsorships']|length > 0%}
+								<li>
+									<strong>Sponsorships</strong>
+									<ul>
+										{% for spons in active_campaign_ads[camp.campaign_id]['sponsorships'] %}
+											<li>
+												<a href="{{ path('dj_blaster_admin_ad_show_sponsorship_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'sponsorship_id':spons.getSponsorshipId()}) }}">
+													{{ spons.getAdName() }}
+												</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							{% endif %}
+							{% if active_campaign_ads[camp.campaign_id]['events']|length > 0%}
+								<li>
+									<strong>Promotions</strong>
+									<ul>
+										{% for event in active_campaign_ads[camp.campaign_id]['events'] %}
+											<li>
+												<a href="{{ path('dj_blaster_admin_ad_event_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'event_id':event.getEventId()}) }}">
+													{{ event.getAdName() }}
+												</a>
+												<br/>
+												[<em>
+													<span>No. Reads:
+														{{ event.getNoReadsPerformed() }}/{{ event.getNoReads() }}
+														|
+													</span>
+													<span>Last Read:
+														{{ event.getLastRead()|date('M j g:ia') }}
+														|
+													</span>
+													{% if event.getNoReadsPerformed() == event.getNoReads() %}
+														<span>All Reads Completed.</span>
+													{% else %}
+														<span>Avg. Reads Per Day:
+															{{ event.getNoReadsPerDay() }}
+															|
+														</span>
+														{% if event.getNextReadTime()|date('g:ia') == "10:00pm" %}
+															<span>Daily Read Quota Met. Next Sched. Read tomorrow.</span>
+														{% elseif event.getLastReadDate() | date < date() %}
+															<span>Queued to run.</span>
+														{% else %}
+															<span>Next Read Scheduled:
+																{{ event.getNextReadTime()|date('g:ia') }}</span>
+														{% endif %}
+													{% endif %}
+												</em>]
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							{% endif %}
+							{% if active_campaign_ads[camp.campaign_id]['psas']|length > 0%}
+								<li>
+									<strong>PSAs</strong>
+									<ul>
+										{% for psa in active_campaign_ads[camp.campaign_id]['psas'] %}
+											<li>
+												<a href="{{ path('dj_blaster_admin_ad_psa_edit', {'customer':camp.customer_id, 'campaign':camp.campaign_id, 'psa_id':psa.getPsaId()}) }}">
+													{{ psa.getAdName() }}
+												</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							{% endif %}
+						</ul>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
