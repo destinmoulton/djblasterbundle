@@ -55,10 +55,13 @@
 														{{ event.getNoReadsPerformed() }}/{{ event.getNoReads() }}
 														|
 													</span>
-													<span>Last Read:
-														{{ event.getLastRead()|date('M j g:ia') }}
-														|
-													</span>
+													{% if camp.start_date > date()|date('M j, Y') %}
+														<span>Campaign has not started.</span>
+													{% else %}
+														<span>Last Read:
+															{{ event.getLastRead()|date('M j g:ia') }}</span>
+													{% endif %}
+													|
 													{% if event.getNoReadsPerformed() == event.getNoReads() %}
 														<span>All Reads Completed.</span>
 													{% else %}
