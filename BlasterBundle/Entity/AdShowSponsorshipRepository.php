@@ -27,14 +27,15 @@ class AdShowSponsorshipRepository extends EntityRepository
     public function findAllForHour($hour, $time)
     {
         // Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
-        $startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 10", $time));
-        $startWeek = intval($startDateTime->format('W'));
+        //$startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 10", $time));
+        //$startWeek = intval($startDateTime->format('W'));
 
 
-        $currentDateTime = new DateTime();
-        $currentDateTime->setTimestamp($time);
-        $currentWeek = $currentDateTime->format("W");
+        // $currentDateTime = new DateTime();
+        // $currentDateTime->setTimestamp($time);
+        // $currentWeek = $currentDateTime->format("W");
         //$weekNum = intval($currentWeek) - $startWeek + 1;
+        $currentWeek = $this->getWeekOfMonth($time);
         $weekNum = "-" . $currentWeek;
 
         // Fix the odd case where the week is 5 or *possibly* 6
@@ -74,5 +75,30 @@ class AdShowSponsorshipRepository extends EntityRepository
         var_dump($query->getParameters());
         die;
         return $result;
+    }
+
+    // From: https://stackoverflow.com/questions/32615861/get-week-number-in-month-from-date-in-php/32624747
+    private function getWeekOfMonth($date)
+    {
+        //Get the first day of the month.
+        $firstOfMonth = strtotime(date("Y-m-01", $date));
+        //Apply above formula.
+        return $this->getWeekOfYear($date) - $this->getWeekOfYear($firstOfMonth) + 1;
+    }
+
+    // From: https://stackoverflow.com/questions/32615861/get-week-number-in-month-from-date-in-php/32624747
+    private function getWeekOfYear($date)
+    {
+        $weekOfYear = intval(date("W", $date));
+        if (date('n', $date) == "1" && $weekOfYear > 51) {
+            // It's the last week of the previos year.
+            return 0;
+        } else if (date('n', $date) == "12" && $weekOfYear == 1) {
+            // It's the first week of the next year.
+            return 53;
+        } else {
+            // It's a "normal" week.
+            return $weekOfYear;
+        }
     }
 }
