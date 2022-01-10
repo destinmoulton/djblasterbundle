@@ -92,7 +92,7 @@ class AdShowSponsorshipRepository extends EntityRepository
     // From: https://stackoverflow.com/questions/32615861/get-week-number-in-month-from-date-in-php/32624747
     private function getWeekOfYear($date)
     {
-        $weekOfYear = intval(date("W", $date));
+        $weekOfYear = intval(strftime("%U", $date));
         if (date('n', $date) == "1" && $weekOfYear > 51) {
             // It's the last week of the previos year.
             return 0;
