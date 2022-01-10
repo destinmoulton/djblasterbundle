@@ -30,10 +30,6 @@ class AdShowSponsorshipRepository extends EntityRepository
         $startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 6", $time));
         $startWeek = intval($startDateTime->format('W'));
 
-        if ($startWeek > 52) {
-            // Adjust for weird january bug
-            $startWeek = abs($startWeek - 52);
-        }
 
         $currentDateTime = new DateTime();
         $currentDateTime->setTimestamp($time);
