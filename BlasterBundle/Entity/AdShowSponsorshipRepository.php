@@ -36,7 +36,7 @@ class AdShowSponsorshipRepository extends EntityRepository
         // $currentWeek = $currentDateTime->format("W");
         //$weekNum = intval($currentWeek) - $startWeek + 1;
         $currentWeek = $this->getWeekOfMonth($time);
-        $weekNum = "-" . $currentWeek;
+        $weekNum = "-" . $time;
 
         // Fix the odd case where the week is 5 or *possibly* 6
         switch ($weekNum) {
