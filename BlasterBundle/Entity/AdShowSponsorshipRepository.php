@@ -81,7 +81,7 @@ class AdShowSponsorshipRepository extends EntityRepository
     private function getWeekOfMonth($date)
     {
         //Get the first day of the month.
-        $firstOfMonth = strtotime(date("Y-m-01", $date));
+        $firstOfMonth = strtotime(date("Y-m-01 8am", $date));
         //Apply above formula.
         return $this->getWeekOfYear($date) - $this->getWeekOfYear($firstOfMonth) + 1;
     }
