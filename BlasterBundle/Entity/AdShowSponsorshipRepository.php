@@ -32,7 +32,7 @@ class AdShowSponsorshipRepository extends EntityRepository
 
         if ($startWeek > 52) {
             // Adjust for weird january bug
-            $startWeek = $startWeek - 52;
+            $startWeek = abs($startWeek - 52);
         }
 
         $currentDateTime = new DateTime();
