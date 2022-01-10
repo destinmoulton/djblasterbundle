@@ -26,17 +26,20 @@ class AdShowSponsorshipRepository extends EntityRepository
 
     public function findAllForHour($hour, $time)
     {
+        /**
+         * REPLACED NEXT BLOCK WITH TWO FUNCTIONS
+         * 
+         * BUG WAS IN THE CALCULATION OF THE WEEK
+         * 
+         */
         // Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
         //$startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 10", $time));
         //$startWeek = intval($startDateTime->format('W'));
-
-
         // $currentDateTime = new DateTime();
         // $currentDateTime->setTimestamp($time);
         // $currentWeek = $currentDateTime->format("W");
         //$weekNum = intval($currentWeek) - $startWeek + 1;
-        $currentWeek = $this->getWeekOfMonth($time);
-        $weekNum = "-" . $time;
+        $weekNum = $this->getWeekOfMonth($time);
 
         // Fix the odd case where the week is 5 or *possibly* 6
         switch ($weekNum) {
@@ -82,7 +85,6 @@ class AdShowSponsorshipRepository extends EntityRepository
     {
         //Get the first day of the month.
         $firstOfMonth = strtotime(date("Y-m-01", $date) . " 8am");
-        return date("Y-m-01", $date);
         //Apply above formula.
         return $this->getWeekOfYear($date) - $this->getWeekOfYear($firstOfMonth) + 1;
     }
