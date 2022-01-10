@@ -74,8 +74,9 @@ class AdShowSponsorshipRepository extends EntityRepository
             ->getQuery();
 
         $result =  $query->getResult();
+        print_r($result);
         echo $query->getSql();
-        //var_dump($query->getParameters());
+        var_dump($query->getParameters());
         die;
         return $result;
     }
