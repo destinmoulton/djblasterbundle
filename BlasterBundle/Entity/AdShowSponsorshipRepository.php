@@ -35,7 +35,7 @@ class AdShowSponsorshipRepository extends EntityRepository
         $currentDateTime->setTimestamp($time);
         $currentWeek = $currentDateTime->format("W");
         //$weekNum = intval($currentWeek) - $startWeek + 1;
-        $weekNum = "-" . $startWeek;
+        $weekNum = "-" . $currentWeek;
 
         // Fix the odd case where the week is 5 or *possibly* 6
         switch ($weekNum) {
