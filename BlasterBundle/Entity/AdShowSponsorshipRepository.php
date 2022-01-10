@@ -27,7 +27,7 @@ class AdShowSponsorshipRepository extends EntityRepository
     public function findAllForHour($hour, $time)
     {
         // Why 6am? Because for some reason it reads Jan 01 as the prior year based on timezone
-        $startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 6", $time));
+        $startDateTime = DateTime::createFromFormat("Y-m-d H", date("Y-m-01 10", $time));
         $startWeek = intval($startDateTime->format('W'));
 
 
