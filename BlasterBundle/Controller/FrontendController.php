@@ -118,9 +118,9 @@ class FrontendController extends Controller
 
         // DJ Notification is id 1 for this notice
         $djnotification = $em->getRepository('DJBlasterBundle:DJNotification')->find(1);
-        $notice_start = strtotime($djnotification->getStartDate()." 00:00:01");
-        $notice_end = strtotime($djnotification->getEndDate()." 23:59:59");
-        $now = time();
+        $notice_start = $djnotification->getStartDate()->setTime(0,0,1);
+        $notice_end = strtotime($djnotification->getEndDate()->setTime(23,59,59);
+        $now = new DateTime();
 
         $hasNotification = false;
         if($now > $notice_start && $now < $notice_end){
