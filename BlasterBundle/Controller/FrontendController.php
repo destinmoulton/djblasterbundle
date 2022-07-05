@@ -14,6 +14,7 @@ use Welp\MailchimpBundle\Event\SubscriberEvent;
 use Welp\MailchimpBundle\Subscriber\Subscriber;
 
 use DJBlaster\BlasterBundle\Entity\DJSignIn;
+use DJBlaster\BlasterBundle\Entity\DJNotification;
 use DJBlaster\BlasterBundle\Form\Type\DJSignInType;
 
 class FrontendController extends Controller
@@ -66,6 +67,8 @@ class FrontendController extends Controller
             return $this->redirect($this->generateUrl('dj_blaster_home'));
         }
 
+        $em = $this->get('doctrine')->getManager();
+
 
         $action = $this->generateUrl('dj_blaster_djsignin');
         $options = array('action' => $action);
@@ -113,8 +116,21 @@ class FrontendController extends Controller
             $session->remove('djsignin_information');
         }
 
+        // DJ Notification is id 1 for this notice
+        $djnotification = $em->getRepository('DJBlasterBundle:DJNotification')->find(1);
+        $notice_start = strtotime($djnotification->getStartDate()." 00:00:01");
+        $notice_end = strtotime($djnotification->getEndDate()." 23:59:59");
+        $now = time();
+
+        $hasNotification = false;
+        if($now > $notice_start && $now < $notice_end){
+            $hasNotification = true;
+        }
+
         return $this->render('DJBlasterBundle::dj_signin.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'has_notification'=>$hasNotification,
+            'notification'=>$djnotification
         ));
     }
 

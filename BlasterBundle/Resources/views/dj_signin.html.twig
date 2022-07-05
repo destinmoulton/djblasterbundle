@@ -28,8 +28,14 @@
         <legend>
             DJ Sign In
         </legend>
+        {{  }}
         {{ form_errors(form) }}
-    
+
+        {% if has_notification %}
+            <div class="border" style="border-color:{{ notification.getPrimaryColorHex() }}">
+                {{ notification.getMessage() }}
+            </div>
+        {% endif %}
         <div class="form-group {% if form.show_title.vars.errors|length %}has-error{% endif %}" >
             {{ form_label(form.show_title , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
             <div class="col-sm-5">
