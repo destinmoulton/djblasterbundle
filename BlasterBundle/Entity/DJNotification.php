@@ -92,6 +92,16 @@ class DJNotification {
     }
 
     /**
+     * Get notification id
+     *
+     * @return string
+     */
+    public function getNotificationId()
+    {
+        return $this->notification_id;
+    }
+
+    /**
      * Set start_date
      *
      * @param \DateTime $startDate
