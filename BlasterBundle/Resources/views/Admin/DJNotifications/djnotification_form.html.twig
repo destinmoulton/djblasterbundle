@@ -1,0 +1,77 @@
+{% extends "DJBlasterBundle:Admin:_admin_base.html.twig" %}
+
+{% block content %}
+
+{% form_theme form 'DJBlasterBundle:Admin:_admin_form_errors.html.twig' %}
+{{ form_start(form, {'attr':{'novalidate':'novalidate','class':'form-horizontal'}}) }}
+<fieldset>
+    <legend>
+        Edit {{ notification.getNotificationTitle() }}
+    </legend>
+    {% if form.vars.errors|length %}
+    <div class="alert alert-danger" role="alert">
+    {{ form_errors(form) }}
+    </div>
+    {% endif %}
+    <div class="form-group {% if form.start_date.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.start_date , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.start_date) }}
+            {{ form_errors(form.start_date) }}
+        </div>
+    </div>
+
+    <div class="form-group {% if form.end_date.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.end_date , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.end_date) }}
+            {{ form_errors(form.end_date) }}
+        </div>
+    </div>
+
+
+    <div class="form-group {% if form.message.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.message , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.message, {'attr':{'rows':8, 'class':'form-control ckeditor'}}) }}
+            {{ form_errors(form.message) }}
+        </div>
+    </div>
+
+    <div class="form-group {% if form.color.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.color , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.color, {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.color) }}
+        </div>
+    </div>
+
+    <div class="form-group {% if form.button_text.vars.errors|length %}has-error{% endif %}" >
+        {{ form_label(form.button_text , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.button_text, {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.button_text) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button class="btn btn-default">
+                Save
+            </button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</fieldset>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            // onload
+        });
+    </script>
+{% endblock %}

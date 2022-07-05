@@ -181,3 +181,15 @@ dj_blaster_admin_report_generator:
 dj_blaster_admin_djsignin_report:    
     path:     /admin/report/djsignin
     defaults: { _controller: DJBlasterBundle:AdminReports:djsigninReportGenerator }
+
+
+#
+# Admin routes for dj notification management
+#
+dj_blaster_admin_djnotification_edit:
+    path:     /admin/campaign/edit/{notification_id}
+    defaults: { _controller: DJBlasterBundle:AdminDJNotifications:editDJNotification, notification_id: 0 }
+
+dj_blaster_admin_djnotification_list:
+    path:     /admin/djnotification/list/
+    defaults: { _controller: DJBlasterBundle:AdminDJNotifications:listDJNotifications }
