@@ -32,7 +32,7 @@
 
         {% if has_notification %}
             <div class="border" style="border-color:{{ notification.getPrimaryColorHex() }}">
-                {{ notification.getMessage() }}
+                {{ notification.getMessage() | raw }}
             </div>
         {% endif %}
         <div class="form-group {% if form.show_title.vars.errors|length %}has-error{% endif %}" >
