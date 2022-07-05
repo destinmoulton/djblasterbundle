@@ -31,7 +31,7 @@
         {{ form_errors(form) }}
 
         {% if has_notification %}
-            <div class="border" style="border-color:{{ notification.getPrimaryColorHex() }}">
+            <div id="djsignin-notification-container" style="border-color:{{ notification.getPrimaryColorHex() }}">
                 {{ notification.getMessage() | raw }}
             </div>
         {% endif %}
