@@ -41,9 +41,9 @@
     <div class="form-group {% if form.primary_color_hex.vars.errors|length %}has-error{% endif %}" >
         {{ form_label(form.primary_color_hex , label|default(null),  {'label_attr':{'class':'control-label col-sm-2'}}) }}
         <div class="col-sm-5">
+            <div id="colorpicker"></div>
             {{ form_widget(form.primary_color_hex, {'attr':{'class':'form-control'}}) }}
             {{ form_errors(form.primary_color_hex) }}
-            <div id="colorpicker"></div>
         </div>
     </div>
 
