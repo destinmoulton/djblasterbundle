@@ -315,13 +315,13 @@
                 </div>
                 <div class="modal-body">
                     <div id="dj-popup-notification-message-container" style="border-color:{{ notification.getPrimaryColorHex() }}">
-                    {{ notification->getMessage() | raw }}
+                    {{ notification.getMessage() | raw }}
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn pull-right"
-                            style="background-color: {{ notification->getPrimaryColorHex() }}; border-color: {{ notification->getPrimaryColorHex() }};"
-                            onclick="closePopupNotification()">{{ notification->getButtonText() | default('Ok') }}</button>
+                            style="background-color: {{ notification.getPrimaryColorHex() }}; border-color: {{ notification.getPrimaryColorHex() }};"
+                            onclick="closePopupNotification()">{{ notification.getButtonText() | default('Ok') }}</button>
                 </div>
             </div>
         </div>
