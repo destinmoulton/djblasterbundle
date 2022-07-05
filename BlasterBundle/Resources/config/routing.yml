@@ -187,7 +187,7 @@ dj_blaster_admin_djsignin_report:
 # Admin routes for dj notification management
 #
 dj_blaster_admin_djnotification_edit:
-    path:     /admin/campaign/edit/{notification_id}
+    path:     /admin/djnotification/edit/{notification_id}
     defaults: { _controller: DJBlasterBundle:AdminDJNotifications:editDJNotification, notification_id: 0 }
 
 dj_blaster_admin_djnotification_list:
