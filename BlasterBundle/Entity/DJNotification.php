@@ -58,7 +58,7 @@ class DJNotification {
     protected $message;
 
     /**
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="string", length=7)
      */
     protected $primary_color_hex;
 
