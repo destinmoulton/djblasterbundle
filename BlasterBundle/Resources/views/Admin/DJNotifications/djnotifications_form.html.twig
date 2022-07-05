@@ -43,6 +43,7 @@
         <div class="col-sm-5">
             {{ form_widget(form.primary_color_hex, {'attr':{'class':'form-control'}}) }}
             {{ form_errors(form.primary_color_hex) }}
+            <div id="colorpicker"></div>
         </div>
     </div>
 
@@ -69,10 +70,12 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/farbtastic-colorpicker/farbtastic.css') }}" type="text/css" />
+    <script src="{{ asset('js/farbtastic-colorpicker/farbtastic.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             // onload
+            $('#colorpicker').farbtastic('#color');
         });
     </script>
 {% endblock %}
