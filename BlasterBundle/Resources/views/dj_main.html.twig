@@ -311,7 +311,7 @@
                             class="close"
                             onclick="closePopupNotificationModal()"
                             aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Automatic Log Out</h4>
+                    <h4 class="modal-title">Message to DJs</h4>
                 </div>
                 <div class="modal-body">
                     <div id="dj-popup-notification-message-container" style="border-color:{{ notification.getPrimaryColorHex() }}">
@@ -319,7 +319,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn pull-right"
+                    <button class="btn pull-right dj-popup-notification-button"
                             style="background-color: {{ notification.getPrimaryColorHex() }}; border-color: {{ notification.getPrimaryColorHex() }};"
                             onclick="closePopupNotification()">{{ notification.getButtonText() | default('Ok') }}</button>
                 </div>
