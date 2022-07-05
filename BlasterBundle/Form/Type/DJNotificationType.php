@@ -19,7 +19,7 @@ class DJNotificationType extends AbstractType
         $builder->add('start_date', DateType::class, array('label' => 'Notification Start Date'));
         $builder->add('end_date', DateType::class, array('label' => 'Notification End Date'));
 
-        $builder->add('primary_color_hex', ColorType::class, array('label' => 'Color'));
+        $builder->add('primary_color_hex', TextType::class, array('label' => 'Color'));
         $builder->add('button_text', TextType::class, array('label' => 'Button Text'));
     }
 
