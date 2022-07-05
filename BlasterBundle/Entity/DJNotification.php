@@ -23,8 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="notifications")
- * @ORM\Entity(repositoryClass="DJBlaster\BlasterBundle\Entity\CustomerCampaignRepository")
+ * @ORM\Table(name="dj_notifications")
  */
 class DJNotification {
 
@@ -96,7 +95,7 @@ class DJNotification {
      * Set start_date
      *
      * @param \DateTime $startDate
-     * @return CustomerCampaign
+     * @return DJNotification
      */
     public function setStartDate($startDate)
     {
@@ -119,7 +118,7 @@ class DJNotification {
      * Set end_date
      *
      * @param \DateTime $endDate
-     * @return CustomerCampaign
+     * @return DJNotification
      */
     public function setEndDate($endDate)
     {
