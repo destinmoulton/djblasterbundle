@@ -6,7 +6,7 @@
 {{ form_start(form, {'attr':{'novalidate':'novalidate','class':'form-horizontal'}}) }}
 <fieldset>
     <legend>
-        Edit {{ notification.getNotificationTitle() }}
+        Edit {{ notification.getTitle() }}
     </legend>
     {% if form.vars.errors|length %}
     <div class="alert alert-danger" role="alert">
