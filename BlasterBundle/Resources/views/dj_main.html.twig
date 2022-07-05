@@ -235,68 +235,98 @@
             </div>
         {# End Debug Bar #}
 
-        <div class="modal fade"
-             id="readItModal"
-             ng-controller="readitModalCtrl">
-            <div class="modal-dialog" >
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <button type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Confirm Read</h4>
+    {#  DJ Has Read It Modal - Gets Initials #}
+    <div class="modal fade"
+         id="readItModal"
+         ng-controller="readitModalCtrl">
+        <div class="modal-dialog" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm Read</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                    <div class='form-group'
+                         id='readitFormGroup'>
+                        <label for="dj-initials"
+                               class="control-label col-sm-2">DJ Initials</label>
+                        <div class="col-xs-2">
+                        <input type="text"
+                               name="dj-initials"
+                               class="form-control input-min"
+                               id="inputDJInitials" >
+                        </div>
+                        <button class="btn btn-danger pull-right"
+                                ng-click="submitClicked()"
+                                id="readItSubmitButton"
+                                style="margin-right:20px;">Submit</button>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-horizontal">
-                        <div class='form-group'
-                             id='readitFormGroup'>
-                            <label for="dj-initials"
-                                   class="control-label col-sm-2">DJ Initials</label>
-                            <div class="col-xs-2">
-                            <input type="text"
-                                   name="dj-initials"
-                                   class="form-control input-min"
-                                   id="inputDJInitials" >
-                            </div>
-                            <button class="btn btn-danger pull-right"
-                                    ng-click="submitClicked()"
-                                    id="readItSubmitButton"
-                                    style="margin-right:20px;">Submit</button>
-                        </div>
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal fade"
-             id="auto-signout-modal">
-            <div class="modal-dialog" >
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <button type="button"
-                                class="close"
-                                onclick="cancelAutomaticLogout()"
-                                aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Automatic Log Out</h4>
+    {# Auto Signout Modal  #}
+    <div class="modal fade"
+         id="auto-signout-modal">
+        <div class="modal-dialog" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            onclick="cancelAutomaticLogout()"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Automatic Log Out</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Your show is scheduled to end at <strong><span id="auto-signout-show-endtime"></span></strong>.</p>
+                    <p>You will automatically be signed out in <strong><span id="auto-signout-timer-seconds"></span></strong> seconds.
+                </div>
+                <div class="modal-footer">
+                        <button class="btn btn-warning pull-left"
+                                style="margin-right:20px;"
+                                onclick="cancelAutomaticLogout()">Not Yet</button>
+                        <button class="btn btn-success pull-right"
+                                style="margin-right:20px;"
+                                onclick="logoutDJ()">Sign Out</button>
                     </div>
-                    <div class="modal-body">
-                        <p>Your show is scheduled to end at <strong><span id="auto-signout-show-endtime"></span></strong>.</p>
-                        <p>You will automatically be signed out in <strong><span id="auto-signout-timer-seconds"></span></strong> seconds.
+            </div>
+        </div>
+    </div>
+
+    {# Popup Notification - Set via DJ Notifications in Backend #}
+    {% if has_notification %}
+    <div class="modal fade"
+         id="dj-popup-notification-modal">
+        <div class="modal-dialog" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            onclick="closePopupNotificationModal()"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Automatic Log Out</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="dj-popup-notification-message-container" style="border-color:{{ notification.getPrimaryColorHex() }}">
+                    {{ notification->getMessage() | raw }}
                     </div>
-                    <div class="modal-footer">
-                            <button class="btn btn-warning pull-left"
-                                    style="margin-right:20px;"
-                                    onclick="cancelAutomaticLogout()">Not Yet</button>
-                            <button class="btn btn-success pull-right"
-                                    style="margin-right:20px;"
-                                    onclick="logoutDJ()">Sign Out</button>
-                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn pull-right"
+                            style="background-color: {{ notification->getPrimaryColorHex() }}; border-color: {{ notification->getPrimaryColorHex() }};"
+                            onclick="closePopupNotification()">{{ notification->getButtonText() | default('Ok') }}</button>
                 </div>
             </div>
         </div>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
@@ -321,6 +351,12 @@
 
     <script type='text/javascript'>
 		$(document).ready(function () {
+
+            {% Show the popup notification modal %}
+            {% if has_notification %}
+                showPopupNotificationModal();
+            {% endif %}
+
 			$('#weatherEmbed').weatherfeed(['USNM0314'], {
 				forecast: true,
 				refresh:15,
@@ -410,6 +446,14 @@
 
         function logoutDJ(){
             location.href= BASE_URL + "/djsignout";
+        }
+
+        function showPopupNotificationModal(){
+            $('#dj-popup-notification-modal').modal('show');
+        }
+
+        function closePopupNotificationModal(){
+            $('#dj-popup-notification-modal').modal('hide');
         }
 
 

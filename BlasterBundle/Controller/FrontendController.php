@@ -48,7 +48,22 @@ class FrontendController extends Controller
             return $this->redirect($this->generateUrl('dj_blaster_djsignin'));
         }
 
+        $em = $this->get('doctrine')->getManager();
+        // DJ Notification is id 2 for the popup notice
+        $djpopnotice = $em->getRepository('DJBlasterBundle:DJNotification')->find(2);
+        $notice_start = $djpopnotice->getStartDate();
+        $notice_start->setTime(0,0,1);
+        $notice_end = $djpopnotice->getEndDate();
+        $notice_end->setTime(23,59,59);
+        $now = new \DateTime();
+
+        $hasPopNotice = false;
+        if($now > $notice_start && $now < $notice_end){
+            $hasPopNotice = true;
+        }
         $data = array(
+            'has_notification'=>$hasPopNotice,
+            'notification'=>$djpopnotice,
             'djsignin_information' => $session->get('djsignin_information')
         );
         return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
