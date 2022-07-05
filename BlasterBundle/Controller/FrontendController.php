@@ -122,7 +122,7 @@ class FrontendController extends Controller
         $notice_start->setTime(0,0,1);
         $notice_end = $djnotification->getEndDate();
         $notice_end->setTime(23,59,59);
-        $now = new DateTime();
+        $now = new \DateTime();
 
         $hasNotification = false;
         if($now > $notice_start && $now < $notice_end){
