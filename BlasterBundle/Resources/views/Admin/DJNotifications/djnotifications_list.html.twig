@@ -35,7 +35,7 @@
                         <td>{{ notification.getTitle() }}</td>
                         <td>{{ notification.getStartDate()|date('M j, Y')}}</td>
                         <td>{{ notification.getEndDate()|date('M j, Y')}}</td>
-                        <td><a href="{{ path('dj_blaster_admin_notification_edit', {'notification_id':notification.getNotificationId()}) }}">Edit</a></td>
+                        <td><a href="{{ path('dj_blaster_admin_djnotification_edit', {'notification_id':notification.getNotificationId()}) }}">Edit</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
