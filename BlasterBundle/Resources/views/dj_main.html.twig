@@ -48,7 +48,7 @@
         </div>
         {% if header_notification.isNotificationActive() %}
         <div class="col-md-6" style="text-align:center; padding-bottom:2em;">
-                <div style="border-color:{{ notification.getPrimaryColorHex() }}">
+                <div style="border-color:{{ header_notification.getPrimaryColorHex() }}">
                     {{ header_notification.getMessage() | raw }}
                 </div>
         </div>
@@ -305,7 +305,7 @@
     </div>
 
     {# Popup Notification - Set via DJ Notifications in Backend #}
-    {% if has_notification %}
+    {% if popup_notification.isNotificationActive() %}
     <div class="modal fade"
          id="dj-popup-notification-modal">
         <div class="modal-dialog" >
@@ -318,14 +318,14 @@
                     <h4 class="modal-title">Message to DJs</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="dj-popup-notification-message-container" style="border-color:{{ notification.getPrimaryColorHex() }}">
-                    {{ notification.getMessage() | raw }}
+                    <div id="dj-popup-notification-message-container" style="border-color:{{ popup_notification.getPrimaryColorHex() }}">
+                    {{ popup_notification.getMessage() | raw }}
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn pull-right dj-popup-notification-button"
                             style="background-color: {{ notification.getPrimaryColorHex() }}; border-color: {{ notification.getPrimaryColorHex() }};"
-                            onclick="closePopupNotificationModal()">{{ notification.getButtonText() | default('Ok') }}</button>
+                            onclick="closePopupNotificationModal()">{{ popup_notification.getButtonText() | default('Ok') }}</button>
                 </div>
             </div>
         </div>
