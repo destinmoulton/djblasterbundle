@@ -48,7 +48,7 @@
         </div>
         {% if header_notification.isNotificationActive() %}
         <div class="col-md-6" style="padding-bottom:2em;">
-                <div style="border-color:{{ header_notification.getPrimaryColorHex() }}">
+                <div style="border: 2px solid white; border-color:{{ header_notification.getPrimaryColorHex() }}">
                     {{ header_notification.getMessage() | raw }}
                 </div>
         </div>
