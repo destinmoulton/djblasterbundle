@@ -212,4 +212,24 @@ class DJNotification {
     {
         return $this->button_text;
     }
+
+    /**
+     * Determine if this notification is active
+     * via simple date comparison
+     * @return bool
+     */
+    public function isNotificationActive(){
+
+        $notice_start = clone $this->getStartDate();
+        $notice_start->setTime(0,0,1);
+        $notice_end = clone $this->getEndDate();
+        $notice_end->setTime(23,59,59);
+        $now = new \DateTime();
+
+        if($now > $notice_start && $now < $notice_end){
+            return true;
+        }
+        return false;
+
+    }
 }

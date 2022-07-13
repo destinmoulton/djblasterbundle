@@ -49,21 +49,15 @@ class FrontendController extends Controller
         }
 
         $em = $this->get('doctrine')->getManager();
-        // DJ Notification is id 2 for the popup notice
-        $djpopnotice = $em->getRepository('DJBlasterBundle:DJNotification')->find(2);
-        $notice_start = $djpopnotice->getStartDate();
-        $notice_start->setTime(0,0,1);
-        $notice_end = $djpopnotice->getEndDate();
-        $notice_end->setTime(23,59,59);
-        $now = new \DateTime();
 
-        $hasPopNotice = false;
-        if($now > $notice_start && $now < $notice_end){
-            $hasPopNotice = true;
-        }
+        // DJ Notification is id 1 for the header notification
+        $header_notification = $em->getRepository('DJBlasterBundle:DJNotification')->find(1);
+        // DJ Notification is id 2 for the popup notice
+        $popup_notification = $em->getRepository('DJBlasterBundle:DJNotification')->find(2);
+
         $data = array(
-            'has_notification'=>$hasPopNotice,
-            'notification'=>$djpopnotice,
+            'header_notification'=>$header_notification,
+            'popup_notification'=>$popup_notification,
             'djsignin_information' => $session->get('djsignin_information')
         );
         return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
@@ -131,24 +125,11 @@ class FrontendController extends Controller
             $session->remove('djsignin_information');
         }
 
-        // DJ Notification is id 1 for this notice
-        $djnotification = $em->getRepository('DJBlasterBundle:DJNotification')->find(1);
-        $notice_start = $djnotification->getStartDate();
-        $notice_start->setTime(0,0,1);
-        $notice_end = $djnotification->getEndDate();
-        $notice_end->setTime(23,59,59);
-        $now = new \DateTime();
-
-        $hasNotification = false;
-        if($now > $notice_start && $now < $notice_end){
-            $hasNotification = true;
-        }
 
         return $this->render('DJBlasterBundle::dj_signin.html.twig', array(
             'form' => $form->createView(),
-            'has_notification'=>$hasNotification,
-            'notification'=>$djnotification
         ));
+
     }
 
     public function clearCacheAction()
