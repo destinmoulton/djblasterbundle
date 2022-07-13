@@ -48,7 +48,7 @@
         </div>
         {% if header_notification.isNotificationActive() %}
         <div class="col-md-6" style="padding-bottom:2em;">
-                <div class="djnotification-box" style="border-color:{{ header_notification.getPrimaryColorHex() }}; padding: 1rem;">
+                <div class="djnotification-box" style="border-color:{{ header_notification.getPrimaryColorHex() }}; ">
                     {{ header_notification.getMessage() | raw }}
                 </div>
         </div>
