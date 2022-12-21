@@ -126,8 +126,25 @@ class AjaxController extends Controller
             // Setup the next time to read this event ad today
             $hour_diff = (int)$post->settings->adEvent->end_hour - (int)$post->current_hour;
 
-            // Calculate the gap before the event should be read next
-            $hour_gap = floor($hour_diff / ($no_reads_remaining_today + 1));
+            // Set the default hour gap to zero
+            // That way, it assumes a very tight schedule
+            $hour_gap = 0;
+
+            if($no_reads_remaining_today < $hour_diff){
+                // There are enough hours to stagger
+                // the reads throughout the day
+                $hour_gap = floor($hour_diff / ($no_reads_remaining_today + 1));
+            }
+
+            // FUDGE THE NUMBER
+            if($hour_gap>=2){
+                // Decrease the hour gap to
+                // increase likelihood of it being read today
+                $hour_gap = $hour_gap - 1;
+            } else if($hour_gap<=1) {
+                // Force a quicker read for urgent ones
+                $hour_gap = 0;
+            }
 
             $next_read_hour = $hour_gap + (int)$post->current_hour;
             $nextReadDateTime = new DateTime();
@@ -137,7 +154,7 @@ class AjaxController extends Controller
         } else {
             // For query insurance, lets set the next read time
             // for an event that shouldn't be read 
-            // outside of the query bounds.
+            // until tomorrow
             $nextReadDateTime = new DateTime();
             $nextReadDateTime->setTime((int)$post->settings->adEvent->end_hour + 1, 0, 0);
 
