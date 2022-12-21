@@ -39,7 +39,8 @@ class AdEventRepository extends EntityRepository
             ->andWhere("e.last_read_date != :currentDate")
             ->andWhere("e.no_reads_performed < e.no_reads")
             ->setParameters(array('currentDate' => $currentDate))
-            ->orderBy('e.last_read', 'ASC')
+            // Order by the events with the most remaining reads from the prior day
+            ->orderBy('e.no_reads_remaining_today', 'DESC')
             ->setMaxResults(1)
             ->getQuery();
 
