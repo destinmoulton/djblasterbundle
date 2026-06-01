@@ -6,7 +6,7 @@
 {% endblock %}
 
 
-{% block bodyattrs %}ng-app="djblasterApp"{% endblock %}
+{% block bodyattrs %} ng-app="djblasterApp"{% endblock %}
 
 {% block navbar %}
     <li class="active">
@@ -42,18 +42,18 @@
         {% endif %}
         <div class="{{ header_cols }} " style="padding-bottom:2em;">
             <div class="djnotification-box">
-        	<h2>Interview Submission</h2>
-        	<p>All interviews hosted on KNCE need to be logged by DJ's.<br/>You must log the interview within 12 hours of your show.<br/>If you don't have time during your show, please log it from home.</p>
-        	<a href="http://truetaosradio.com/dj-interview-form/" target="_blank"
-                            class='btn btn-info btn-lg'>Interview Report</a>
+                <h2>Interview Submission</h2>
+                <p>All interviews hosted on KNCE need to be logged by DJ's.<br/>You must log the interview within 12 hours of your show.<br/>If you don't have time during your show, please log it from home.</p>
+                <a href="http://truetaosradio.com/dj-interview-form/" target="_blank"
+                   class='btn btn-info btn-lg'>Interview Report</a>
             </div>
         </div>
         {% if header_notification.isNotificationActive() %}
-        <div class="col-md-6" style="padding-bottom:2em;">
+            <div class="col-md-6" style="padding-bottom:2em;">
                 <div class="djnotification-box" style="border-color:{{ header_notification.getPrimaryColorHex() }}; ">
                     {{ header_notification.getMessage() | raw }}
                 </div>
-        </div>
+            </div>
         {% endif %}
     </div>
     <div class='col-md-6 liveReads'>
@@ -183,63 +183,63 @@
             </div>
         {% endverbatim %}
         {# End DJ Blaster Boxes #}
-        </div>
-        </div>
-		<div class='col-md-6'>
-			<h3>Chat Window</h3>
-            <iframe src="https://minnit.chat/KNCEChat?embed&amp;nickname=" style="border:none;width:100%;height:500px;" allowtransparency="true"></iframe><br><a href="https://minnit.chat/KNCEChat" target="_blank" rel="noopener noreferrer">Free HTML5 Chatroom powered by Minnit Chat</a>
+    </div>
+    </div>
+    <div class='col-md-6'>
+        <h3>Chat Window</h3>
+        <iframe src="https://minnit.chat/KNCEChat?embed&amp;nickname=" style="border:none;width:100%;height:500px;" allowtransparency="true"></iframe><br><a href="https://minnit.chat/KNCEChat" target="_blank" rel="noopener noreferrer">Free HTML5 Chatroom powered by Minnit Chat</a>
 
-			<div id="tab-full-container" class='tab-container'>
-			 <div class='etabs'>
+        <div id="tab-full-container" class='tab-container'>
+            <div class='etabs'>
 
-			 </div>
-			 <div class='panel-container'>
-			  <div id="tab-calendar">
-			   			<div class="ltCalendar">
-							<h3>Live Taos Calendar for <span id="currentDate-2"></span></h3>
-                            <h4><em>Read at each :40 break.</em></h4>
-							<br/><br/>
-	        				<p style="font-weight:bold; color:#dc4503; font-size:1.275em;">Review the calendar listings before you begin reading over the air; if you feel you need more information about an event, CLICK on it to review the complete listing at LiveTaos.com. DO NOT ANNOUNCE OVER THE AIR that you don't have enough details or don't know what a listing means; either get more details, or skip reading the listing.</P>
-							<br/><br/>
-							<p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and culture in Taos. If you think something is missing from this calendar, it's easy to submit your own events at LiveTaos.com! </p>
-
-
-	        				<iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed" src="https://livetaos.com/iframe-embeds/knce-dj-embed/"></iframe>
-	        			</div>
-			  </div>
-			   <!-- content -->
-			  </div>
-			 </div>
-			</div>
-        </div>
-
-        {# Begin Debug Bar #}
-            <div class='panel panel-danger'
-                 ng-controller="debugCtrl"
-                 ng-show="debugActive"
-                 style="display:none;"
-                 >
-                <div class="panel-heading">
-                    <h3 class="panel-title">DEBUG AND TEST</h3>
-                </div>
-                <div class="panel-body">
-
-                    Date:
-                    <input id='debug-input-date'
-                            type='text'
-                            ng-value='currentDate' disabled>
-                    <button class='btn btn-primary btn-xs' ng-click='decrementDate()'>-</button>
-                    <button class='btn btn-primary btn-xs' ng-click='incrementDate()'>+</button>
-                    Hour:
-                    <input id='debug-input-hour'
-                            type='text'
-                            size='2'
-                            ng-value='currentHour'disabled>
-                    <button class='btn btn-primary btn-xs' ng-click='decrementHour()'>-</button>
-                    <button class='btn btn-primary btn-xs' ng-click='incrementHour()'>+</button>
-                </div>
             </div>
-        {# End Debug Bar #}
+            <div class='panel-container'>
+                <div id="tab-calendar">
+                    <div class="ltCalendar">
+                        <h3>Live Taos Calendar for <span id="currentDate-2"></span></h3>
+                        <h4><em>Read at each :40 break.</em></h4>
+                        <br/><br/>
+                        <p style="font-weight:bold; color:#dc4503; font-size:1.275em;">Review the calendar listings before you begin reading over the air; if you feel you need more information about an event, CLICK on it to review the complete listing at LiveTaos.com. DO NOT ANNOUNCE OVER THE AIR that you don't have enough details or don't know what a listing means; either get more details, or skip reading the listing.</P>
+                        <br/><br/>
+                        <p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and culture in Taos. If you think something is missing from this calendar, it's easy to submit your own events at LiveTaos.com! </p>
+
+
+                        <iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed" src="https://livetaos.com/iframe-embeds/knce-dj-embed/"></iframe>
+                    </div>
+                </div>
+                <!-- content -->
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {# Begin Debug Bar #}
+    <div class='panel panel-danger'
+         ng-controller="debugCtrl"
+         ng-show="debugActive"
+         style="display:none;"
+    >
+        <div class="panel-heading">
+            <h3 class="panel-title">DEBUG AND TEST</h3>
+        </div>
+        <div class="panel-body">
+
+            Date:
+            <input id='debug-input-date'
+                   type='text'
+                   ng-value='currentDate' disabled>
+            <button class='btn btn-primary btn-xs' ng-click='decrementDate()'>-</button>
+            <button class='btn btn-primary btn-xs' ng-click='incrementDate()'>+</button>
+            Hour:
+            <input id='debug-input-hour'
+                   type='text'
+                   size='2'
+                   ng-value='currentHour'disabled>
+            <button class='btn btn-primary btn-xs' ng-click='decrementHour()'>-</button>
+            <button class='btn btn-primary btn-xs' ng-click='incrementHour()'>+</button>
+        </div>
+    </div>
+    {# End Debug Bar #}
 
     {#  DJ Has Read It Modal - Gets Initials #}
     <div class="modal fade"
@@ -256,21 +256,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
-                    <div class='form-group'
-                         id='readitFormGroup'>
-                        <label for="dj-initials"
-                               class="control-label col-sm-2">DJ Initials</label>
-                        <div class="col-xs-2">
-                        <input type="text"
-                               name="dj-initials"
-                               class="form-control input-min"
-                               id="inputDJInitials" >
+                        <div class='form-group'
+                             id='readitFormGroup'>
+                            <label for="dj-initials"
+                                   class="control-label col-sm-2">DJ Initials</label>
+                            <div class="col-xs-2">
+                                <input type="text"
+                                       name="dj-initials"
+                                       class="form-control input-min"
+                                       id="inputDJInitials" >
+                            </div>
+                            <button class="btn btn-danger pull-right"
+                                    ng-click="submitClicked()"
+                                    id="readItSubmitButton"
+                                    style="margin-right:20px;">Submit</button>
                         </div>
-                        <button class="btn btn-danger pull-right"
-                                ng-click="submitClicked()"
-                                id="readItSubmitButton"
-                                style="margin-right:20px;">Submit</button>
-                    </div>
 
                     </div>
                 </div>
@@ -295,43 +295,43 @@
                     <p>You will automatically be signed out in <strong><span id="auto-signout-timer-seconds"></span></strong> seconds.
                 </div>
                 <div class="modal-footer">
-                        <button class="btn btn-warning pull-left"
-                                style="margin-right:20px;"
-                                onclick="cancelAutomaticLogout()">Not Yet</button>
-                        <button class="btn btn-success pull-right"
-                                style="margin-right:20px;"
-                                onclick="logoutDJ()">Sign Out</button>
-                    </div>
+                    <button class="btn btn-warning pull-left"
+                            style="margin-right:20px;"
+                            onclick="cancelAutomaticLogout()">Not Yet</button>
+                    <button class="btn btn-success pull-right"
+                            style="margin-right:20px;"
+                            onclick="logoutDJ()">Sign Out</button>
+                </div>
             </div>
         </div>
     </div>
 
     {# Popup Notification - Set via DJ Notifications in Backend #}
     {% if popup_notification.isNotificationActive() %}
-    <div class="modal fade"
-         id="dj-popup-notification-modal">
-        <div class="modal-dialog" >
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <button type="button"
-                            class="close"
-                            onclick="closePopupNotificationModal()"
-                            aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Message to DJs</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="djnotification-box" style="border-color:{{ popup_notification.getPrimaryColorHex() }}">
-                    {{ popup_notification.getMessage() | raw }}
+        <div class="modal fade"
+             id="dj-popup-notification-modal">
+            <div class="modal-dialog" >
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button"
+                                class="close"
+                                onclick="closePopupNotificationModal()"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Message to DJs</h4>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn pull-right dj-popup-notification-button"
-                            style="background-color: {{ popup_notification.getPrimaryColorHex() }}; border-color: {{ popup_notification.getPrimaryColorHex() }};"
-                            onclick="closePopupNotificationModal()">{{ popup_notification.getButtonText() | default('Ok') }}</button>
+                    <div class="modal-body">
+                        <div class="djnotification-box" style="border-color:{{ popup_notification.getPrimaryColorHex() }}">
+                            {{ popup_notification.getMessage() | raw }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn pull-right dj-popup-notification-button"
+                                style="background-color: {{ popup_notification.getPrimaryColorHex() }}; border-color: {{ popup_notification.getPrimaryColorHex() }};"
+                                onclick="closePopupNotificationModal()">{{ popup_notification.getButtonText() | default('Ok') }}</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     {% endif %}
 {% endblock %}
 
@@ -349,26 +349,26 @@
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/angular.min.js') }}"></script>
     <script src="{{ asset('js/djblasterjs/djblaster.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/jquery.zweatherfeed.min.js') }}"></script>
 
     <script type='text/javascript'>
-		$(document).ready(function () {
 
+        $(document).ready(function () {
             {# Show the popup notification modal #}
             {% if popup_notification.isNotificationActive() %}
-                showPopupNotificationModal();
+            showPopupNotificationModal();
             {% endif %}
 
-			$('#weatherEmbed').weatherfeed(['USNM0314'], {
-				forecast: true,
-				refresh:15,
-				linktarget: "_blank",
-				unit: 'f'
-			});
+            $('#weatherEmbed').weatherfeed(['USNM0314'], {
+                forecast: true,
+                refresh:15,
+                linktarget: "_blank",
+                unit: 'f'
+            });
 
             // Parse the show end time into usable pieces
             var showEndArr = SHOW_INFO.show_end_time.split(':');
@@ -376,12 +376,12 @@
             SHOW_INFO['show_end_minute'] = parseInt(showEndArr[1]);
 
             // Start the clock
-			updateClock();
-			window.setInterval(updateClock,10000);
+            updateClock();
+            window.setInterval(updateClock,10000);
 
             window.setInterval(hasShowEnded, 10000);
 
-		});
+        });
 
         function updateClock() {
             var now = moment();
