@@ -45,7 +45,9 @@ class AdminController extends Controller
         phpinfo();
         $info = ob_get_clean();
 
-        return new Response($info);
+        return $this->render('DJBlasterBundle:Admin:admin_phpinfo.html.twig', array(
+            'info' => $info
+        ));
     }
 
     // Get all the Show Sponsorships, Events/Promotions, and PSAs for a campaign
