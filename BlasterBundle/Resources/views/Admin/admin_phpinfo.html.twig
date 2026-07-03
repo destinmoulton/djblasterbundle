@@ -3,7 +3,10 @@
 
 {% block content %}
     <div class="col-md-12">
-        <h1>PHP INFO</h1>
-        {{ info|raw }}
+        <h2>Disabled Functions</h2>
+        <div>{{ disabled_functions|raw }}</div>
+
+        <h2>PHP Info</h2>
+        <div>{{ info|raw }}</div>
     </div>
 {% endblock %}

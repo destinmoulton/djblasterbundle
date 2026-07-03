@@ -45,7 +45,11 @@ class AdminController extends Controller
         phpinfo();
         $info = ob_get_clean();
 
+        $disabled_functions = ini_get('disable_functions');
+
         return $this->render('DJBlasterBundle:Admin:admin_phpinfo.html.twig', array(
+
+            'disabled_functions' => $disabled_functions,
             'info' => $info
         ));
     }
