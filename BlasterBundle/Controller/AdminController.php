@@ -38,6 +38,16 @@ class AdminController extends Controller
         ));
     }
 
+    public function phpinfoAction()
+    {
+
+        ob_start();
+        phpinfo();
+        $info = ob_get_clean();
+
+        return new Response($info);
+    }
+
     // Get all the Show Sponsorships, Events/Promotions, and PSAs for a campaign
     private function _collateCampaignAds($campaigns)
     {
