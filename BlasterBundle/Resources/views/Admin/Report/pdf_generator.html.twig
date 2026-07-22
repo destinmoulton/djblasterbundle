@@ -4,12 +4,97 @@
     <meta http-equiv="Content-Type" content="text/html" ; charset=utf-8"/>
     <title>DJ Blaster PDF Generator</title>
 
-    {% block stylesheets %}
+    <style>
+        h3 {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 
-        <link href="{{ app.request.getSchemeAndHttpHost() ~ asset('css/bootstrap.min.css') }}" type="text/css"
-              rel="stylesheet"/>
-    {% endblock %}
+        h4 {
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
 
+        h5 {
+            font-size: 16px;
+        }
+
+        ul.list-group {
+            display: block;
+            list-style-type: none;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            padding-inline-start: 40px;
+            padding-left: 0;
+            marign-bottom: 20px;
+        }
+
+        .list-group-item {
+            font-size: 12px;
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: -1px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .list-group-item:last-child {
+            margin-bottom: 0;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+
+        .list-group-item.first-child {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        table {
+            display: table;
+            box-sizing: border-box;
+            text-indent: initial;
+            unicode-bidi: isolate;
+            border-spacing: 0;
+            border-collapse: collapse;
+
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th {
+            display: table-cell;
+            vertical-align: inherit;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
+            border-top: 0;
+        }
+
+        .table > thead > tr > th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #ddd;
+        }
+
+        td {
+            display: table-cell;
+            unicode-bidi: isolate;
+            box-sizing: border-box;
+        }
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
 {{ include('DJBlasterBundle:Admin/Report:report_generator.html.twig') }}
