@@ -5,7 +5,9 @@
     <title>DJ Blaster PDF Generator</title>
 
     {% block stylesheets %}
-        <link href="{{ app.request.getSchemeAndHttpHost() ~ asset('css/main.css') }}" type="text/css" rel="stylesheet"/>
+
+        <link href="{{ app.request.getSchemeAndHttpHost() ~ asset('css/bootstrap.min.css') }}" type="text/css"
+              rel="stylesheet"/>
     {% endblock %}
 
 </head>
