@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
-        <title>DJ Blaster PDF Generator</title>
-        
-        {% block stylesheets %}
-        
-        <link href="{{ app.request.getSchemeAndHttpHost() ~ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ app.request.getSchemeAndHttpHost() ~ asset('css/main.css') }}" type="text/css" rel="stylesheet" />
-        {% endblock %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html" ; charset=utf-8"/>
+    <title>DJ Blaster PDF Generator</title>
 
-    </head>
-    <body>
-        {{ include('DJBlasterBundle:Admin/Report:report_generator.html.twig')}}
-    </body>
+</head>
+<body>
+{{ include('DJBlasterBundle:Admin/Report:report_generator.html.twig') }}
+</body>
 </html>
