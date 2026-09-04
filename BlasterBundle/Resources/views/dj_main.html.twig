@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet"/>
 {% endblock %}
 
 
@@ -43,7 +43,8 @@
         <div class="{{ header_cols }} " style="padding-bottom:2em;">
             <div class="djnotification-box">
                 <h2>Interview Submission</h2>
-                <p>All interviews hosted on KNCE need to be logged by DJ's.<br/>You must log the interview within 12 hours of your show.<br/>If you don't have time during your show, please log it from home.</p>
+                <p>All interviews hosted on KNCE need to be logged by DJ's.<br/>You must log the interview within 12
+                    hours of your show.<br/>If you don't have time during your show, please log it from home.</p>
                 <a href="http://truetaosradio.com/dj-interview-form/" target="_blank"
                    class='btn btn-info btn-lg'>Interview Report</a>
             </div>
@@ -187,7 +188,10 @@
     </div>
     <div class='col-md-6'>
         <h3>Chat Window</h3>
-        <iframe src="https://minnit.chat/KNCEChat?embed&amp;nickname=" style="border:none;width:100%;height:500px;" allowtransparency="true"></iframe><br><a href="https://minnit.chat/KNCEChat" target="_blank" rel="noopener noreferrer">Free HTML5 Chatroom powered by Minnit Chat</a>
+        <iframe src="https://minnit.chat/KNCEChat?embed&amp;nickname=" style="border:none;width:100%;height:500px;"
+                allowtransparency="true"></iframe>
+        <br><a href="https://minnit.chat/KNCEChat" target="_blank" rel="noopener noreferrer">Free HTML5 Chatroom powered
+            by Minnit Chat</a>
 
         <div id="tab-full-container" class='tab-container'>
             <div class='etabs'>
@@ -199,12 +203,19 @@
                         <h3>Live Taos Calendar for <span id="currentDate-2"></span></h3>
                         <h4><em>Read at each :40 break.</em></h4>
                         <br/><br/>
-                        <p style="font-weight:bold; color:#dc4503; font-size:1.275em;">Review the calendar listings before you begin reading over the air; if you feel you need more information about an event, CLICK on it to review the complete listing at LiveTaos.com. DO NOT ANNOUNCE OVER THE AIR that you don't have enough details or don't know what a listing means; either get more details, or skip reading the listing.</P>
+                        <p style="font-weight:bold; color:#dc4503; font-size:1.275em;">Review the calendar listings
+                            before you begin reading over the air; if you feel you need more information about an event,
+                            CLICK on it to review the complete listing at LiveTaos.com. DO NOT ANNOUNCE OVER THE AIR
+                            that you don't have enough details or don't know what a listing means; either get more
+                            details, or skip reading the listing.</P>
                         <br/><br/>
-                        <p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and culture in Taos. If you think something is missing from this calendar, it's easy to submit your own events at LiveTaos.com! </p>
+                        <p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and
+                            culture in Taos. If you think something is missing from this calendar, it's easy to submit
+                            your own events at LiveTaos.com! </p>
 
 
-                        <iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed" src="https://livetaos.com/iframe-embeds/knce-dj-embed/"></iframe>
+                        <iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed"
+                                src="https://djblaster.knceradio.com/livetaosevents"></iframe>
                     </div>
                 </div>
                 <!-- content -->
@@ -234,7 +245,7 @@
             <input id='debug-input-hour'
                    type='text'
                    size='2'
-                   ng-value='currentHour'disabled>
+                   ng-value='currentHour' disabled>
             <button class='btn btn-primary btn-xs' ng-click='decrementHour()'>-</button>
             <button class='btn btn-primary btn-xs' ng-click='incrementHour()'>+</button>
         </div>
@@ -245,13 +256,14 @@
     <div class="modal fade"
          id="readItModal"
          ng-controller="readitModalCtrl">
-        <div class="modal-dialog" >
-            <div class="modal-content" >
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button"
                             class="close"
                             data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
+                            aria-hidden="true">&times;
+                    </button>
                     <h4 class="modal-title">Confirm Read</h4>
                 </div>
                 <div class="modal-body">
@@ -264,12 +276,13 @@
                                 <input type="text"
                                        name="dj-initials"
                                        class="form-control input-min"
-                                       id="inputDJInitials" >
+                                       id="inputDJInitials">
                             </div>
                             <button class="btn btn-danger pull-right"
                                     ng-click="submitClicked()"
                                     id="readItSubmitButton"
-                                    style="margin-right:20px;">Submit</button>
+                                    style="margin-right:20px;">Submit
+                            </button>
                         </div>
 
                     </div>
@@ -281,26 +294,31 @@
     {# Auto Signout Modal  #}
     <div class="modal fade"
          id="auto-signout-modal">
-        <div class="modal-dialog" >
-            <div class="modal-content" >
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button"
                             class="close"
                             onclick="cancelAutomaticLogout()"
-                            aria-hidden="true">&times;</button>
+                            aria-hidden="true">&times;
+                    </button>
                     <h4 class="modal-title">Automatic Log Out</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Your show is scheduled to end at <strong><span id="auto-signout-show-endtime"></span></strong>.</p>
-                    <p>You will automatically be signed out in <strong><span id="auto-signout-timer-seconds"></span></strong> seconds.
+                    <p>Your show is scheduled to end at <strong><span id="auto-signout-show-endtime"></span></strong>.
+                    </p>
+                    <p>You will automatically be signed out in <strong><span
+                                    id="auto-signout-timer-seconds"></span></strong> seconds.
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-warning pull-left"
                             style="margin-right:20px;"
-                            onclick="cancelAutomaticLogout()">Not Yet</button>
+                            onclick="cancelAutomaticLogout()">Not Yet
+                    </button>
                     <button class="btn btn-success pull-right"
                             style="margin-right:20px;"
-                            onclick="logoutDJ()">Sign Out</button>
+                            onclick="logoutDJ()">Sign Out
+                    </button>
                 </div>
             </div>
         </div>
@@ -310,17 +328,19 @@
     {% if popup_notification.isNotificationActive() %}
         <div class="modal fade"
              id="dj-popup-notification-modal">
-            <div class="modal-dialog" >
-                <div class="modal-content" >
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <div class="modal-header">
                         <button type="button"
                                 class="close"
                                 onclick="closePopupNotificationModal()"
-                                aria-hidden="true">&times;</button>
+                                aria-hidden="true">&times;
+                        </button>
                         <h4 class="modal-title">Message to DJs</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="djnotification-box" style="border-color:{{ popup_notification.getPrimaryColorHex() }}">
+                        <div class="djnotification-box"
+                             style="border-color:{{ popup_notification.getPrimaryColorHex() }}">
                             {{ popup_notification.getMessage() | raw }}
                         </div>
                     </div>
@@ -365,7 +385,7 @@
 
             $('#weatherEmbed').weatherfeed(['USNM0314'], {
                 forecast: true,
-                refresh:15,
+                refresh: 15,
                 linktarget: "_blank",
                 unit: 'f'
             });
@@ -377,7 +397,7 @@
 
             // Start the clock
             updateClock();
-            window.setInterval(updateClock,10000);
+            window.setInterval(updateClock, 10000);
 
             window.setInterval(hasShowEnded, 10000);
 
@@ -388,34 +408,34 @@
             var date = now.format("MMMM D, YYYY");
             var time = now.format("h:mm");
 
-            $('#currentDate').html("<span id='date'>"+date+"</span>");
-            $('#currentDate-2').html("<span id='date'>"+date+"</span>");
-            $('#currentTime').html("<span id='time'>"+time+"</span>");
+            $('#currentDate').html("<span id='date'>" + date + "</span>");
+            $('#currentDate-2').html("<span id='date'>" + date + "</span>");
+            $('#currentTime').html("<span id='time'>" + time + "</span>");
         }
 
-        function hasShowEnded(){
+        function hasShowEnded() {
             var numMinutesBefore = 5;
             var now = moment();
             var showEnd = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time);
             var showStart = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_start_time);
 
-            if(showEnd.isBefore(showStart) && now.isAfter(showStart)){
+            if (showEnd.isBefore(showStart) && now.isAfter(showStart)) {
                 // For transition from late night (pm) to morning (am)
                 // ie 10:00pm to 1:00 am
                 showEnd.add(1, 'd');
             }
             var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
 
-            if(now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE){
+            if (now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE) {
                 displaySignoutModal(30);
-            } else if(now.isAfter(showEnd)) {
+            } else if (now.isAfter(showEnd)) {
                 displaySignoutModal(5);
             }
 
         }
 
-        function displaySignoutModal(numSeconds){
-            if(AUTO_SIGNOUT_TIMER_ID === null){
+        function displaySignoutModal(numSeconds) {
+            if (AUTO_SIGNOUT_TIMER_ID === null) {
                 AUTO_SIGNOUT_TIME = numSeconds;
 
                 const endTimeText = moment(moment().format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time).format("h:mm a");
@@ -428,8 +448,8 @@
             }
         }
 
-        function autoSignoutCountdown(){
-            if(AUTO_SIGNOUT_TIME === 0){
+        function autoSignoutCountdown() {
+            if (AUTO_SIGNOUT_TIME === 0) {
                 resetAutoLogoutTimer();
                 logoutDJ();
                 return;
@@ -439,29 +459,28 @@
             AUTO_SIGNOUT_TIME--;
         }
 
-        function cancelAutomaticLogout(){
+        function cancelAutomaticLogout() {
             AUTO_SIGNOUT_WANTS_TO_CONTINUE = true;
             $('#auto-signout-modal').modal('hide');
             resetAutoLogoutTimer();
         }
 
-        function resetAutoLogoutTimer(){
+        function resetAutoLogoutTimer() {
             clearInterval(AUTO_SIGNOUT_TIMER_ID);
             AUTO_SIGNOUT_TIMER_ID = null;
         }
 
-        function logoutDJ(){
-            location.href= BASE_URL + "/djsignout";
+        function logoutDJ() {
+            location.href = BASE_URL + "/djsignout";
         }
 
-        function showPopupNotificationModal(){
+        function showPopupNotificationModal() {
             $('#dj-popup-notification-modal').modal('show');
         }
 
-        function closePopupNotificationModal(){
+        function closePopupNotificationModal() {
             $('#dj-popup-notification-modal').modal('hide');
         }
-
 
 
     </script>
