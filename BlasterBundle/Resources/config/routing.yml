@@ -19,7 +19,7 @@ dj_blaster_djsignout:
 
 dj_blaster_livetaosevents:
   path: /livetaosevents
-  defaults: { _controller: DJBlasterBundle:Frontend:livetaoseventsProxy }
+  defaults: { _controller: DJBlasterBundle:Frontend:livetaoseventsProxyAction }
 
 dj_blaster_clear_cache:
   path: /clear-cache
