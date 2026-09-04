@@ -56,8 +56,8 @@ class FrontendController extends Controller
         $popup_notification = $em->getRepository('DJBlasterBundle:DJNotification')->find(2);
 
         $data = array(
-            'header_notification'=>$header_notification,
-            'popup_notification'=>$popup_notification,
+            'header_notification' => $header_notification,
+            'popup_notification' => $popup_notification,
             'djsignin_information' => $session->get('djsignin_information')
         );
         return $this->render('DJBlasterBundle::dj_main.html.twig', $data);
@@ -130,6 +130,25 @@ class FrontendController extends Controller
             'form' => $form->createView(),
         ));
 
+    }
+
+    public function livetaoseventsAction(Request $request, SessionInterface $session)
+    {
+
+        // Set up a user-agent and timeout to prevent being blocked or hanging indefinitely
+        $options = [
+            'http' => [
+                'method' => 'GET',
+                'header' => "User-Agent: PHP-HTML-Fetcher/DJBlaster/1.0\r\n",
+                'timeout' => $timeout,
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $url = "https://livetaos.com/iframe-embeds/knce-dj-embed/";
+        // Fetch and return the content (@ suppresses PHP warnings if the fetch fails)
+        $html = @file_get_contents($url, false, $context);
+        return $html;
     }
 
     public function clearCacheAction()
