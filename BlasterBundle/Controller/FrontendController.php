@@ -140,7 +140,7 @@ class FrontendController extends Controller
             'http' => [
                 'method' => 'GET',
                 'header' => "User-Agent: PHP-HTML-Fetcher/DJBlaster/1.0\r\n",
-                'timeout' => $timeout,
+                'timeout' => 30,
             ]
         ];
 
