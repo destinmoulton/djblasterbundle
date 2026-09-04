@@ -148,7 +148,8 @@ class FrontendController extends Controller
         $url = "https://livetaos.com/iframe-embeds/knce-dj-embed/";
         // Fetch and return the content (@ suppresses PHP warnings if the fetch fails)
         $html = @file_get_contents($url, false, $context);
-        return $html;
+        return $this->redirect($this->generateUrl('dj_blaster_home'));
+        //return $html;
     }
 
     public function clearCacheAction()
