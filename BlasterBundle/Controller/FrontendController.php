@@ -152,7 +152,7 @@ class FrontendController extends Controller
         //return $this->redirect($this->generateUrl('dj_blaster_home'));
         return new Response(
             $html,
-            Response::HTTP_OK,
+            200,
             ['content-type' => 'text/html']
         );
     }
