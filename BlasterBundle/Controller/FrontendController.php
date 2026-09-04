@@ -149,7 +149,11 @@ class FrontendController extends Controller
         // Fetch and return the content (@ suppresses PHP warnings if the fetch fails)
         $html = @file_get_contents($url, false, $context);
         //return $this->redirect($this->generateUrl('dj_blaster_home'));
-        return $html;
+        return new Response(
+            $html,
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
     }
 
     public function clearCacheAction()
