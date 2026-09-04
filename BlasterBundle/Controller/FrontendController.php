@@ -147,7 +147,7 @@ class FrontendController extends Controller
         $context = stream_context_create($options);
         $url = "https://livetaos.com/iframe-embeds/knce-dj-embed/";
         // Fetch and return the content (@ suppresses PHP warnings if the fetch fails)
-        $html = @file_get_contents($url, false, $context);
+        //$html = @file_get_contents($url, false, $context);
         return $this->redirect($this->generateUrl('dj_blaster_home'));
         //return $html;
     }
