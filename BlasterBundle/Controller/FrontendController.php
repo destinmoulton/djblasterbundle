@@ -132,7 +132,7 @@ class FrontendController extends Controller
 
     }
 
-    public function livetaoseventsAction(Request $request, SessionInterface $session)
+    public function livetaoseventsProxyAction(Request $request, SessionInterface $session)
     {
 
         // Set up a user-agent and timeout to prevent being blocked or hanging indefinitely
