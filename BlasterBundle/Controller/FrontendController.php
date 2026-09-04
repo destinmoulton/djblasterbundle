@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\BrowserKit\Response;
 
 use Welp\MailchimpBundle\Event\SubscriberEvent;
 use Welp\MailchimpBundle\Subscriber\Subscriber;
