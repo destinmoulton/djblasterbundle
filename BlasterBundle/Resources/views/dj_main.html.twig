@@ -214,8 +214,19 @@
                             your own events at LiveTaos.com! </p>
 
 
-                        <iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed"
-                                src="https://djblaster.knceradio.com/livetaosevents"></iframe>
+                        <!-- iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed"
+                                src="https://djblaster.knceradio.com/livetaosevents"></iframe> -->
+
+                        <iframe id="livetaos" src="https://dev.livetaos.com/iframe-embeds/knce-dj-embed/"
+                                style="width:100%;max-width:1080px;height:1920px;border:0;display:block"
+                                scrolling="no" title="Today's Taos events from Live Taos"></iframe>
+                        <script>
+                            window.addEventListener('message', function (e) {
+                                if (e.origin !== 'https://dev.livetaos.com' || !e.data || e.data.type !== 'livetaos:height') return;
+                                document.getElementById('livetaos').style.height = e.data.height + 'px';
+                            });
+                            document.getElementById('livetaos').contentWindow.postMessage({type: 'livetaos:height?'}, '*');
+                        </script>
                     </div>
                 </div>
                 <!-- content -->
@@ -355,134 +366,134 @@
     {% endif %}
 {% endblock %}
 
-{% block javascripts %}
-    <script type='text/javascript'>
-        var BASE_URL = "{{ url('dj_blaster_base') }}";
-        BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
-        var SHOW_INFO = {
-            show_end_time: '{{ djsignin_information.show_end_time }}',
-            show_start_time: '{{ djsignin_information.show_start_time }}'
-        };
-        var AUTO_SIGNOUT_TIMER_ID = null;
-        var AUTO_SIGNOUT_TIME = 30;
-        var AUTO_SIGNOUT_WANTS_TO_CONTINUE = false;
-    </script>
+    {% block javascripts %}
+        <script type='text/javascript'>
+            var BASE_URL = "{{ url('dj_blaster_base') }}";
+            BASE_URL = BASE_URL.substring(0, BASE_URL.length - 1);
+            var SHOW_INFO = {
+                show_end_time: '{{ djsignin_information.show_end_time }}',
+                show_start_time: '{{ djsignin_information.show_start_time }}'
+            };
+            var AUTO_SIGNOUT_TIMER_ID = null;
+            var AUTO_SIGNOUT_TIME = 30;
+            var AUTO_SIGNOUT_WANTS_TO_CONTINUE = false;
+        </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/angular.min.js') }}"></script>
-    <script src="{{ asset('js/djblasterjs/djblaster.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.zweatherfeed.min.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/angular.min.js') }}"></script>
+        <script src="{{ asset('js/djblasterjs/djblaster.js') }}"></script>
+        <script src="{{ asset('js/moment.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.zweatherfeed.min.js') }}"></script>
 
-    <script type='text/javascript'>
+        <script type='text/javascript'>
 
-        $(document).ready(function () {
-            {# Show the popup notification modal #}
-            {% if popup_notification.isNotificationActive() %}
-            showPopupNotificationModal();
-            {% endif %}
+            $(document).ready(function () {
+                {# Show the popup notification modal #}
+                {% if popup_notification.isNotificationActive() %}
+                showPopupNotificationModal();
+                {% endif %}
 
-            $('#weatherEmbed').weatherfeed(['USNM0314'], {
-                forecast: true,
-                refresh: 15,
-                linktarget: "_blank",
-                unit: 'f'
+                $('#weatherEmbed').weatherfeed(['USNM0314'], {
+                    forecast: true,
+                    refresh: 15,
+                    linktarget: "_blank",
+                    unit: 'f'
+                });
+
+                // Parse the show end time into usable pieces
+                var showEndArr = SHOW_INFO.show_end_time.split(':');
+                SHOW_INFO['show_end_hour'] = parseInt(showEndArr[0]);
+                SHOW_INFO['show_end_minute'] = parseInt(showEndArr[1]);
+
+                // Start the clock
+                updateClock();
+                window.setInterval(updateClock, 10000);
+
+                window.setInterval(hasShowEnded, 10000);
+
             });
 
-            // Parse the show end time into usable pieces
-            var showEndArr = SHOW_INFO.show_end_time.split(':');
-            SHOW_INFO['show_end_hour'] = parseInt(showEndArr[0]);
-            SHOW_INFO['show_end_minute'] = parseInt(showEndArr[1]);
+            function updateClock() {
+                var now = moment();
+                var date = now.format("MMMM D, YYYY");
+                var time = now.format("h:mm");
 
-            // Start the clock
-            updateClock();
-            window.setInterval(updateClock, 10000);
-
-            window.setInterval(hasShowEnded, 10000);
-
-        });
-
-        function updateClock() {
-            var now = moment();
-            var date = now.format("MMMM D, YYYY");
-            var time = now.format("h:mm");
-
-            $('#currentDate').html("<span id='date'>" + date + "</span>");
-            $('#currentDate-2').html("<span id='date'>" + date + "</span>");
-            $('#currentTime').html("<span id='time'>" + time + "</span>");
-        }
-
-        function hasShowEnded() {
-            var numMinutesBefore = 5;
-            var now = moment();
-            var showEnd = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time);
-            var showStart = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_start_time);
-
-            if (showEnd.isBefore(showStart) && now.isAfter(showStart)) {
-                // For transition from late night (pm) to morning (am)
-                // ie 10:00pm to 1:00 am
-                showEnd.add(1, 'd');
-            }
-            var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
-
-            if (now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE) {
-                displaySignoutModal(30);
-            } else if (now.isAfter(showEnd)) {
-                displaySignoutModal(5);
+                $('#currentDate').html("<span id='date'>" + date + "</span>");
+                $('#currentDate-2').html("<span id='date'>" + date + "</span>");
+                $('#currentTime').html("<span id='time'>" + time + "</span>");
             }
 
-        }
+            function hasShowEnded() {
+                var numMinutesBefore = 5;
+                var now = moment();
+                var showEnd = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time);
+                var showStart = moment(now.format("YYYY-MM-DD") + " " + SHOW_INFO.show_start_time);
 
-        function displaySignoutModal(numSeconds) {
-            if (AUTO_SIGNOUT_TIMER_ID === null) {
-                AUTO_SIGNOUT_TIME = numSeconds;
+                if (showEnd.isBefore(showStart) && now.isAfter(showStart)) {
+                    // For transition from late night (pm) to morning (am)
+                    // ie 10:00pm to 1:00 am
+                    showEnd.add(1, 'd');
+                }
+                var timeBeforeEnd = (moment(showEnd)).subtract(numMinutesBefore, 'minutes');
 
-                const endTimeText = moment(moment().format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time).format("h:mm a");
-                $("#auto-signout-show-endtime").text(endTimeText);
+                if (now.isAfter(timeBeforeEnd) && !AUTO_SIGNOUT_WANTS_TO_CONTINUE) {
+                    displaySignoutModal(30);
+                } else if (now.isAfter(showEnd)) {
+                    displaySignoutModal(5);
+                }
+
+            }
+
+            function displaySignoutModal(numSeconds) {
+                if (AUTO_SIGNOUT_TIMER_ID === null) {
+                    AUTO_SIGNOUT_TIME = numSeconds;
+
+                    const endTimeText = moment(moment().format("YYYY-MM-DD") + " " + SHOW_INFO.show_end_time).format("h:mm a");
+                    $("#auto-signout-show-endtime").text(endTimeText);
+                    $('#auto-signout-timer-seconds').text(AUTO_SIGNOUT_TIME);
+                    $('#auto-signout-modal').modal('show');
+
+                    // Start the countdown timer
+                    AUTO_SIGNOUT_TIMER_ID = setInterval(autoSignoutCountdown, 1000);
+                }
+            }
+
+            function autoSignoutCountdown() {
+                if (AUTO_SIGNOUT_TIME === 0) {
+                    resetAutoLogoutTimer();
+                    logoutDJ();
+                    return;
+                }
+
                 $('#auto-signout-timer-seconds').text(AUTO_SIGNOUT_TIME);
-                $('#auto-signout-modal').modal('show');
-
-                // Start the countdown timer
-                AUTO_SIGNOUT_TIMER_ID = setInterval(autoSignoutCountdown, 1000);
+                AUTO_SIGNOUT_TIME--;
             }
-        }
 
-        function autoSignoutCountdown() {
-            if (AUTO_SIGNOUT_TIME === 0) {
+            function cancelAutomaticLogout() {
+                AUTO_SIGNOUT_WANTS_TO_CONTINUE = true;
+                $('#auto-signout-modal').modal('hide');
                 resetAutoLogoutTimer();
-                logoutDJ();
-                return;
             }
 
-            $('#auto-signout-timer-seconds').text(AUTO_SIGNOUT_TIME);
-            AUTO_SIGNOUT_TIME--;
-        }
+            function resetAutoLogoutTimer() {
+                clearInterval(AUTO_SIGNOUT_TIMER_ID);
+                AUTO_SIGNOUT_TIMER_ID = null;
+            }
 
-        function cancelAutomaticLogout() {
-            AUTO_SIGNOUT_WANTS_TO_CONTINUE = true;
-            $('#auto-signout-modal').modal('hide');
-            resetAutoLogoutTimer();
-        }
+            function logoutDJ() {
+                location.href = BASE_URL + "/djsignout";
+            }
 
-        function resetAutoLogoutTimer() {
-            clearInterval(AUTO_SIGNOUT_TIMER_ID);
-            AUTO_SIGNOUT_TIMER_ID = null;
-        }
+            function showPopupNotificationModal() {
+                $('#dj-popup-notification-modal').modal('show');
+            }
 
-        function logoutDJ() {
-            location.href = BASE_URL + "/djsignout";
-        }
-
-        function showPopupNotificationModal() {
-            $('#dj-popup-notification-modal').modal('show');
-        }
-
-        function closePopupNotificationModal() {
-            $('#dj-popup-notification-modal').modal('hide');
-        }
+            function closePopupNotificationModal() {
+                $('#dj-popup-notification-modal').modal('hide');
+            }
 
 
-    </script>
+        </script>
 
-{% endblock %}
+    {% endblock %}
