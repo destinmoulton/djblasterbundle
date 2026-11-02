@@ -200,21 +200,16 @@
             <div class='panel-container'>
                 <div id="tab-calendar">
                     <div class="ltCalendar">
-                        <h3>Live Taos Calendar for <span id="currentDate-2"></span></h3>
-                        <h4><em>Read at each :40 break.</em></h4>
-                        <br/><br/>
-                        <p style="font-weight:bold; color:#dc4503; font-size:1.275em;">Review the calendar listings
-                            before you begin reading over the air; if you feel you need more information about an event,
-                            CLICK on it to review the complete listing at LiveTaos.com. DO NOT ANNOUNCE OVER THE AIR
-                            that you don't have enough details or don't know what a listing means; either get more
-                            details, or skip reading the listing.</P>
-                        <br/><br/>
-                        <p>LiveTaos.com is your favorite independent source for all things arts, entertainment, and
-                            culture in Taos. If you think something is missing from this calendar, it's easy to submit
-                            your own events at LiveTaos.com! </p>
-
-                        <iframe style="margin-top:12px;" width="100%" height="150" class="liveTaosEmbed"
-                                src="https://djblaster.knceradio.com/livetaosevents"></iframe>
+                        <iframe id="livetaos" src="https://livetaos.com/iframe-embeds/knce-dj-embed/"
+                                style="width:100%;max-width:1080px;height:1920px;border:0;display:block"
+                                scrolling="no" title="Today's Taos events from Live Taos"></iframe>
+                        <script>
+                            window.addEventListener('message', function (e) {
+                                if (e.origin !== 'https://livetaos.com' || !e.data || e.data.type !== 'livetaos:height') return;
+                                document.getElementById('livetaos').style.height = e.data.height + 'px';
+                            });
+                            document.getElementById('livetaos').contentWindow.postMessage({type: 'livetaos:height?'}, '*');
+                        </script>
                     </div>
                 </div>
                 <!-- content -->
