@@ -209,12 +209,14 @@
                             (function () {
                                 var frame = document.getElementById('livetaos');
 
+
                                 function size(e) {
-                                    if (e.origin !== 'https://livetaos.com' || !e.data || e.data.type !== 'livetaos:height') return;
+                                    if (e.origin !== 'https://djblaster.knceradio.com' || !e.data || e.data.type !== 'livetaos:height') return;
                                     frame.style.height = e.data.height + 'px';
                                 }
 
-                                // On load only: take the heights Live Taos sends as it loads, then stop listening.
+
+                                // On load only: take the heights the list sends as it loads, then stop listening.
                                 window.addEventListener('message', size);
                                 setTimeout(function () {
                                     window.removeEventListener('message', size);
