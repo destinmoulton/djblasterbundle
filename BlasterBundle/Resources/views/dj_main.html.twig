@@ -200,15 +200,26 @@
             <div class='panel-container'>
                 <div id="tab-calendar">
                     <div class="ltCalendar">
-                        <iframe id="livetaos" src="https://djblaster.knceradio.com/livetaosevents"
+                        <iframe id="livetaos"
+                                src="https://livetaos.com/iframe-embeds/knce-dj-embed/"
+                                title="Today's Taos events from Live Taos"
                                 style="width:100%;max-width:1080px;height:1920px;border:0;display:block"
-                                scrolling="no" title="Today's Taos events from Live Taos"></iframe>
+                                scrolling="no"></iframe>
                         <script>
-                            window.addEventListener('message', function (e) {
-                                if (e.origin !== 'https://livetaos.com' || !e.data || e.data.type !== 'livetaos:height') return;
-                                document.getElementById('livetaos').style.height = e.data.height + 'px';
-                            });
-                            document.getElementById('livetaos').contentWindow.postMessage({type: 'livetaos:height?'}, '*');
+                            (function () {
+                                var frame = document.getElementById('livetaos');
+
+                                function size(e) {
+                                    if (e.origin !== 'https://livetaos.com' || !e.data || e.data.type !== 'livetaos:height') return;
+                                    frame.style.height = e.data.height + 'px';
+                                }
+
+                                // On load only: take the heights Live Taos sends as it loads, then stop listening.
+                                window.addEventListener('message', size);
+                                setTimeout(function () {
+                                    window.removeEventListener('message', size);
+                                }, 10000);
+                            })();
                         </script>
                     </div>
                 </div>
